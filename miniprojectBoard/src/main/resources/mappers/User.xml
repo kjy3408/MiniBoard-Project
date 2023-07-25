@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mini.board.miniprojectBoard.repository.UserRepository">
+
+
+	<resultMap type="com.mini.board.miniprojectBoard.entity.User" id="UserMap">
+		<id property="userId" column="user_id" />
+		<result property="username" column="username"/>
+		<result property="password" column="password"/>
+		<result property="nickname" column="nickname"/>
+		<collection property="authorities" javaType="list" resultMap="AuthorityMap" />
+	</resultMap>
+	
+	<resultMap type="com.mini.board.miniprojectBoard.entity.Authority" id="AuthorityMap">
+		<id property="authorityId" column="authority_id"/>
+		<result property="userId" column="user_id"/>
+		<result property="roleId" column="role_id"/>
+		<association property="role" resultMap="RoleMap"/>
+	</resultMap>
+	
+	<resultMap type="com.mini.board.miniprojectBoard.entity.Role" id="RoleMap">
+		<id property="roleId" column="role_id"/>
+		<result property="roleName" column="role_name"/>
+	</resultMap>
+		
+	<select id="findUserByUsername" resultMap="UserMap">
+		select
+			ut.user_id,
+			ut.username,
+			ut.password,
+			ut.nickname,
+			
+			at.authority_id,
+			at.user_id,
+			at.role_id,
+			
+			rt.role_id,
+			rt.role_name
+		from
+			user_tb ut
+			left outer join authority_tb at on(at.user_id = ut.user_id)
+			left outer join role_tb rt on(rt.role_id = at.role_id)
+		where
+			ut.username = #{username}
+	</select>
+	
+	<select id="findUserByNickname" resultMap="UserMap">
+		SELECT
+			*
+		FROM
+			user_tb ut
+			LEFT OUTER JOIN authority_tb at ON(ut.user_id = at.user_id)
+		WHERE
+			ut.nickname= #{nickname}
+	</select>
+	
+	<insert id="saveUser"
+	parameterType="com.mini.board.miniprojectBoard.entity.User"
+	useGeneratedKeys="true"
+	keyProperty="userId">
+		insert into user_tb
+		values (0, #{username}, #{password}, #{nickname})
+	</insert>
+	
+	<insert id="saveAuthority" parameterType="com.mini.board.miniprojectBoard.entity.Authority">
+		insert into authority_tb
+		values (0, #{userId}, #{roleId})
+	</insert>
+	
+
+</mapper>

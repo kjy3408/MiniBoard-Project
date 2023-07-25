@@ -1,0 +1,23 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mini_board
+    username: root
+    password: root
+
+mybatis:
+  mapper-locations:
+    - /mappers/*.xml 
+    
+jwt:
+  secret: CseWjiJmbiwlQcXJyWUZa2oVwieBrVF41ozvRaHcW4uJ8Y4sJqHQC8WbvNoTC64k
+  
+server:
+  max-http-header-size: 100MB
+  
+file:
+  path: /upload/
