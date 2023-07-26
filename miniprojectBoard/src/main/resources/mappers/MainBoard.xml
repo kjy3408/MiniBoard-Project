@@ -6,6 +6,7 @@
 		<result property="boardTitle" column="board_title"/>
 		<result property="boardContent" column="board_content"/>
 		<result property="boardDate" column="board_date"/>
+		<result property="boardViews" column="board_views"/>
 		
 		<association property="user" resultMap="UserMap" />
 	</resultMap>
@@ -47,6 +48,38 @@
 		ORDER BY
 			bt.board_id DESC
 		LIMIT
-			15;
+			#{index}, 15;
 	</select>
+	
+	<insert id="readBoard" parameterType="hashmap">
+		INSERT INTO read_tb
+		VALUES (0, #{userId}, #{boardId})
+	</insert>
+	
+	<select id="getTotalCount" parameterType="Integer" resultType="Integer">
+		SELECT
+			COuNT(*)
+		FROM
+			board_tb
+	</select>
+	
+	<select id="alreadyReadBoard" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			user_id,
+			board_id
+		FROM
+			read_tb
+		WHERE
+			user_id = #{userId}
+		AND board_id = #{boardId}
+	</select>
+	
+	<update id="increaseViews" parameterType="hashmap">
+		UPDATE 
+			board_tb
+		SET 
+			board_views = board_views + 1
+		WHERE 
+			board_id = #{boardId};
+	</update>
 </mapper>

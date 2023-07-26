@@ -64,8 +64,21 @@ export const writeButtonContainer = css`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    width: 1200px;
-/* border: 1px solid red; */
+    width: 1100px;
+`;
+
+export const writeButton = css`
+    width: 150px;
+    height: 40px;
+
+    &:hover {
+        background-color: #fafafa;
+        cursor: pointer;
+    }
+
+    &:active {
+        background-color: #dbdbdb;
+    }
 `;
 
 export const tableContainer = css`
@@ -74,8 +87,6 @@ export const tableContainer = css`
     justify-content: center;
     align-items: center;
     margin-top: 30px;
-
-/* border: 1px solid #121212; */
 `;
 
 export const tableHeader = css`
@@ -89,37 +100,54 @@ export const tableTR1 = css`
 `;
 
 export const th1 = css`
-    width: 150px;
+    width: 50px;
+    border-top: 2px solid #121212;
     border-bottom: 2px solid #121212;
 `;
 
 export const th2 = css`
     width: 800px;
+    border-top: 2px solid #121212;
     border-bottom: 2px solid #121212;
 `;
 
 export const th3 = css`
     width: 150px;
+    border-top: 2px solid #121212;
     border-bottom: 2px solid #121212;
 `;
 
 export const th4 = css`
     width: 100px;
+    border-top: 2px solid #121212;
+    border-bottom: 2px solid #121212;
+    `;
+
+export const th5 = css`
+    width: 100px;
+    border-top: 2px solid #121212;
     border-bottom: 2px solid #121212;
 `;
-
-
 
 export const tableTR2 = css`
     /* display: flex; */
     justify-content: center;
     align-items: center;
-    /* margin: auto; */
+
+    &:hover {
+        background-color: #fafafa;
+        cursor: pointer;
+    }
+
+    &:active {
+        background-color: #dbdbdb;
+    }
 
 `;
-export const nicknameTable = css`
+
+export const numberTable = css`
     text-align: center;
-    width: 150px;
+    width: 50px;
     border-bottom: 1px solid #dbdbdb;
     border-right: 1px solid #dbdbdb;
 `;
@@ -136,6 +164,13 @@ export const dateTable = css`
     width: 150px;
     border-bottom: 1px solid #dbdbdb;
     border-right: 1px solid #dbdbdb;
+`;
+export const nicknameTable = css`
+    text-align: center;
+    width: 100px;
+    border-bottom: 1px solid #dbdbdb;
+    border-right: 1px solid #dbdbdb;
+    color: #CC9074;
 `;
 
 export const viewsTable = css`

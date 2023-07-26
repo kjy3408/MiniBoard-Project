@@ -3,7 +3,7 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { Navigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { authenticatedState } from '../atoms/Auth/AuthAtom';
+import { authenticatedState } from '../../atoms/Auth/AuthAtom';
 
 
 const AuthRoute = ({ path, element }) => {

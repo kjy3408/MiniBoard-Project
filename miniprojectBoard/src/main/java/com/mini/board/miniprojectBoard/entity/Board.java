@@ -1,6 +1,7 @@
 package com.mini.board.miniprojectBoard.entity;
 
 import com.mini.board.miniprojectBoard.dto.board.response.MainBoardResponseDto;
+import com.mini.board.miniprojectBoard.dto.board.response.ReadBoardResponseDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +26,19 @@ public class Board {
 											.boardTitle(boardTitle)
 											.boardContent(boardContent)
 											.boardDate(boardDate)
+											.boardViews(boardViews)
+											.userId(user.getUserId())
+											.username(user.getUsername())
+											.nickname(user.getNickname())
+											.build();
+	}
+	
+	public ReadBoardResponseDto toReadBoardDto() {
+		return ReadBoardResponseDto.builder().boardId(boardId)
+											.boardTitle(boardTitle)
+											.boardContent(boardContent)
+											.boardDate(boardDate)
+											.boardViews(boardViews)
 											.userId(user.getUserId())
 											.username(user.getUsername())
 											.nickname(user.getNickname())

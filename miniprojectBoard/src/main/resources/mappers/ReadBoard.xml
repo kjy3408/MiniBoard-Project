@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mini.board.miniprojectBoard.repository.ReadBoardRepository">
+
+	<select id="readboard" parameterType="Integer" resultType="com.mini.board.miniprojectBoard.entity.Board">
+		SELECT
+			*
+		FROM
+			board_tb bt
+			LEFT OUTER JOIN user_tb ut ON (bt.user_id = ut.user_id)
+		WHERE
+			board_id = #{boardId}
+	</select>
+</mapper>

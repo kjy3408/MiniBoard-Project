@@ -51,7 +51,7 @@ public class AuthenticationService implements UserDetailsService {
 		User userEntity = signupDto.toEntity();
 		
 		userRepository.saveUser(userEntity);
-		
+		System.out.println();
 		userRepository.saveAuthority(Authority.builder()
 				.userId(userEntity.getUserId())
 				.roleId(2)
