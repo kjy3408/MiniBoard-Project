@@ -7,20 +7,20 @@ export const mainContainer = css`
     align-items: center;
 
     width: 1200px;
-    height: 700px;
+    height: 830px;
 `;
 
 export const header = css`
     width: 1200px;
-    height: 200px;
+    /* height: 200px; */
 
 /* border:  1px solid #121212; */
 `;
 
 export const mainTitle = css`
-    margin: auto;
+    margin:  0px auto;
     width: 200px;
-    height: 50px;
+    /* height: 50px; */
 
     font-weight: 600;
     font-size: 35px;
@@ -35,7 +35,7 @@ export const searchBarAndWriteButtonContainer = css`
 
     margin: 80px 0px 0px 0px;
     width: 1200px;
-    height: 50px;
+    /* height: 50px; */
 
 /* border: 3px solid green; */
 `;
@@ -83,56 +83,52 @@ export const writeButton = css`
 
 export const tableContainer = css`
     width: 1200px;
-    height: 500px;
+
     justify-content: center;
     align-items: center;
     margin-top: 30px;
 `;
 
-export const tableHeader = css`
-    width: 1200px;
-    height: 30px;
-    /* border: 5px solid #121212; */
-`;
-
-export const tableTR1 = css`
-    font-size: 20px;
-`;
-
-export const th1 = css`
+export const thNumber = css`
     width: 50px;
     border-top: 2px solid #121212;
     border-bottom: 2px solid #121212;
-`;
+    font-size: 20px;
+    `;
 
-export const th2 = css`
+export const thTitle = css`
     width: 800px;
     border-top: 2px solid #121212;
     border-bottom: 2px solid #121212;
-`;
+    font-size: 20px;
+    `;
 
-export const th3 = css`
+export const thDate = css`
     width: 150px;
     border-top: 2px solid #121212;
     border-bottom: 2px solid #121212;
-`;
-
-export const th4 = css`
-    width: 100px;
-    border-top: 2px solid #121212;
-    border-bottom: 2px solid #121212;
+    font-size: 20px;
     `;
 
-export const th5 = css`
+export const thUser = css`
     width: 100px;
     border-top: 2px solid #121212;
     border-bottom: 2px solid #121212;
+    font-size: 20px;
+    `;
+
+export const thViews = css`
+    width: 100px;
+    border-top: 2px solid #121212;
+    border-bottom: 2px solid #121212;
+    font-size: 20px;
 `;
 
 export const tableTR2 = css`
     /* display: flex; */
     justify-content: center;
     align-items: center;
+    height: 30px;
 
     &:hover {
         background-color: #fafafa;
@@ -148,6 +144,7 @@ export const tableTR2 = css`
 export const numberTable = css`
     text-align: center;
     width: 50px;
+    height: 30px;
     border-bottom: 1px solid #dbdbdb;
     border-right: 1px solid #dbdbdb;
 `;
@@ -177,4 +174,8 @@ export const viewsTable = css`
     text-align: center;
     width:100px;
     border-bottom: 1px solid #dbdbdb;
+    `;
+
+export const test = css`
+    height: 300px;
 `;

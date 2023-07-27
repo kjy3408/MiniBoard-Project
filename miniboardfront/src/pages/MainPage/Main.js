@@ -129,26 +129,20 @@ const Main = () => {
       </header>
       <main>
         <table css={s.tableContainer}>
-          <thead css={s.tableHeader}>
-            <tr css={s.tableTR1}>
-              <th css={s.th1}>No</th>
-              <th css={s.th2}>제목</th>
-              <th css={s.th3}>등록일</th>
-              <th css={s.th5}>글쓴이</th>
-              <th css={s.th4}>조회수</th>
-            </tr>
-          </thead>
-          <tbody>
-            {getBoards.isLoading ? "" : getBoards.data !== undefined ? getBoards.data.data.boards.map((board, index) => (
-              <tr css={s.tableTR2} onClick={() => readBoardHandle(board.userId, board.boardId)} key={board.boardId}>
-                <td css={s.numberTable}>{(page.page - 1) * 15 + index + 1}</td>
-                <td css={s.titleTable}>{board.boardTitle}</td>
-                <td css={s.dateTable}>{board.boardDate}</td>
-                <td css={s.nicknameTable}>{board.username}</td>
-                <td css={s.viewsTable}>{board.boardViews}</td>
-              </tr>
-            )) : ""}
-          </tbody>
+          <th css={s.thNumber}>No</th>
+          <th css={s.thTitle}>제목</th>
+          <th css={s.thDate}>등록일</th>
+          <th css={s.thUser}>글쓴이</th>
+          <th css={s.thViews}>조회수</th>
+        {getBoards.isLoading ? "" : getBoards.data !== undefined ? getBoards.data.data.boards.map((board, index) => (
+          <tr css={s.tableTR2} onClick={() => readBoardHandle(board.userId, board.boardId)} key={board.boardId}>
+            <td css={s.numberTable}>{(page.page - 1) * 15 + index + 1}</td>
+            <td css={s.titleTable}>{board.boardTitle}</td>
+            <td css={s.dateTable}>{board.boardDate}</td>
+            <td css={s.nicknameTable}>{board.username}</td>
+            <td css={s.viewsTable}>{board.boardViews}</td>
+          </tr>
+        )) : ""}
         </table>
       </main>
       <footer>

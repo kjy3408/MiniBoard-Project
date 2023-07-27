@@ -40,8 +40,6 @@ public class MainBoardService {
 		responseMap.put("totalCount", totalCount);
 		responseMap.put("boards", list);
 		
-		System.out.println(responseMap);
-		
 		return responseMap;
 	}
 	
@@ -55,7 +53,7 @@ public class MainBoardService {
 		map.put("boardId", boardData.get("boardId"));
 	    
 		mainBoardRepository.readBoard(map);
-//		System.out.println(mainBoardRepository.alreadyReadBoard(map).size());
+		
 		if(mainBoardRepository.alreadyReadBoard(map).size() <= 1) {
 			mainBoardRepository.increaseViews(boardData);			
 			System.out.println("안읽은글");

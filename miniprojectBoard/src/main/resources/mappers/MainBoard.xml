@@ -14,7 +14,7 @@
 	<resultMap type="com.mini.board.miniprojectBoard.entity.User" id="UserMap">
 		<id property="userId" column="user_id" />
 		<result property="username" column="username"/>
-		<result property="password" column="password"/>
+<!-- 		<result property="password" column="password"/> -->
 		<result property="nickname" column="nickname"/>
 		<collection property="authorities" javaType="list" resultMap="AuthorityMap" />
 	</resultMap>

@@ -4,10 +4,12 @@ import { Route, Routes } from 'react-router-dom';
 import { Reset } from './common/Global/Reset';
 import AuthRoute from './components/AuthRoute/AuthRoute';
 import Main from './pages/MainPage/Main';
-import BoardWrite from './pages/Board/BoardWrite';
+
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
-import BoardRead from './pages/Board/BoardRead';
+import BoardWrite from './pages/Board/WriteBoard/BoardWrite';
+import BoardRead from './pages/Board/ReadBoard/BoardRead';
+
 
 const container = css`
   display: flex;
@@ -17,8 +19,8 @@ const container = css`
 
   margin: 100px auto;
   width: 1200px;
-  height: 715px;
 
+  overflow: auto;
 border: 1px solid #121212;
 `;
 
