@@ -6,10 +6,12 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.mini.board.miniprojectBoard.entity.Board;
+import com.mini.board.miniprojectBoard.entity.User;
 
 @Mapper
 public interface MainBoardRepository {
 
+	public User getUserInfo(Map<String, Object> userInfoMap); 
 	public List<Board> getBoards(int index);
 	public int getTotalCount(int index);
 	

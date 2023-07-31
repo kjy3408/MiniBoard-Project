@@ -1,7 +1,5 @@
 package com.mini.board.miniprojectBoard.controller.board;
 
-import java.util.Map;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mini.board.miniprojectBoard.dto.board.request.CommentRequestDto;
+import com.mini.board.miniprojectBoard.dto.board.request.ModifyCommentRequestDto;
 import com.mini.board.miniprojectBoard.service.board.ReadBoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -45,4 +44,11 @@ public class ReadBoardController {
 	
 		return ResponseEntity.ok().body(readBoardService.deleteComment(commentId));
 	}
+	
+	@PostMapping("/board/comment/modify")
+	public ResponseEntity<?> modifyComment(@RequestBody ModifyCommentRequestDto modifyCommentRequestDto){
+		
+		return ResponseEntity.ok().body(readBoardService.modifyComment(modifyCommentRequestDto));
+	}
+	
 }

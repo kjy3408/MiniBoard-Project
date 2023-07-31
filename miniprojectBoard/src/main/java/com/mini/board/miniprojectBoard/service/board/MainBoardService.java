@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.mini.board.miniprojectBoard.dto.board.request.MainBoardRequestDto;
 import com.mini.board.miniprojectBoard.dto.board.response.MainBoardResponseDto;
+import com.mini.board.miniprojectBoard.dto.board.response.UserInfoResponseDto;
 import com.mini.board.miniprojectBoard.repository.MainBoardRepository;
 import com.mini.board.miniprojectBoard.security.PrincipalUser;
 
@@ -21,6 +22,18 @@ import lombok.RequiredArgsConstructor;
 public class MainBoardService {
 
 	private final MainBoardRepository mainBoardRepository;
+	
+	public UserInfoResponseDto getUserInfo(){
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();	    
+	    
+		Map<String, Object> userIdMap = new HashMap<>();
+		
+		userIdMap.put("userId", principalUser.getUserId());
+		
+		return mainBoardRepository.getUserInfo(userIdMap).toDto();
+	}
 	
 	public Map<String, Object> getBoards(int page) {
 		List<MainBoardResponseDto> list = new ArrayList<>();
@@ -64,5 +77,6 @@ public class MainBoardService {
 	    return 1;
 	}
 
+	
 
 }

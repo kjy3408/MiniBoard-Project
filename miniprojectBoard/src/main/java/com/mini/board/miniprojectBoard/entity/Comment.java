@@ -16,6 +16,8 @@ public class Comment {
 	private int commentId;
 	private String comment;
 	private boolean flag;
+	private String commentDate;
+	private boolean modifyCommentFlag;
 	
 	private User user;
 	private Board board;
@@ -23,6 +25,7 @@ public class Comment {
 	public CommentResponseDto toDto() {
 		return CommentResponseDto.builder().commentId(commentId)
 											.comment(comment)
+											.commentDate(commentDate)
 											.userId(user.getUserId())
 											.username(user.getUsername())
 											.nickname(user.getNickname())
@@ -31,6 +34,7 @@ public class Comment {
 											.boardDate(board.getBoardDate())
 											.boardViews(board.getBoardViews())
 											.flag(flag)
+											.modifyCommentFlag(modifyCommentFlag)
 											.build();
 	}
 }

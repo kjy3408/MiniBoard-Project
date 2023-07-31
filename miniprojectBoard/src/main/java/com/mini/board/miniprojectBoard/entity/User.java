@@ -2,6 +2,7 @@ package com.mini.board.miniprojectBoard.entity;
 
 import java.util.List;
 
+import com.mini.board.miniprojectBoard.dto.board.response.UserInfoResponseDto;
 import com.mini.board.miniprojectBoard.security.PrincipalUser;
 
 import lombok.AllArgsConstructor;
@@ -29,6 +30,13 @@ public class User {
 				.nickname(nickname)
 				.authorities(authorities)
 				.build();
+	}
+	
+	public UserInfoResponseDto toDto() {
+		return UserInfoResponseDto.builder().userId(userId)
+											.username(username)
+											.nickname(nickname)
+											.build();
 	}
 	
 }

@@ -15,4 +15,5 @@ public interface ReadBoardRepository {
 	public int registerComment(Map<String, Object> commenMap);
 	public List<Comment> getComment(int boardId);
 	public int deleteComment(int commentId);
+	public int modifyComment(Map<String, Object> modifyMap);
 }

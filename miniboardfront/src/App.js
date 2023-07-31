@@ -9,6 +9,8 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import BoardWrite from './pages/Board/WriteBoard/BoardWrite';
 import BoardRead from './pages/Board/ReadBoard/BoardRead';
+import SideBar from './components/SideBar/SideBar';
+import MyPage from './pages/MyPage/MyPage';
 
 
 const container = css`
@@ -18,7 +20,7 @@ const container = css`
   position: relative;
 
   margin: 100px auto;
-  width: 1200px;
+  width: 1220px;
 
   overflow: auto;
 border: 1px solid #121212;
@@ -27,7 +29,8 @@ border: 1px solid #121212;
 function App() {
   return (
   <div css={container}>
-    <Global css={Reset}/>
+    <Global styles={Reset} />
+    <SideBar />
     <Routes>
       <Route path="/" element={<AuthRoute path="/" element={<Main/>}/>}/>
       <Route path="/auth/login" element={<AuthRoute path="/auth/login" element={<Login/>}/>}/>
@@ -35,7 +38,7 @@ function App() {
       <Route path="/auth/home" element={<AuthRoute path="/auth/home" element={<Main/>}/>}/>
       <Route path="/mini/write/board" element={<AuthRoute path="/mini/write/board" element={<BoardWrite/>}/>}/>
       <Route path="/mini/board/:boardId" element={<AuthRoute path="/mini/board" element={<BoardRead/>}/>}/>
-
+      <Route path="/mypage/:userId" element={<AuthRoute path="/mypage" element={<MyPage/>}/>}/>
     </Routes>
   </div>
   );

@@ -9,17 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentResponseDto {
-	private int commentId;
-	private String comment;
-	private String commentDate;
+public class UserInfoResponseDto {
+
 	private int userId;
 	private String username;
 	private String nickname;
-	private int boardId;
-	private String boardTitle;
-	private String boardDate;
-	private int boardViews;
-	private boolean flag;
-	private boolean modifyCommentFlag;
 }

@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import BoardRead from './BoardRead';
 
 export const BoardReadContainer = css`
     display: flex;
@@ -58,7 +59,7 @@ export const addCommentContainer = css`
     /* align-items: center; */
     width: 800px;
     height: 100px;
-    /* border: 2px solid #121212; */
+    /* border: 2px solid #121212; */    
 `;
 
 export const commentTextarea = css`
@@ -86,11 +87,38 @@ export const comentContainer = css`
 `;
 
 export const comment = css`
-    width: 730px;
+    width: 750px;
     height: 110px;
     padding: 10px;
-    margin: auto;
+    /* margin: 0px auto auto 20px; */
+    margin: 0px 0px 20px 0px;
+    background-color: #fafafa;
+    border:1px solid #dbdbdb;
     /* border: 1px solid #121212; */
+`;
+
+export const commentDate = css`
+    width: 730px;
+    /* height: 20px; */
+    display: flex;
+    justify-content: space-between;
+    /* font-size: 16px; */
+    /* border: 1px solid #121212; */
+`;
+
+export const commentNickname = css`
+    width: 120px;
+    font-weight: 600;
+    /* font-size: 20px; */
+`;
+
+export const nicknameFontSize = css`
+    font-size: 18px;
+    font-weight: 600;
+`;
+
+export const dateFontSize = css`
+    font-size: 10px;
 `;
 
 export const commentText = css`
@@ -98,8 +126,6 @@ export const commentText = css`
     height: 80px;
     margin: auto;
     padding: 10px;
-    background-color: #fafafa;
-    border:1px solid #dbdbdb;
 `;
 
 export const buttonContainer = css`
@@ -107,13 +133,15 @@ export const buttonContainer = css`
     /* flex-wrap: wrap; */
     justify-content: flex-end;
     /* align-items: center; */
-    width: 730px;
+    width: 100px;
     height: 20px;
-    margin: auto;
+/* border: 1px solid #121212; */
 `;
 
 export const commnetDeleteAndModifyButton = (buttonFlag) => css`
-    width: 100px;
+    width: 50px;
+    justify-content: center;
+    align-items: center;
     margin: 2px 0px 0px 2px;
     display: ${buttonFlag ? "flex" : "none"};
 
@@ -127,4 +155,34 @@ export const commnetDeleteAndModifyButton = (buttonFlag) => css`
      &:active {
         background-color: #dbdbdb;
      }
+`;
+
+export const modifyCommentContainer = css`
+    width: 1200px;
+    height: 800px;
+    background-color: #fafafa;
+    margin: auto;
+ border: 1px solid #121212;
+`;
+
+export const modifyCommentTextarea = css`
+    width: 715px;
+    height: 60px;
+    margin: 10px 0px 0px 5px;
+    background-color: #fafafa;
+    resize: none;
+    border: 1px solid #dbdbdb;
+`;
+
+export const modifyOkAndCancelContainer = css`
+    width: 725px;
+
+    display: flex;
+    justify-content: flex-end;
+`;
+
+export const modifyOkAndCancelButton = css`
+    width: 100px;
+    /* height: 20px; */
+    font-size: 13px;
 `;

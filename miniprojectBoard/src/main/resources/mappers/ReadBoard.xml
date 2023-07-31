@@ -5,7 +5,8 @@
 	<resultMap type="com.mini.board.miniprojectBoard.entity.Comment" id="CommentMap">
 		<result property="commentId" column="comment_id"/>
 		<result property="comment" column="comment"/>
-		
+		<result property="commentDate" column="comment_date"/>
+		<result property="modifyCommentFlag" column="modify_comment_flag"/>
 		<association property="user" resultMap="UserMap" />
 		<association property="board" resultMap="BoardMap" />
 	</resultMap>
@@ -41,13 +42,15 @@
 	
 	<insert id="registerComment" parameterType="hashmap">
 		INSERT INTO comment_tb
-		VALUES (0, #{comment}, #{userId}, #{boardId})
+		VALUES (0, #{comment}, #{userId}, #{boardId}, DATE_FORMAT(now(), '%Y-%m-%d'), false)
 	</insert>
 	
 	<select id="getComment" parameterType="Integer" resultMap="CommentMap">
 		SELECT
 			ct.comment_id,
 		    ct.comment,
+		    ct.comment_date,
+		    ct.modify_comment_flag,
 		    
 		    ut.user_id,
 		    ut.username,
@@ -73,4 +76,12 @@
 		WHERE
 			comment_id = #{commentId}
 	</delete>
+	
+	<update id="modifyComment" parameterType="hashmap">
+		UPDATE comment_tb
+		SET comment = #{modifyComment}, modify_comment_flag = true
+		WHERE comment_id = #{commentId}
+		AND board_id = #{boardId}
+		
+	</update>
 </mapper>

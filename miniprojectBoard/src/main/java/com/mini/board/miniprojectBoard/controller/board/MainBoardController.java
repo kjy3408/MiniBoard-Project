@@ -20,12 +20,16 @@ public class MainBoardController {
 
 	private final MainBoardService mainBoardService;
 	
+	@GetMapping("/userinfo")
+	public ResponseEntity<?> getUserInfo(){
+		
+		return ResponseEntity.ok().body(mainBoardService.getUserInfo());
+	}
+
 	@GetMapping("/board")
 	public ResponseEntity<?> getBoards(int page) {
 
-//		System.out.println(page);
 		return ResponseEntity.ok().body(mainBoardService.getBoards(page));
-//		return null;
 	}
 	
 	@PostMapping("/board/views")
@@ -33,4 +37,5 @@ public class MainBoardController {
 
 		return ResponseEntity.ok().body(mainBoardService.increaseViews(boardData));
 	}
+	
 }

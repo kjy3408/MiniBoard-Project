@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.mini.board.miniprojectBoard.dto.board.request.CommentRequestDto;
+import com.mini.board.miniprojectBoard.dto.board.request.ModifyCommentRequestDto;
 import com.mini.board.miniprojectBoard.dto.board.response.CommentResponseDto;
 import com.mini.board.miniprojectBoard.dto.board.response.ReadBoardResponseDto;
 import com.mini.board.miniprojectBoard.repository.ReadBoardRepository;
@@ -55,7 +56,7 @@ public class ReadBoardService {
 				list.get(i).setFlag(true);
 			}
 		}
-		
+		System.out.println(list);
 		return list;
 	}
 	
@@ -67,5 +68,16 @@ public class ReadBoardService {
 	public int deleteComment(int commentId) {
 		
 		return readBoardRepository.deleteComment(commentId);
+	}
+	
+	public int modifyComment(ModifyCommentRequestDto modifyCommentRequestDto) {
+		
+		Map<String, Object> modifyMap = new HashMap<>();
+		modifyMap.put("boardId", modifyCommentRequestDto.getBoardId());
+		modifyMap.put("commentId", modifyCommentRequestDto.getCommentId());
+		modifyMap.put("modifyComment", modifyCommentRequestDto.getModifyComment());
+		
+		readBoardRepository.modifyComment(modifyMap);
+		return 1;
 	}
 }

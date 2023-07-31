@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const mainContainer = css`
+export const myPageContainer = css`
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
@@ -10,75 +10,20 @@ export const mainContainer = css`
     height: 830px;
 `;
 
-export const header = css`
+export const myPageLabelContainer = css`
     width: 1200px;
-    /* height: 200px; */
+    height: 80px;
 
-/* border:  1px solid #121212; */
-`;
-
-export const mainTitle = css`
-    margin:  0px auto;
-    width: 200px;
-    /* height: 50px; */
-
-    font-weight: 600;
-    font-size: 35px;
-
-/* border: 1px solid #121212; */
-`;
-
-export const searchBarAndWriteButtonContainer = css`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    margin: 80px 0px 0px 0px;
-    width: 1200px;
-    /* height: 50px; */
-
-/* border: 3px solid green; */
-`;
-
-export const searchBarContainer = css`
+    margin: 30px auto;
+    margin-bottom: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    width: 1200px;
-
-/* border: 2px solid blue; */
 `;
 
-export const searchInput = css`
-    width: 300px;
-    height: 20px;
-`;
-
-export const searchButton = css`
-    width: 50px;
-    height: 25px;
-`;
-
-export const writeButtonContainer = css`
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: 1100px;
-`;
-
-export const writeButton = css`
-    width: 150px;
-    height: 40px;
-
-    &:hover {
-        background-color: #fafafa;
-        cursor: pointer;
-    }
-
-    &:active {
-        background-color: #dbdbdb;
-    }
+export const myPageLabel = css`
+    font-size: 30px;
+    font-weight: 600;
 `;
 
 export const tableContainer = css`
@@ -121,6 +66,7 @@ export const thUser = css`
 export const thViews = css`
     width: 100px;
 `;
+
 
 export const tableTR2 = css`
     justify-content: center;
@@ -172,7 +118,3 @@ export const viewsTable = css`
     width:100px;
     border-bottom: 1px solid #dbdbdb;
     `;
-
-export const test = css`
-    margin: auto;
-`;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mini.board.miniprojectBoard.repository.MainBoardRepository">
+<mapper namespace="com.mini.board.miniprojectBoard.repository.MyPageRepository">
 	<resultMap type="com.mini.board.miniprojectBoard.entity.Board" id="BoardMap">
 		<result property="boardId" column="board_id"/>
 		<result property="boardTitle" column="board_title"/>
@@ -30,18 +30,8 @@
 		<id property="roleId" column="role_id"/>
 		<result property="roleName" column="role_name"/>
 	</resultMap>
-
-	<select id="getUserInfo" resultMap="UserMap">
-		SELECT
-			user_id,
-			username,
-			nickname
-		FROM
-			user_tb
-		WHERE
-			user_id = #{userId}
-	</select>
-	<select id="getBoards" resultMap="BoardMap">
+	
+	<select id="getMyBoards" parameterType="Integer" resultMap="BoardMap">
 		SELECT
 			bt.board_id,
 		    bt.board_title,
@@ -55,41 +45,7 @@
 		FROM
 			board_tb bt
 		    LEFT OUTER JOIN user_tb ut ON (bt.user_id = ut.user_id)
-		ORDER BY
-			bt.board_id DESC
-		LIMIT
-			#{index}, 15;
-	</select>
-	
-	<insert id="readBoard" parameterType="hashmap">
-		INSERT INTO read_tb
-		VALUES (0, #{userId}, #{boardId})
-	</insert>
-	
-	<select id="getTotalCount" parameterType="Integer" resultType="Integer">
-		SELECT
-			COUNT(*)
-		FROM
-			board_tb
-	</select>
-	
-	<select id="alreadyReadBoard" parameterType="hashmap" resultType="hashmap">
-		SELECT
-			user_id,
-			board_id
-		FROM
-			read_tb
 		WHERE
-			user_id = #{userId}
-		AND board_id = #{boardId}
+			bt.user_id = #{userId}
 	</select>
-	
-	<update id="increaseViews" parameterType="hashmap">
-		UPDATE 
-			board_tb
-		SET 
-			board_views = board_views + 1
-		WHERE 
-			board_id = #{boardId};
-	</update>
 </mapper>
