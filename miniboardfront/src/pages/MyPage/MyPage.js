@@ -2,15 +2,14 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import * as s from './MyPageStyle';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import axios from 'axios';
+import { QueryClient } from 'react-query';
 
 const MyPage = () => {
     const { userId } = useParams();
     const [ getMyBoardsFlag, setGetMyboardsFlag ] = useState(true);
-    const [page, setPage] = useState({page: 1});
-    const currentPage = 2; 
-    const postsPerPage = 15;
+    const queryClient = new QueryClient();    
 
     const getMyBoards = useQuery(["getMyBoards"], async() => {
         const option = {
@@ -29,68 +28,39 @@ const MyPage = () => {
         }
     })
 
+    const deleteMyBoard = useMutation(async(boardId) => {
+      const option = {
+        headers: {
+          Authorization : `Bearer ${localStorage.getItem("accessToken")}`
+        },
+        params: {
+          boardId: boardId
+        }
+      }
+
+      try{
+        await axios.delete("http://localhost:8080/mypage/delete", option)
+        window.location.reload();
+      }catch(error){
+
+      }
+    })
+
     const readBoardHandle = (boardId) => {
-        
+        window.location.href = `http://localhost:3000/mini/board/${boardId}`
     }
     
-  const pagination = () => {
-    if (getMyBoards.isLoading) {
-      return <div>로딩중</div>;
+    const modifyButtonHandle = (boardId) => {
+      if(window.confirm("수정 하시겠습니까?")){
+        window.location.href = `http://localhost:3000/mypage/modify/${boardId}`
+      }
     }
-  
-    const nowPage = page.page;
-  
-    const lastPage = getMyBoards.data.data.totalCount % 15 === 0
-      ? getMyBoards.data.data.totalCount / 15
-      : Math.floor(getMyBoards.data.data.totalCount / 15) + 1;
-  
-    const startIndex = nowPage % 5 === 0 ? nowPage - 4 : nowPage - (nowPage % 5) + 1;
-    const endIndex = startIndex + 4 <= lastPage ? startIndex + 4 : lastPage;
-  
-    const pageNumbers = [];
-  
-    for (let i = startIndex; i <= endIndex; i++) {
-      pageNumbers.push(i);
-    }
-  
-    return (
-      <>
-        <button
-          disabled={nowPage === 1}
-          onClick={() => {
-            setPage({ ...page, page: 1 });
-            setGetMyboardsFlag(true);
-          }}
-        >
-          처음으로
-        </button>
-  
-        {pageNumbers.map((page) => (
-          <button
-            onClick={() => {
-              setPage({ ...page, page });
-              setGetMyboardsFlag(true);
-            }}
-            disabled={page === nowPage}
-            key={page}
-          >
-            {page}
-          </button>
-        ))}
-  
-        <button
-          disabled={nowPage === lastPage}
-          onClick={() => {
-            setPage({ ...page, page: lastPage });
-            setGetMyboardsFlag(true);
-          }}
-        >
-          끝으로
-        </button>
-      </>
-    );
-  };
 
+    const deleteButtonHandle = (boardId) => {
+      if(window.confirm("정말 삭제 하시겠습니까?")){
+        deleteMyBoard.mutate(boardId);
+      }
+    }
     return (
         <div css={s.myPageContainer}>
             <header css={s.myPageLabelContainer}>
@@ -109,17 +79,24 @@ const MyPage = () => {
                 <tbody>
                 {getMyBoards.isLoading ? (
                     <tr>
-                    <td>Loading...</td>
+                      <td>Loading...</td>
                     </tr>
                 ) : getMyBoards.data !== undefined ? (
                     getMyBoards.data.data.map((board, index) => (
                     <tr
                         css={s.tableTR2}
-                        onClick={() => readBoardHandle(board.userId, board.boardId)}
+                        onClick={() => readBoardHandle(board.boardId)}
                         key={board.boardId}
                     >
-                        <td css={s.numberTable}>{(page.page - 1) * 15 + index + 1}</td>
-                        <td css={s.titleTable}>{board.boardTitle}</td>
+                        <td css={s.numberTable}>{index + 1} </td>
+                        
+                        <td css={s.titleTable}>
+                          {board.boardTitle}
+                          <div className="buttons">
+                            <button css={s.deleteAndModifyButton} onClick={(e) => {e.stopPropagation(); modifyButtonHandle(board.boardId)}}>수정하기</button>
+                            <button css={s.deleteAndModifyButton} onClick={(e) => {e.stopPropagation(); deleteButtonHandle(board.boardId)}}>삭제하기</button>
+                          </div>
+                        </td>
                         <td css={s.dateTable}>{board.boardDate}</td>
                         <td css={s.nicknameTable}>{board.username}</td>
                         <td css={s.viewsTable}>{board.boardViews}</td>

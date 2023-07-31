@@ -11,6 +11,7 @@ import BoardWrite from './pages/Board/WriteBoard/BoardWrite';
 import BoardRead from './pages/Board/ReadBoard/BoardRead';
 import SideBar from './components/SideBar/SideBar';
 import MyPage from './pages/MyPage/MyPage';
+import ModifyBoard from './pages/Board/ModifyBoard/ModifyBoard';
 
 
 const container = css`
@@ -39,6 +40,8 @@ function App() {
       <Route path="/mini/write/board" element={<AuthRoute path="/mini/write/board" element={<BoardWrite/>}/>}/>
       <Route path="/mini/board/:boardId" element={<AuthRoute path="/mini/board" element={<BoardRead/>}/>}/>
       <Route path="/mypage/:userId" element={<AuthRoute path="/mypage" element={<MyPage/>}/>}/>
+      <Route path="/mypage/modify/:boardId" element={<AuthRoute path="/mypage/momdify" element={<ModifyBoard/>}/>}/>
+
     </Routes>
   </div>
   );

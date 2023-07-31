@@ -73,15 +73,29 @@ export const tableTR2 = css`
     align-items: center;
     height: 30px;
 
+    td {
+        position: relative;
+    }
+    .buttons {
+        display: none;
+    }
     &:hover {
         background-color: #fafafa;
         cursor: pointer;
+
+        .buttons {
+            display: flex;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.8;
+        }
     }
 
     &:active {
         background-color: #dbdbdb;
     }
-
 `;
 
 export const numberTable = css`
@@ -93,6 +107,7 @@ export const numberTable = css`
 `;
 
 export const titleTable = css`
+    
     text-align: center;
     width: 800px;
     border-bottom: 1px solid #dbdbdb;
@@ -118,3 +133,13 @@ export const viewsTable = css`
     width:100px;
     border-bottom: 1px solid #dbdbdb;
     `;
+
+export const deleteAndModifyButton = css`
+    font-size: 14px;
+    width: 100px;
+    margin-left: 30px;
+
+    &:hover{
+        font-weight: 600;
+    }
+`;

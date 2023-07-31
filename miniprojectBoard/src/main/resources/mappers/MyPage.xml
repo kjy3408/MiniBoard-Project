@@ -38,6 +38,7 @@
 		    bt.board_content,
 		    bt.board_date,
 		    bt.board_views,
+		    bt.board_modify_flag,
 		    
 		    ut.user_id,
 		    ut.username,
@@ -47,5 +48,36 @@
 		    LEFT OUTER JOIN user_tb ut ON (bt.user_id = ut.user_id)
 		WHERE
 			bt.user_id = #{userId}
+		ORDER BY
+			bt.board_date DESC
 	</select>
+	
+	<delete id="deleteMyBoardComment" parameterType="Integer">
+		DELETE
+		FROM
+			comment_tb
+		WHERE
+			board_id = #{boardId};			
+	</delete>
+	
+	<delete id="deleteMyBoard" parameterType="Integer">
+		DELETE 
+		FROM 
+			board_tb
+		WHERE 
+			board_id = #{boardId};
+	</delete>
+	
+	<update id="modifyMyBoard" parameterType="hashmap">
+		UPDATE
+			board_tb
+		SET
+			board_title = #{title},
+			board_content = #{content},
+			board_date = DATE_FORMAT(now(), '%Y-%m-%d'),
+			board_modify_flag = true
+		WHERE
+			board_id = #{boardId}
+	</update>
+	
 </mapper>

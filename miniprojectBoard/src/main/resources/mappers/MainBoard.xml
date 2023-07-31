@@ -7,6 +7,7 @@
 		<result property="boardContent" column="board_content"/>
 		<result property="boardDate" column="board_date"/>
 		<result property="boardViews" column="board_views"/>
+		<result property="boardModifyFlag" column="board_modify_flag"/>
 		
 		<association property="user" resultMap="UserMap" />
 	</resultMap>
@@ -48,6 +49,7 @@
 		    bt.board_content,
 		    bt.board_date,
 		    bt.board_views,
+		    bt.board_modify_flag,
 		    
 		    ut.user_id,
 		    ut.username,
@@ -56,7 +58,7 @@
 			board_tb bt
 		    LEFT OUTER JOIN user_tb ut ON (bt.user_id = ut.user_id)
 		ORDER BY
-			bt.board_id DESC
+			bt.board_date DESC
 		LIMIT
 			#{index}, 15;
 	</select>

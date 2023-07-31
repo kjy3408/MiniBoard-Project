@@ -19,6 +19,7 @@ public class Board {
 	private String boardContent;
 	private String boardDate;
 	private int boardViews;
+	private boolean boardModifyFlag;
 	private User user;
 	
 	public MainBoardResponseDto toDto() {
@@ -27,6 +28,7 @@ public class Board {
 											.boardContent(boardContent)
 											.boardDate(boardDate)
 											.boardViews(boardViews)
+											.boardModifyFlag(boardModifyFlag)
 											.userId(user.getUserId())
 											.username(user.getUsername())
 											.nickname(user.getNickname())

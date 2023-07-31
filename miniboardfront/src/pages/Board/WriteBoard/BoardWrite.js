@@ -20,7 +20,6 @@ const BoardWrite = () => {
                 "Content-Type" : "application/json"
             }
         }
-
         try{
             await axios.post("http://localhost:8080/write/board", JSON.stringify(boardContent), option)
             alert("등록완료~");

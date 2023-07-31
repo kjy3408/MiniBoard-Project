@@ -7,11 +7,8 @@ import * as s from './MainStyle';
 const Main = () => {
   const [getBoardsFlag, setGetBoardsFlag] = useState(true);
   const [page, setPage] = useState({page: 1});
-  // const currentPage = 2; 
-  // const postsPerPage = 15;
-  
-  // Calculate the starting index of the boards for the current page
-  // const startIndex = (currentPage - 1) * postsPerPage;
+  const [modifyBoardEditedFlag, setModifyBoardEditedFlag] = useState(false);
+
   const getBoards = useQuery(["getBoards"], async () => {
     const data = {
       params: {
@@ -19,8 +16,16 @@ const Main = () => {
       }
     }
     const response = await axios.get("http://localhost:8080/main/board", data);
-    // console.log(response);
+    // setModifyBoardEditedFlag(prevState => ({...prevState, [boardId]: false}));    
+    // console.log(response.data.boards[i].boardModifyFlag)
+    for(let i = 0; i < response.data.boards.length; i++){
+      if(response.data.boards[i].boardModifyFlag){
+        setModifyBoardEditedFlag(prevState => ({...prevState, [response.data.boards[i].boardId]: true}))
+        console.log(modifyBoardEditedFlag)
+      }
+    }
     return response;
+    
   }, {
     enabled: getBoardsFlag,
     onSuccess: () => {
@@ -160,7 +165,12 @@ const Main = () => {
                 key={board.boardId}
               >
                 <td css={s.numberTable}>{(page.page - 1) * 15 + index + 1}</td>
-                <td css={s.titleTable}>{board.boardTitle}</td>
+                <td css={s.titleTable}>
+                  <div>
+                    {board.boardTitle}
+                    {modifyBoardEditedFlag[board.boardId] ? (<label css={s.modifyText}>(수정 된 글) </label>) : ""}
+                  </div>
+                </td>
                 <td css={s.dateTable}>{board.boardDate}</td>
                 <td css={s.nicknameTable}>{board.username}</td>
                 <td css={s.viewsTable}>{board.boardViews}</td>

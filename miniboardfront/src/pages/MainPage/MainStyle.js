@@ -123,6 +123,7 @@ export const thViews = css`
 `;
 
 export const tableTR2 = css`
+    position: relative;
     justify-content: center;
     align-items: center;
     height: 30px;
@@ -173,6 +174,14 @@ export const viewsTable = css`
     border-bottom: 1px solid #dbdbdb;
     `;
 
-export const test = css`
-    margin: auto;
+export const modifyText = css`
+    width: 100px;
+
+    font-weight: 600;
+    color: darkblue;
+    position: absolute;
+    top:50%;
+    left: 66%;
+    transform: translate(-50%, -50%);
+    opacity: 0.8;
 `;

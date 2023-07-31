@@ -1,11 +1,23 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as s from './SIdeBarStyle';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 
 const SideBar = () => {
     const [ getUserInfoFlag, setGetUserInfoFlag ] = useState(true);
+    const [ loginFlag, setLoginFlag ] = useState(false);
+
+
+    useEffect(() => {
+        checkLogin();
+    })
+
+    const checkLogin = () => {
+        if(!!localStorage.getItem("accessToken")) {
+            setLoginFlag(true);
+        }
+    }
 
     const getUserInfo = useQuery(["getUserInfo"], async() => {
         const option = {
@@ -23,6 +35,10 @@ const SideBar = () => {
         }
     })
 
+    const loginButtonHandle = () => {
+        window.location.href = "http://localhost:3000/auth/login"
+    }
+
     const myPageButtonHandle = () => {
         window.location.href = `http://localhost:3000/mypage/${getUserInfo.data.data.userId}`;
     }
@@ -31,22 +47,45 @@ const SideBar = () => {
         window.location.href = "http://localhost:3000/"
     }
 
-    if(getUserInfo.isLoading){
-        return <div>로딩중</div>
+    const logOutButtonHandle = () => {
+        if(window.confirm("로그아웃 하시겠습니까?")){
+            localStorage.removeItem("accessToken");
+            window.location.reload();
+        }
     }
-    
-    console.log(getUserInfo.data.data.nickname)
+
+    // if(getUserInfo.isLoading){
+    //     return <div>로딩중</div>
+    // }
+
     return (
         <div css={s.sideBarContainer}>
-            <div css={s.nicknameContainer}>
-                {getUserInfo.isLoading ? "로딩중" : getUserInfo.data !== undefined ? (<label css={s.nickname}>{"현재 로그인 : " + getUserInfo.data.data.nickname}</label>) : "로딩중"}
-            </div>
-            <div css={s.sideBarButtonContainer}>
-                <button css={s.sideBarButton} onClick={myPageButtonHandle}>마이페이지</button>
-            </div>
-            <div css={s.sideBarButtonContainer}>
-                <button css={s.sideBarButton} onClick={mainPageButtonHandle}>메인페이지</button>
-            </div>
+            {loginFlag ? (
+                <>
+                    <div css={s.nicknameContainer}>
+                        {getUserInfo.isLoading ? "로딩중" : getUserInfo.data !== undefined ? (<label css={s.nickname}>{"현재 로그인 : " + getUserInfo.data.data.nickname}</label>) : "로딩중"}
+                    </div>
+                    <div css={s.sideBarButtonContainer}>
+                        <button css={s.sideBarButton} onClick={myPageButtonHandle}>마이페이지</button>
+                    </div>
+                    <div css={s.sideBarButtonContainer}>
+                        <button css={s.sideBarButton} onClick={mainPageButtonHandle}>메인페이지</button>
+                    </div>
+                    <div css={s.sideBarButtonContainer}>
+                        <button css={s.sideBarButton} onClick={logOutButtonHandle}>로그아웃</button>
+                    </div>
+                </>
+            ) : (
+                <>
+                    <div css={s.sideBarButtonContainer}>
+                        <button css={s.sideBarButton} onClick={loginButtonHandle}>로그인</button>
+                    </div>
+                    <div css={s.sideBarButtonContainer}>
+                        <button css={s.sideBarButton} onClick={mainPageButtonHandle}>메인페이지</button>
+                    </div>
+                </>
+            )}
+          
         </div>
     );
 };

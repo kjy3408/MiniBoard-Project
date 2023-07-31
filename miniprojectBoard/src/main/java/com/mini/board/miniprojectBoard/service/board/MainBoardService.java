@@ -41,9 +41,6 @@ public class MainBoardService {
 		
 		int index = (page- 1) * 15;
 		
-//		map.put("index", index);
-//		map.put("searchValue", mainBoardRequestDto.getSearchValues());
-		
 		mainBoardRepository.getBoards(index).forEach(board -> {
 			list.add(board.toDto());
 		});

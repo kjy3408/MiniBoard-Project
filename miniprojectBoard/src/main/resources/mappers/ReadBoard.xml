@@ -78,9 +78,12 @@
 	</delete>
 	
 	<update id="modifyComment" parameterType="hashmap">
-		UPDATE comment_tb
-		SET comment = #{modifyComment}, modify_comment_flag = true
-		WHERE comment_id = #{commentId}
+		UPDATE 
+			comment_tb
+		SET 
+			comment = #{modifyComment}, modify_comment_flag = true
+		WHERE 
+			comment_id = #{commentId}
 		AND board_id = #{boardId}
 		
 	</update>

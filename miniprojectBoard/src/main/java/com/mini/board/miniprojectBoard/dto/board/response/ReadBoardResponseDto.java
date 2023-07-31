@@ -16,6 +16,7 @@ public class ReadBoardResponseDto {
 	private String boardContent;
 	private String boardDate;
 	private int boardViews;
+	private boolean boardModifyFlag;
 	private int userId;
 	private String username;
 	private String nickname;
