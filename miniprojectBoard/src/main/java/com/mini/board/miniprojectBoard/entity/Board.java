@@ -41,6 +41,7 @@ public class Board {
 											.boardContent(boardContent)
 											.boardDate(boardDate)
 											.boardViews(boardViews)
+											.boardModifyFlag(boardModifyFlag)
 											.userId(user.getUserId())
 											.username(user.getUsername())
 											.nickname(user.getNickname())
