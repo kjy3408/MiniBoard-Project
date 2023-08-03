@@ -51,7 +51,7 @@ const ModifyBoard = () => {
         
 
             alert("수정완료~");
-            window.location.replace(`http://localhost:3000/mypage/${userId}`);
+            window.location.replace(`http://localhost:3000/myboard/${userId}`);
         }catch(error){
             console.log(error)
             setErrorMessages(error.response.data.errorData);
