@@ -12,6 +12,9 @@ import BoardRead from './pages/Board/ReadBoard/BoardRead';
 import SideBar from './components/SideBar/SideBar';
 import MyPage from './pages/MyPage/MyPage';
 import ModifyBoard from './pages/Board/ModifyBoard/ModifyBoard';
+import MyBoard from './pages/MyPage/MyBoard';
+import MyInfo from './pages/MyPage/MyInfo';
+import AlreadyReadBoard from './pages/MyPage/AlreadyReadBoard';
 
 
 const container = css`
@@ -23,27 +26,33 @@ const container = css`
   margin: 100px auto;
   width: 1220px;
 
+
   overflow: auto;
-border: 1px solid #121212;
+/* border: 1px solid #121212; */
 `;
 
 function App() {
   return (
-  <div css={container}>
-    <Global styles={Reset} />
-    <SideBar />
-    <Routes>
-      <Route path="/" element={<AuthRoute path="/" element={<Main/>}/>}/>
-      <Route path="/auth/login" element={<AuthRoute path="/auth/login" element={<Login/>}/>}/>
-      <Route path="/auth/register" element={<AuthRoute path="/auth/register" element={<Register/>}/>}/>
-      <Route path="/auth/home" element={<AuthRoute path="/auth/home" element={<Main/>}/>}/>
-      <Route path="/mini/write/board" element={<AuthRoute path="/mini/write/board" element={<BoardWrite/>}/>}/>
-      <Route path="/mini/board/:boardId" element={<AuthRoute path="/mini/board" element={<BoardRead/>}/>}/>
-      <Route path="/mypage/:userId" element={<AuthRoute path="/mypage" element={<MyPage/>}/>}/>
-      <Route path="/mypage/modify/:boardId" element={<AuthRoute path="/mypage/momdify" element={<ModifyBoard/>}/>}/>
+    <>
+      <SideBar />
+      <div css={container}>
+      <Global styles={Reset} />
+      <Routes>
+        <Route path="/" element={<AuthRoute path="/" element={<Main/>}/>}/>
+        <Route path="/auth/login" element={<AuthRoute path="/auth/login" element={<Login/>}/>}/>
+        <Route path="/auth/register" element={<AuthRoute path="/auth/register" element={<Register/>}/>}/>
+        <Route path="/auth/home" element={<AuthRoute path="/auth/home" element={<Main/>}/>}/>
+        <Route path="/mini/write/board" element={<AuthRoute path="/mini/write/board" element={<BoardWrite/>}/>}/>
+        <Route path="/mini/board/:boardId" element={<AuthRoute path="/mini/board" element={<BoardRead/>}/>}/>
+        <Route path="/mypage/:userId" element={<AuthRoute path="/mypage" element={<MyPage/>}/>}/>
+        <Route path="/myboard/:userId" element={<AuthRoute path="/myboard" element={<MyBoard/>}/>}/>
+        <Route path="/already/read/:userId" element={<AuthRoute path="/already/read" element={<AlreadyReadBoard/>}/>}/>
+        <Route path="/myinfo/:userId" element={<AuthRoute path="/myinfo" element={<MyInfo/>}/>}/>
+        <Route path="/mypage/modify/:boardId" element={<AuthRoute path="/mypage/momdify" element={<ModifyBoard/>}/>}/>
 
-    </Routes>
-  </div>
+      </Routes>
+      </div>
+    </>
   );
 }
 

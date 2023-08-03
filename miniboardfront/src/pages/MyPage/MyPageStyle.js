@@ -8,138 +8,52 @@ export const myPageContainer = css`
 
     width: 1200px;
     height: 830px;
+
+    /* border: 1px solid #121212; */
 `;
 
-export const myPageLabelContainer = css`
-    width: 1200px;
-    height: 80px;
-
-    margin: 30px auto;
-    margin-bottom: 0px;
+export const myPageTitleContainer = css`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0px auto;
+    width: 1200px;
+    height: 100px;
+
+    /* border: 1px solid #121212; */
 `;
 
-export const myPageLabel = css`
+export const myPageTitle = css`
+
     font-size: 30px;
+
     font-weight: 600;
 `;
 
-export const tableContainer = css`
-    width: 1150px;
-
+export const myPageButtonContainer = css`
+    display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 30px;
-`;
-
-export const thead = css`
-    /* text-size-adjust: 50px; */
-    height: 25px;
-
-    text-align: center;
-    text-justify: center;
-    margin: auto;
-    font-size: 20px;
-    font-weight: 600;
-    border-top: 2px solid #121212;
-    border-bottom: 2px solid #121212;
-`;
-
-export const thNumber = css`
-    width: 50px;
-    `;
-
-export const thTitle = css`
-    width: 800px;
-    `;
-
-export const thDate = css`
-    width: 150px;
-    `;
-
-export const thUser = css`
-    width: 100px;
-    `;
-
-export const thViews = css`
-    width: 100px;
-`;
-
-
-export const tableTR2 = css`
-    justify-content: center;
-    align-items: center;
-    height: 30px;
-
-    td {
-        position: relative;
-    }
-    .buttons {
-        display: none;
-    }
-    &:hover {
-        background-color: #fafafa;
-        cursor: pointer;
-
-        .buttons {
-            display: flex;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0.8;
-        }
-    }
-
-    &:active {
-        background-color: #dbdbdb;
-    }
-`;
-
-export const numberTable = css`
-    text-align: center;
-    width: 50px;
-    height: 30px;
-    border-bottom: 1px solid #dbdbdb;
-    border-right: 1px solid #dbdbdb;
-`;
-
-export const titleTable = css`
     
-    text-align: center;
-    width: 800px;
-    border-bottom: 1px solid #dbdbdb;
-    border-right: 1px solid #dbdbdb;
+    width: 1200px;
+    height: 100px;
+    margin-top: 50px;
+    /* border: 1px solid #121212; */
 `;
 
-export const dateTable = css`
-    text-align: center;
-    width: 150px;
-    border-bottom: 1px solid #dbdbdb;
-    border-right: 1px solid #dbdbdb;
-`;
-export const nicknameTable = css`
-    text-align: center;
-    width: 100px;
-    border-bottom: 1px solid #dbdbdb;
-    border-right: 1px solid #dbdbdb;
-    color: #CC9074;
-`;
+export const myPageButton = css`
+    border:none;
+    border-bottom: 2px solid gray;
+    border-radius: 20px;
+    background-color: #fafafa;
+    font-size: 20px;
+    box-shadow: 0px 0px 4px 0px;
 
-export const viewsTable = css`
-    text-align: center;
-    width:100px;
-    border-bottom: 1px solid #dbdbdb;
-    `;
-
-export const deleteAndModifyButton = css`
-    font-size: 14px;
-    width: 100px;
-    margin-left: 30px;
-
-    &:hover{
+    &:hover {
+        box-shadow: 1px 0px 5px 2px;
         font-weight: 600;
     }
+
+    width: 500px;
+    height: 80px;
 `;

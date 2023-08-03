@@ -22,6 +22,7 @@ const BoardWrite = () => {
         }
         try{
             await axios.post("http://localhost:8080/write/board", JSON.stringify(boardContent), option)
+            console.log(boardContent)
             alert("등록완료~");
             window.location.replace("http://localhost:3000/auth/home");
         }catch(error){

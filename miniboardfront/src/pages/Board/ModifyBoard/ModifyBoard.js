@@ -4,20 +4,18 @@ import { useParams } from 'react-router-dom';
 import * as s from './ModifyBoardStyle';
 import { useMutation, useQuery } from 'react-query';
 import axios from 'axios';
-import { QueryClient } from 'react-query';
 
 const ModifyBoard = () => {
     const { boardId } = useParams();
 
     const [ getBoardFlag, setGetBoardFlag ] = useState(true);
-    const [ boardContent, setBoardContent ] = useState({title: "", content: ""});
+    const [ modifyBoardContent, setModifyBoardContent ] = useState({modifyTitle: "", modifyContent: ""});
     const [ errorMessages, setErrorMessages ] = useState({title: "", content: ""});
- 
 
     const contentOnChangeHandle = (e) => {
         const { name, value } = e.target;
-        setBoardContent({ ...boardContent, [name]: value });
-        console.log(boardContent)
+        setModifyBoardContent({ ...modifyBoardContent, [name]: value });
+        console.log(modifyBoardContent)
     }  
 
     
@@ -31,8 +29,8 @@ const ModifyBoard = () => {
             }
         }
         const response = await axios.get("http://localhost:8080/read/board", option)
-        console.log(response.data.boardTitle);
-        setBoardContent({title: response.data.boardTitle, content: response.data.boardContent})
+        setModifyBoardContent({modifyTitle: response.data.boardTitle, modifyContent: response.data.boardContent})
+        console.log(modifyBoardContent);
         return response;
     }, {
         enabled: getBoardFlag,
@@ -49,13 +47,14 @@ const ModifyBoard = () => {
             }
         }
         try{
-            await axios.post(`http://localhost:8080/mypage/modify/${boardId}`, JSON.stringify(boardContent), option)
+            await axios.post(`http://localhost:8080/mypage/modify/${boardId}`, JSON.stringify(modifyBoardContent), option)
         
 
             alert("수정완료~");
             window.location.replace(`http://localhost:3000/mypage/${userId}`);
         }catch(error){
-      
+            console.log(error)
+            setErrorMessages(error.response.data.errorData);
         }
     })
 
@@ -66,6 +65,7 @@ const ModifyBoard = () => {
     if(getBoard.isLoading){
         return <div>로딩중</div>
     }
+
     return (
         <div>
              <div css={s.writeBoardContainer}>
@@ -76,16 +76,16 @@ const ModifyBoard = () => {
             </header>
             <main css={s.mainConatiner}> 
                 <div css={s.titleContainer}>
-                    <input css={s.titleInput} onChange={contentOnChangeHandle} type="text" placeholder='제목을 입력하세요' value={boardContent.title} name='title'/>
+                    <input css={s.titleInput} onChange={contentOnChangeHandle} type="text" placeholder='제목을 입력하세요' value={modifyBoardContent.modifyTitle} name='modifyTitle'/>
                 </div>
                 <div css={s.errorMessages}>
-                    {errorMessages.title}
+                    {errorMessages.modifyTitle}
                 </div>
                 <div>
-                    <textarea css={s.contentInput} onChange={contentOnChangeHandle} placeholder='내용입력' value={boardContent.content} name='content'></textarea>
+                    <textarea css={s.contentInput} onChange={contentOnChangeHandle} placeholder='내용입력' value={modifyBoardContent.modifyContent} name='modifyContent'></textarea>
                 </div>
                 <div css={s.errorMessages}>
-                    {errorMessages.content}
+                    {errorMessages.modifyContent}
                 </div>
                 <div css={s.registerButtonContainer}>
                     <button onClick={() => modifyMyBoardHandle(getBoard.data.data.userId)}>등록하기</button>

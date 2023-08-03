@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mini.board.miniprojectBoard.repository.MyPageRepository">
+	
 	<resultMap type="com.mini.board.miniprojectBoard.entity.Board" id="BoardMap">
 		<result property="boardId" column="board_id"/>
 		<result property="boardTitle" column="board_title"/>
@@ -68,6 +69,14 @@
 			board_id = #{boardId};
 	</delete>
 	
+	<delete id="deleteReadBoard" parameterType="Integer">
+		DELETE
+		From
+			read_tb
+		WHERE
+			board_id = #{boardId};
+	</delete>
+	
 	<update id="modifyMyBoard" parameterType="hashmap">
 		UPDATE
 			board_tb
@@ -80,4 +89,52 @@
 			board_id = #{boardId}
 	</update>
 	
+	<select id="getAlreadyReadBoard" parameterType="Integer" resultType="com.mini.board.miniprojectBoard.dto.board.response.AlreadyReadBoardResponseDto">
+		SELECT
+			ut.user_id as userId,
+		    ut.username,
+		    ut.nickname,
+		    
+		    rt.read_id as readId,
+		    rt.read_date as readDate,
+		    
+		    bt.board_id as boardId,
+		    bt.board_title as boardTitle,
+		    bt.board_content as boardContent,
+		    bt.board_date as boardDate,
+		    bt.board_views as boardViews,
+		    bt.board_modify_flag as boardModifyFlag,
+		    
+		    but.user_id as registerUserId,
+		    but.username as registerUsername,
+		    but.nickname as registerNickname
+		FROM
+			user_tb ut
+		    LEFT OUTER JOIN read_tb rt ON (ut.user_id = rt.user_id)
+		    LEFT OUTER JOIN board_tb bt ON (rt.board_id = bt.board_id)
+		    LEFT OUTER JOIN user_tb but ON (but.user_id = bt.user_id)
+		WHERE
+			ut.user_id = #{userId}
+		ORDER BY
+			rt.read_id DESC
+					
+	</select>
+	
+	<select id="registerBoardCount" parameterType="Integer" resultType="hashmap">
+		SELECT
+			COUNT(board_id) as registerBoardCount
+		FROM
+			board_tb
+		WHERE
+			user_id = #{userId}
+	</select>
+	
+	<select id="readBoardCount" parameterType="Integer" resultType="hashmap">
+		SELECT
+			COUNT(read_id) as readBoardCount
+		FROM
+			read_tb
+		WHERE
+			user_id = #{userId}
+	</select>
 </mapper>

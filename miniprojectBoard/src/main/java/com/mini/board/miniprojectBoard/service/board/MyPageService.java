@@ -7,8 +7,10 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.mini.board.miniprojectBoard.dto.board.request.WriteBoardRequestDto;
+import com.mini.board.miniprojectBoard.dto.board.request.ModifyBoardRequestDto;
+import com.mini.board.miniprojectBoard.dto.board.response.AlreadyReadBoardResponseDto;
 import com.mini.board.miniprojectBoard.dto.board.response.MainBoardResponseDto;
+import com.mini.board.miniprojectBoard.dto.board.response.MyPageInfoDataResponseDto;
 import com.mini.board.miniprojectBoard.repository.MyPageRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -36,14 +38,28 @@ public class MyPageService {
 		return 1;
 	}
 	
-	public int modifyMyboard(int boardId, WriteBoardRequestDto writeBoardRequestDto) {
+	public int modifyMyboard(int boardId, ModifyBoardRequestDto modifyBoardRequestDto) {
 		Map<String, Object> modifyBoardMap = new HashMap<>();
 		
 		modifyBoardMap.put("boardId", boardId);
-		modifyBoardMap.put("title", writeBoardRequestDto.getTitle());
-		modifyBoardMap.put("content", writeBoardRequestDto.getContent());
+		modifyBoardMap.put("title", modifyBoardRequestDto.getModifyTitle());
+		modifyBoardMap.put("content", modifyBoardRequestDto.getModifyContent());
 		
 		myPageRepository.modifyMyBoard(modifyBoardMap);
 		return 1;
+	}
+	
+	public List<AlreadyReadBoardResponseDto> getAlreadyReadBoard(int userId){
+		
+		return myPageRepository.getAlreadyReadBoard(userId);
+	}
+	
+	public List<Map<String, Integer>> getMyInfoData(int userId){
+		List<Map<String, Integer>> countList = new ArrayList<>();
+		
+		countList.add(myPageRepository.registerBoardCount(userId));
+		countList.add(myPageRepository.readBoardCount(userId));
+		
+		return countList;
 	}
 }

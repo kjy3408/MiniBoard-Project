@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.mini.board.miniprojectBoard.dto.board.request.CommentRequestDto;
 import com.mini.board.miniprojectBoard.dto.board.request.ModifyCommentRequestDto;
+import com.mini.board.miniprojectBoard.dto.board.request.ReplyCommentRequestDto;
 import com.mini.board.miniprojectBoard.dto.board.response.CommentResponseDto;
 import com.mini.board.miniprojectBoard.dto.board.response.ReadBoardResponseDto;
+import com.mini.board.miniprojectBoard.dto.board.response.ReplyCommentResponseDto;
 import com.mini.board.miniprojectBoard.repository.ReadBoardRepository;
 import com.mini.board.miniprojectBoard.security.PrincipalUser;
 
@@ -56,7 +58,6 @@ public class ReadBoardService {
 				list.get(i).setFlag(true);
 			}
 		}
-		System.out.println(list);
 		return list;
 	}
 	
@@ -78,6 +79,30 @@ public class ReadBoardService {
 		modifyMap.put("modifyComment", modifyCommentRequestDto.getModifyComment());
 		
 		readBoardRepository.modifyComment(modifyMap);
+		return 1;
+	}
+	
+	public int registerReplyComment(ReplyCommentRequestDto replyCommentRequestDto) {
+		Map<String, Object> replyCommentMap = new HashMap<>();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();	    
+		
+	    replyCommentMap.put("replyComment", replyCommentRequestDto.getReplyComment());
+		replyCommentMap.put("commentId", replyCommentRequestDto.getCommentId());
+		replyCommentMap.put("userId", principalUser.getUserId());
+		replyCommentMap.put("boardId", replyCommentRequestDto.getBoardId());
+		
+		readBoardRepository.registerReplyComment(replyCommentMap);
+		return 0;
+	}
+	
+	public List<ReplyCommentResponseDto> getReplyComment(int getCommentId){
+		System.out.println(readBoardRepository.getReplyComment(getCommentId));
+		return readBoardRepository.getReplyComment(getCommentId);
+	}
+	
+	public int deleteReplyComment(int replyCommentId) {
+		readBoardRepository.deleteReplyComment(replyCommentId);
 		return 1;
 	}
 }

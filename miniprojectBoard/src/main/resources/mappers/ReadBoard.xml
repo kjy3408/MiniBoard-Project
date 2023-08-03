@@ -67,6 +67,8 @@
 		    LEFT OUTER JOIN user_tb ut ON (ct.user_id = ut.user_id)
 		WHERE
 			bt.board_id = #{boardId}
+		ORDER BY
+			ct.comment_id DESC
 	</select>
 	
 	<delete id="deleteComment" parameterType="Integer">
@@ -85,6 +87,46 @@
 		WHERE 
 			comment_id = #{commentId}
 		AND board_id = #{boardId}
-		
 	</update>
+	
+	<insert id="registerReplyComment" parameterType="hashmap">
+		INSERT INTO replycomment_tb
+		VALUES (0, #{replyComment}, #{commentId}, #{userId}, #{boardId}, DATE_FORMAT(now(), '%Y-%m-%d'))
+	</insert>
+	
+	<select id="getReplyComment" parameterType="Integer" resultType="com.mini.board.miniprojectBoard.dto.board.response.ReplyCommentResponseDto" >
+		SELECT
+			rt.replycomment_id AS replyCommentId,
+		    rt.replycomment AS replyComment,
+		    rt.replycomment_date AS replyCommentDate,
+		    
+		    ct.comment_id AS commentId,
+		    ct.comment AS comment,
+		    
+		    bt.board_id AS boardId,
+		    bt.board_title AS boardTitle,
+		    bt.board_content AS boardContent,
+		    bt.board_date AS boardDate,
+		    
+		    ut.user_id AS userId,
+		    ut.username AS username,
+		    ut.nickname AS nickname
+		FROM
+			replycomment_tb rt
+		    LEFT OUTER JOIN comment_tb ct ON (rt.comment_id = ct.comment_id)
+		    LEFT OUTER JOIN board_tb bt ON (rt.board_id = bt.board_id)
+		    LEFT OUTER JOIN user_tb ut ON (rt.user_id = ut.user_id)
+		WHERE
+			rt.comment_id = #{getCommentId}
+		ORDER BY
+			rt.replycomment_id DESC
+	</select>
+	
+	<delete id="deleteReplyComment" parameterType="Integer">
+		DELETE
+		FROM
+			replycomment_tb
+		WHERE
+			replycomment_id = #{replyCommentId}
+	</delete>
 </mapper>

@@ -1,5 +1,7 @@
 package com.mini.board.miniprojectBoard.controller.board;
 
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mini.board.miniprojectBoard.dto.board.request.CommentRequestDto;
 import com.mini.board.miniprojectBoard.dto.board.request.ModifyCommentRequestDto;
+import com.mini.board.miniprojectBoard.dto.board.request.ReplyCommentRequestDto;
 import com.mini.board.miniprojectBoard.service.board.ReadBoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -51,4 +54,20 @@ public class ReadBoardController {
 		return ResponseEntity.ok().body(readBoardService.modifyComment(modifyCommentRequestDto));
 	}
 	
+	@PostMapping("/board/replycomment")
+	public ResponseEntity<?> registerReplyComment(@RequestBody ReplyCommentRequestDto replyCommentRequestDto){
+		
+		return ResponseEntity.ok().body(readBoardService.registerReplyComment(replyCommentRequestDto));
+	}
+	
+	@GetMapping("/replycomment")
+	public ResponseEntity<?> getReplyComment(int getCommentId){
+		System.out.println(getCommentId);
+		return ResponseEntity.ok().body(readBoardService.getReplyComment(getCommentId));
+	}
+	
+	@DeleteMapping("/delete/replycomment")
+	public ResponseEntity<?> deleteReplyComment(int replyCommentId){
+		return ResponseEntity.ok().body(readBoardService.deleteReplyComment(replyCommentId));
+	}
 }

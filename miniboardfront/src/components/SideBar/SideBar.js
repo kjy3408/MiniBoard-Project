@@ -16,6 +16,11 @@ const SideBar = () => {
     const checkLogin = () => {
         if(!!localStorage.getItem("accessToken")) {
             setLoginFlag(true);
+            //로그인OK
+        }else{
+            console.log("로그인?")
+            setLoginFlag(false)
+            //로그인NO
         }
     }
 
@@ -29,7 +34,7 @@ const SideBar = () => {
         
         return response;
     },{
-        enabled: getUserInfoFlag,
+        enabled: getUserInfoFlag && loginFlag,
         onSuccess: () => {
             setGetUserInfoFlag(false);
         }
@@ -54,19 +59,17 @@ const SideBar = () => {
         }
     }
 
-    // if(getUserInfo.isLoading){
-    //     return <div>로딩중</div>
-    // }
-
     return (
-        <div css={s.sideBarContainer}>
+        <div className="sideBarContainer" css={s.sideBarContainer}>
             {loginFlag ? (
                 <>
                     <div css={s.nicknameContainer}>
                         {getUserInfo.isLoading ? "로딩중" : getUserInfo.data !== undefined ? (<label css={s.nickname}>{"현재 로그인 : " + getUserInfo.data.data.nickname}</label>) : "로딩중"}
                     </div>
                     <div css={s.sideBarButtonContainer}>
-                        <button css={s.sideBarButton} onClick={myPageButtonHandle}>마이페이지</button>
+                        <button css={s.myPageButton} onClick={myPageButtonHandle}>
+                            마이페이지
+                        </button>
                     </div>
                     <div css={s.sideBarButtonContainer}>
                         <button css={s.sideBarButton} onClick={mainPageButtonHandle}>메인페이지</button>

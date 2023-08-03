@@ -38,4 +38,11 @@ public class MainBoardController {
 		return ResponseEntity.ok().body(mainBoardService.increaseViews(boardData));
 	}
 	
+	@GetMapping("/board/search")
+	public ResponseEntity<?> getSearchBoards(Map<String, Object> searchValue) {
+		System.out.println(searchValue);
+		return null;
+//		return ResponseEntity.ok().body(mainBoardService);
+	}
+	
 }

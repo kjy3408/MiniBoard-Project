@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mini.board.miniprojectBoard.repository.MainBoardRepository">
+
 	<resultMap type="com.mini.board.miniprojectBoard.entity.Board" id="BoardMap">
 		<result property="boardId" column="board_id"/>
 		<result property="boardTitle" column="board_title"/>
@@ -58,14 +59,15 @@
 			board_tb bt
 		    LEFT OUTER JOIN user_tb ut ON (bt.user_id = ut.user_id)
 		ORDER BY
-			bt.board_date DESC
+			bt.board_date DESC,
+    		bt.board_id DESC
 		LIMIT
 			#{index}, 15;
 	</select>
 	
 	<insert id="readBoard" parameterType="hashmap">
 		INSERT INTO read_tb
-		VALUES (0, #{userId}, #{boardId})
+		VALUES (0, #{userId}, #{boardId}, DATE_FORMAT(now(), '%Y-%m-%d'))
 	</insert>
 	
 	<select id="getTotalCount" parameterType="Integer" resultType="Integer">

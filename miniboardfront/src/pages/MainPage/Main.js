@@ -5,9 +5,17 @@ import { useMutation, useQuery } from 'react-query';
 import * as s from './MainStyle';
 
 const Main = () => {
-  const [getBoardsFlag, setGetBoardsFlag] = useState(true);
-  const [page, setPage] = useState({page: 1});
-  const [modifyBoardEditedFlag, setModifyBoardEditedFlag] = useState(false);
+  const [ getBoardsFlag, setGetBoardsFlag ] = useState(true);
+  const [ page, setPage ] = useState({page: 1});
+  const [ modifyBoardEditedFlag, setModifyBoardEditedFlag ] = useState(false);
+  const [ searchValue, setSearchValue ] = useState({searchValue: ""}) 
+  const [ getSearchBoardsFlag, setGetSearchBoardsFlag ] = useState(false);
+
+  const searchBoardHandle = (e) => {
+    const { name, value } = e.target;
+    setSearchValue({ ...searchValue, [name]: value});
+    console.log(searchValue);
+  }
 
   const getBoards = useQuery(["getBoards"], async () => {
     const data = {
@@ -16,8 +24,7 @@ const Main = () => {
       }
     }
     const response = await axios.get("http://localhost:8080/main/board", data);
-    // setModifyBoardEditedFlag(prevState => ({...prevState, [boardId]: false}));    
-    // console.log(response.data.boards[i].boardModifyFlag)
+    console.log(response)
     for(let i = 0; i < response.data.boards.length; i++){
       if(response.data.boards[i].boardModifyFlag){
         setModifyBoardEditedFlag(prevState => ({...prevState, [response.data.boards[i].boardId]: true}))
@@ -32,6 +39,20 @@ const Main = () => {
       setGetBoardsFlag(false);
     },
   });
+
+  const searchBords = useQuery(["searchBoards"], async() => {
+    const data = {
+        searchValue: searchValue
+    }
+    const response = await axios.get("http://localhost:8080/main/board/search", data)
+    console.log(response)
+    return response;
+  }, {
+    enabled: getSearchBoardsFlag,
+    onSuccess: () => {
+      setGetSearchBoardsFlag(false);
+    }
+  })
 
   const increaseViews = useMutation(async({userId, boardId}) => {
     const option = {
@@ -49,6 +70,10 @@ const Main = () => {
 
     }
   })
+
+  const searchButtonHandle = () => {
+    setGetSearchBoardsFlag(true);
+  }
 
   const pagination = () => {
     if (getBoards.isLoading) {
@@ -111,8 +136,11 @@ const Main = () => {
 
   const writeButtonHandle = () => {
     if(localStorage.getItem("accessToken") == null){
-      alert("로그인이 필요합니다.")
-      window.location.href = "http://localhost:3000/auth/login"
+      if(window.confirm("로그인이 필요합니다.")){
+        window.location.href = "http://localhost:3000/auth/login"
+      }else{
+        return;
+      }
     } else{
       window.location.href = "http://localhost:3000/mini/write/board"
     }
@@ -120,8 +148,11 @@ const Main = () => {
 
   const readBoardHandle = (userId, boardId) => {
     if(localStorage.getItem("accessToken") === null){
-      alert("로그인이 필요합니다.");
-      window.location.href = "http://localhost:3000/auth/login"
+      if(window.confirm("로그인이 필요합니다.")){
+        window.location.href = "http://localhost:3000/auth/login"
+      }else{
+        return;
+      }
     }else{
       increaseViews.mutate({userId, boardId});
     }
@@ -133,8 +164,8 @@ const Main = () => {
       <header css={s.header}>
         <div css={s.searchBarAndWriteButtonContainer}>
           <div css={s.searchBarContainer}>
-            <input css={s.searchInput} type="text" placeholder='검색어를 입력해주세요.' />
-            <button css={s.searchButton}>검색</button>
+            <input css={s.searchInput} onChange={searchBoardHandle} type="text" placeholder='검색어를 입력해주세요.' name='searchValue' />
+            <button css={s.searchButton} onClick={searchButtonHandle}>검색</button>
           </div>
           <div css={s.writeButtonContainer}>
             <button css={s.writeButton} onClick={writeButtonHandle}>글쓰기</button>
@@ -145,11 +176,12 @@ const Main = () => {
       <table css={s.tableContainer}>
         <thead css={s.thead}>
           <tr>
-            <th css={s.thNumber}>No</th>
+            <th>No</th>
             <th css={s.thTitle}>제목</th>
-            <th css={s.thDate}>등록일</th>
-            <th css={s.thUser}>글쓴이</th>
-            <th css={s.thViews}>조회수</th>
+            <th>등록일</th>
+            <th>글쓴이</th>
+            <th>조회수</th>
+            <th>수정 여부</th>
           </tr>
         </thead>
         <tbody>
@@ -159,21 +191,14 @@ const Main = () => {
             </tr>
           ) : getBoards.data !== undefined ? (
             getBoards.data.data.boards.map((board, index) => (
-              <tr
-                css={s.tableTR2}
-                onClick={() => readBoardHandle(board.userId, board.boardId)}
-                key={board.boardId}
-              >
+              <tr css={s.tableTR2} onClick={() => readBoardHandle(board.userId, board.boardId)} key={board.boardId}>
                 <td css={s.numberTable}>{(page.page - 1) * 15 + index + 1}</td>
-                <td css={s.titleTable}>
-                  <div>
-                    {board.boardTitle}
-                    {modifyBoardEditedFlag[board.boardId] ? (<label css={s.modifyText}>(수정 된 글) </label>) : ""}
-                  </div>
-                </td>
+                <td css={s.titleTable}>{board.boardTitle}</td>
                 <td css={s.dateTable}>{board.boardDate}</td>
                 <td css={s.nicknameTable}>{board.username}</td>
                 <td css={s.viewsTable}>{board.boardViews}</td>
+                {modifyBoardEditedFlag[board.boardId] ? (
+                  <td css={s.modifyTable}>수정됨</td>) : (<td css={s.modifyTable}></td>)}
               </tr>
             ))
           ) : (
@@ -183,7 +208,6 @@ const Main = () => {
           )}
         </tbody>
       </table>
-
       </main>
       <footer>
         {pagination()}

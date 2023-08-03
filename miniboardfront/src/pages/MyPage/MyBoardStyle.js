@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const mainContainer = css`
+export const myBoardContainer = css`
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
@@ -10,90 +10,36 @@ export const mainContainer = css`
     height: 830px;
 `;
 
-export const header = css`
+export const myBoardLabelContainer = css`
     width: 1200px;
-    /* height: 200px; */
+    height: 80px;
 
-/* border:  1px solid #121212; */
-`;
-
-export const mainTitle = css`
-    margin:  0px auto;
-    width: 200px;
-    /* height: 50px; */
-
-    font-weight: 600;
-    font-size: 35px;
-
-/* border: 1px solid #121212; */
-`;
-
-export const searchBarAndWriteButtonContainer = css`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    margin: 80px 0px 0px 0px;
-    width: 1200px;
-    /* height: 50px; */
-
-/* border: 3px solid green; */
-`;
-
-export const searchBarContainer = css`
+    margin: 30px auto;
+    margin-bottom: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    width: 1200px;
-
-/* border: 2px solid blue; */
 `;
 
-export const searchInput = css`
-    width: 300px;
-    height: 20px;
-`;
-
-export const searchButton = css`
-    width: 50px;
-    height: 25px;
-`;
-
-export const writeButtonContainer = css`
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: 1100px;
-`;
-
-export const writeButton = css`
-    width: 150px;
-    height: 40px;
-
-    &:hover {
-        background-color: #fafafa;
-        cursor: pointer;
-    }
-
-    &:active {
-        background-color: #dbdbdb;
-    }
+export const myBoardLabel = css`
+    font-size: 30px;
+    font-weight: 600;
 `;
 
 export const tableContainer = css`
     width: 1150px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+
     justify-content: center;
     align-items: center;
     margin-top: 30px;
 `;
 
 export const thead = css`
+    /* text-size-adjust: 50px; */
     height: 25px;
+
     text-align: center;
+    text-justify: center;
     margin: auto;
     font-size: 20px;
     font-weight: 600;
@@ -102,36 +48,48 @@ export const thead = css`
 `;
 
 export const thTitle = css`
-    width: 650px;
+    width: 600px;
 `;
-
 export const tableTR2 = css`
-    position: relative;
     text-align: center;
     height: 30px;
 
+    td {
+        position: relative;
+    }
+    .buttons {
+        display: none;
+    }
     &:hover {
         background-color: #fafafa;
         cursor: pointer;
+
+        .buttons {
+            display: flex;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.8;
+        }
     }
 
     &:active {
         background-color: #dbdbdb;
     }
-
 `;
 
 export const numberTable = css`
-    height: 30px;
     border-bottom: 1px solid #dbdbdb;
     border-right: 1px solid #dbdbdb;
 `;
 
 export const titleTable = css`
+    text-align: center;
     white-space: nowrap;
     overflow: hidden;
-    max-width: 650px;
     text-overflow: ellipsis;
+    max-width: 300px;
     border-bottom: 1px solid #dbdbdb;
     border-right: 1px solid #dbdbdb;
 `;
@@ -150,8 +108,12 @@ export const viewsTable = css`
     border-bottom: 1px solid #dbdbdb;
     `;
 
-export const modifyTable = css`
-    font-size: 15px;
-    color: red;
-    border-bottom: 1px solid #dbdbdb;
+export const deleteAndModifyButton = css`
+    font-size: 14px;
+    width: 100px;
+    margin-left: 30px;
+
+    &:hover{
+        font-weight: 600;
+    }
 `;
