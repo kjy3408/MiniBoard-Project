@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { Navigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
@@ -12,9 +12,11 @@ const AuthRoute = ({ path, element }) => {
 
     const authenticate = useQuery(["authenticate"], async ()=> {
         const accessToken = `Bearer ${localStorage.getItem("accessToken")}`;
-        const response = await axios.get("http://localhost:8080/auth/authenticate", 
-        {headers: {Authorization: accessToken}});
-        return response;
+            const response = await axios.get("http://localhost:8080/auth/authenticate", 
+            {headers: {Authorization: accessToken}});
+            // console.log(response)
+            return response;
+
     }, {
         onSuccess: (response) => {
             if(response.status === 200) {

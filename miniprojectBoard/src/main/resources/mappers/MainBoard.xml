@@ -43,6 +43,7 @@
 		WHERE
 			user_id = #{userId}
 	</select>
+	
 	<select id="getBoards" resultMap="BoardMap">
 		SELECT
 			bt.board_id,
@@ -58,6 +59,12 @@
 		FROM
 			board_tb bt
 		    LEFT OUTER JOIN user_tb ut ON (bt.user_id = ut.user_id)
+		WHERE
+			1=1
+			<if test="searchValue != null">
+				AND	bt.board_title LIKE concat ("%", #{searchValue}, "%")
+				OR 	bt. board_content LIKE concat ("%", #{searchValue}, "%")
+			</if>
 		ORDER BY
 			bt.board_date DESC,
     		bt.board_id DESC
@@ -70,11 +77,17 @@
 		VALUES (0, #{userId}, #{boardId}, DATE_FORMAT(now(), '%Y-%m-%d'))
 	</insert>
 	
-	<select id="getTotalCount" parameterType="Integer" resultType="Integer">
+	<select id="getTotalCount" parameterType="hashmap" resultType="Integer">
 		SELECT
 			COUNT(*)
 		FROM
 			board_tb
+		WHERE
+		1=1
+			<if test="searchValue != null">
+				AND board_title LIKE concat ("%", #{searchValue}, "%")
+				OR 	board_content LIKE concat ("%", #{searchValue}, "%")
+			</if>
 	</select>
 	
 	<select id="alreadyReadBoard" parameterType="hashmap" resultType="hashmap">
@@ -96,4 +109,29 @@
 		WHERE 
 			board_id = #{boardId};
 	</update>
+	
+<!-- 	<select id="getSearchBoards" parameterType="hashmap" resultMap="BoardMap"> -->
+<!-- 		SELECT -->
+<!-- 			bt.board_id, -->
+<!-- 		    bt.board_title, -->
+<!-- 		    bt.board_content, -->
+<!-- 		    bt.board_date, -->
+<!-- 		    bt.board_views, -->
+<!-- 		    bt.board_modify_flag, -->
+		    
+<!-- 		    ut.user_id, -->
+<!-- 		    ut.username, -->
+<!-- 		    ut.nickname -->
+<!-- 		FROM -->
+<!-- 			board_tb bt -->
+<!-- 		    LEFT OUTER JOIN user_tb ut ON (bt.user_id = ut.user_id) -->
+<!-- 		WHERE -->
+<!-- 			bt.board_title LIKE concat ("%", #{searchValue}, "%") -->
+<!-- 		OR bt. board_content LIKE concat ("%", #{searchValue}, "%") -->
+<!-- 		ORDER BY -->
+<!-- 			bt.board_date DESC, -->
+<!--     		bt.board_id DESC -->
+<!-- 		LIMIT -->
+<!-- 			#{index}, 15; -->
+<!-- 	</select> -->
 </mapper>

@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.mini.board.miniprojectBoard.dto.board.request.MainBoardRequestDto;
+import com.mini.board.miniprojectBoard.dto.board.request.SearchBoardRequestDto;
 import com.mini.board.miniprojectBoard.dto.board.response.MainBoardResponseDto;
 import com.mini.board.miniprojectBoard.dto.board.response.UserInfoResponseDto;
 import com.mini.board.miniprojectBoard.repository.MainBoardRepository;
@@ -35,17 +36,20 @@ public class MainBoardService {
 		return mainBoardRepository.getUserInfo(userIdMap).toDto();
 	}
 	
-	public Map<String, Object> getBoards(int page) {
+	public Map<String, Object> getBoards(SearchBoardRequestDto searchBoardRequestDto) {
 		List<MainBoardResponseDto> list = new ArrayList<>();
-		Map<String, Object>map = new HashMap<>();
+		Map<String, Object>searchBoardMap = new HashMap<>();
 		
-		int index = (page- 1) * 15;
+		int index = (searchBoardRequestDto.getPage()- 1) * 15;
 		
-		mainBoardRepository.getBoards(index).forEach(board -> {
+		searchBoardMap.put("index", index);
+		searchBoardMap.put("searchValue", searchBoardRequestDto.getSearchValue());
+		
+		mainBoardRepository.getBoards(searchBoardMap).forEach(board -> {
 			list.add(board.toDto());
 		});
 		
-		int totalCount = mainBoardRepository.getTotalCount(index);
+		int totalCount = mainBoardRepository.getTotalCount(searchBoardMap);
 		Map<String, Object> responseMap = new HashMap<>();
 		responseMap.put("totalCount", totalCount);
 		responseMap.put("boards", list);
@@ -56,6 +60,8 @@ public class MainBoardService {
 	
 	public int increaseViews(Map<String, Object> boardData) {
 	    Map<String, Object> map = new HashMap<>();
+	    
+	    System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();	    
 
@@ -73,7 +79,5 @@ public class MainBoardService {
 		}
 	    return 1;
 	}
-
-	
 
 }

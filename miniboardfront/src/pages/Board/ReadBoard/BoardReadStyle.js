@@ -265,8 +265,9 @@ export const replyDate = css`
     /* border: 2px solid #121212; */
 `;
 
-export const replyCommentDeleteButton = css`
+export const replyCommentDeleteButton  = (buttonFlag) => css`
     font-size: 10px;
+    display: ${buttonFlag ? "flex" : "none"};
 `;
 
 export const replyCommentBox = css`

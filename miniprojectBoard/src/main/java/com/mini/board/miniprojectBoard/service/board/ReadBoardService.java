@@ -97,12 +97,27 @@ public class ReadBoardService {
 	}
 	
 	public List<ReplyCommentResponseDto> getReplyComment(int getCommentId){
-		System.out.println(readBoardRepository.getReplyComment(getCommentId));
-		return readBoardRepository.getReplyComment(getCommentId);
+		List<ReplyCommentResponseDto> list = new ArrayList<>();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();
+	    
+	    list.addAll(readBoardRepository.getReplyComment(getCommentId));
+	    
+	    if(list != null) {
+			for(int i = 0; i < list.size(); i++) {
+				if(list.get(i).getUserId() 
+						== principalUser.getUserId()) {
+					list.get(i).setFlag(true);
+				}
+			}
+	    }
+	    
+	    return list;
 	}
 	
 	public int deleteReplyComment(int replyCommentId) {
 		readBoardRepository.deleteReplyComment(replyCommentId);
+		
 		return 1;
 	}
 }

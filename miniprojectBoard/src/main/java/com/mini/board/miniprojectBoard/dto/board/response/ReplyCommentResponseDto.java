@@ -17,4 +17,5 @@ public class ReplyCommentResponseDto {
 	private int userId;
 	private String username;
 	private String nickname;
+	private boolean flag;
 }

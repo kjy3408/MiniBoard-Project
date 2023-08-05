@@ -30,9 +30,16 @@ const SideBar = () => {
                 Authorization : `Bearer ${localStorage.getItem("accessToken")}`
             }
         }
-        const response = await axios.get("http://localhost:8080/main/userinfo", option)
+        try{
+            const response = await axios.get("http://localhost:8080/main/userinfo", option)
+            return response;
+        }catch(error){
+            
+            if(error.request.status === 401){
+                localStorage.removeItem("accessToken");
+            }
+        }
         
-        return response;
     },{
         enabled: getUserInfoFlag && loginFlag,
         onSuccess: () => {

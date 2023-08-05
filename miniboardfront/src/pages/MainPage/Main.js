@@ -6,29 +6,26 @@ import * as s from './MainStyle';
 
 const Main = () => {
   const [ getBoardsFlag, setGetBoardsFlag ] = useState(true);
-  const [ page, setPage ] = useState({page: 1});
+  const [ getBoardData, setGetBoardData ] = useState({page: 1, searchValue:""});
   const [ modifyBoardEditedFlag, setModifyBoardEditedFlag ] = useState(false);
-  const [ searchValue, setSearchValue ] = useState({searchValue: ""}) 
-  const [ getSearchBoardsFlag, setGetSearchBoardsFlag ] = useState(false);
+  // const [ searchValue, setSearchValue ] = useState({searchValue: ""}) 
 
   const searchBoardHandle = (e) => {
-    const { name, value } = e.target;
-    setSearchValue({ ...searchValue, [name]: value});
-    console.log(searchValue);
+    setGetBoardData({ ...getBoardData, searchValue: e.target.value});
+    console.log(getBoardData);
   }
 
   const getBoards = useQuery(["getBoards"], async () => {
     const data = {
       params: {
-        ...page
+        ...getBoardData
       }
     }
     const response = await axios.get("http://localhost:8080/main/board", data);
-    console.log(response)
+
     for(let i = 0; i < response.data.boards.length; i++){
       if(response.data.boards[i].boardModifyFlag){
         setModifyBoardEditedFlag(prevState => ({...prevState, [response.data.boards[i].boardId]: true}))
-        console.log(modifyBoardEditedFlag)
       }
     }
     return response;
@@ -37,22 +34,9 @@ const Main = () => {
     enabled: getBoardsFlag,
     onSuccess: () => {
       setGetBoardsFlag(false);
+      getBoardData.searchValue = ""
     },
   });
-
-  const searchBords = useQuery(["searchBoards"], async() => {
-    const data = {
-        searchValue: searchValue
-    }
-    const response = await axios.get("http://localhost:8080/main/board/search", data)
-    console.log(response)
-    return response;
-  }, {
-    enabled: getSearchBoardsFlag,
-    onSuccess: () => {
-      setGetSearchBoardsFlag(false);
-    }
-  })
 
   const increaseViews = useMutation(async({userId, boardId}) => {
     const option = {
@@ -71,8 +55,18 @@ const Main = () => {
     }
   })
 
+  const searchOnKeyUp = (e) => {
+    if(e.keyCode === 13){
+      searchButtonHandle();
+    }
+  }
+
   const searchButtonHandle = () => {
-    setGetSearchBoardsFlag(true);
+    setGetBoardsFlag(true);
+  }
+
+  const mainTitleHandle = () => {
+    window.location.href = "http://localhost:3000/"
   }
 
   const pagination = () => {
@@ -80,7 +74,7 @@ const Main = () => {
       return <div>로딩중</div>;
     }
   
-    const nowPage = page.page;
+    const nowPage = getBoardData.page;
   
     const lastPage = getBoards.data.data.totalCount % 15 === 0
       ? getBoards.data.data.totalCount / 15
@@ -89,7 +83,7 @@ const Main = () => {
     const startIndex = nowPage % 5 === 0 ? nowPage - 4 : nowPage - (nowPage % 5) + 1;
     const endIndex = startIndex + 4 <= lastPage ? startIndex + 4 : lastPage;
   
-    const pageNumbers = [];
+    const pageNumbers = new Array();
   
     for (let i = startIndex; i <= endIndex; i++) {
       pageNumbers.push(i);
@@ -97,38 +91,19 @@ const Main = () => {
   
     return (
       <>
-        <button
-          disabled={nowPage === 1}
-          onClick={() => {
-            setPage({ ...page, page: 1 });
-            setGetBoardsFlag(true);
-          }}
-        >
-          처음으로
-        </button>
+        <button disabled={nowPage === 1} onClick={() => {
+            setGetBoardData({ ...getBoardData, page: 1 });
+            setGetBoardsFlag(true);}}>처음으로</button>
   
         {pageNumbers.map((page) => (
-          <button
-            onClick={() => {
-              setPage({ ...page, page });
-              setGetBoardsFlag(true);
-            }}
-            disabled={page === nowPage}
-            key={page}
-          >
-            {page}
-          </button>
-        ))}
+          <button onClick={() => {
+              setGetBoardData({ ...getBoardData, page});
+              setGetBoardsFlag(true);}}
+            disabled={page === nowPage} key={page}>{page}</button>))}
   
-        <button
-          disabled={nowPage === lastPage}
-          onClick={() => {
-            setPage({ ...page, page: lastPage });
-            setGetBoardsFlag(true);
-          }}
-        >
-          끝으로
-        </button>
+        <button disabled={nowPage === lastPage} onClick={() => {
+            setGetBoardData({ ...getBoardData, page: lastPage });
+            setGetBoardsFlag(true);}}>끝으로</button>
       </>
     );
   };
@@ -159,12 +134,16 @@ const Main = () => {
   }
 
   return (
-    <div css={s.mainContainer}>
-        <div css={s.mainTitle}>자유게시판</div>
+    <div css={s.mainContainer} >
+        <div css={s.mainTitle}>
+          <label css={s.mainTitleText} onClick={mainTitleHandle}>
+            자유게시판
+          </label>
+        </div>
       <header css={s.header}>
         <div css={s.searchBarAndWriteButtonContainer}>
           <div css={s.searchBarContainer}>
-            <input css={s.searchInput} onChange={searchBoardHandle} type="text" placeholder='검색어를 입력해주세요.' name='searchValue' />
+            <input css={s.searchInput} onChange={searchBoardHandle} onKeyUp={searchOnKeyUp} type="text" placeholder='검색어를 입력해주세요.' name='searchValue' value={getBoardData.searchValue} />
             <button css={s.searchButton} onClick={searchButtonHandle}>검색</button>
           </div>
           <div css={s.writeButtonContainer}>
@@ -184,7 +163,7 @@ const Main = () => {
             <th>수정 여부</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody css={s.tbodyContainer}>
           {getBoards.isLoading ? (
             <tr>
               <td>Loading...</td>
@@ -192,7 +171,7 @@ const Main = () => {
           ) : getBoards.data !== undefined ? (
             getBoards.data.data.boards.map((board, index) => (
               <tr css={s.tableTR2} onClick={() => readBoardHandle(board.userId, board.boardId)} key={board.boardId}>
-                <td css={s.numberTable}>{(page.page - 1) * 15 + index + 1}</td>
+                <td css={s.numberTable}>{(getBoardData.page - 1) * 15 + index + 1}</td>
                 <td css={s.titleTable}>{board.boardTitle}</td>
                 <td css={s.dateTable}>{board.boardDate}</td>
                 <td css={s.nicknameTable}>{board.username}</td>
@@ -209,7 +188,7 @@ const Main = () => {
         </tbody>
       </table>
       </main>
-      <footer>
+      <footer css={s.footerContainer}>
         {pagination()}
       </footer>
     </div>

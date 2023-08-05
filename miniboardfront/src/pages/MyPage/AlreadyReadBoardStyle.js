@@ -89,15 +89,17 @@ export const nicknameTable = css`
 
 export const viewsTable = css`
     text-align: center;
+    border-right: 1px solid #dbdbdb;
     border-bottom: 1px solid #dbdbdb;
 `;
 
 export const readDateTable = css`
+border-right: 1px solid #dbdbdb;
     border-bottom: 1px solid #dbdbdb;
 `;
 
 export const modifyTable = css`
-    font-size: 10px;
+    font-size: 15px;
     color: red;
     border-bottom: 1px solid #dbdbdb;
 `;

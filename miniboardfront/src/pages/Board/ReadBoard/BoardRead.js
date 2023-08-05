@@ -17,7 +17,6 @@ const BoardRead = () => {
     const [ replyCommentFlag, setReplyCommentFlag ] = useState({});
     const [ getReplyCommentFlag, setGetReplyCommentFlag] = useState(false);
     const [ getCommentId, setGetCommentId ] = useState("");
-    const [ openComment, setOpenComment ] = useState(null);
 
     const commentOnChangeHandle = (e) => {
         const { name, value } = e.target;
@@ -153,6 +152,7 @@ const BoardRead = () => {
                 }
             }
             const response  = await axios.get("http://localhost:8080/read/replycomment", option)
+        
             return response;
         }
     }, {
@@ -305,7 +305,7 @@ const BoardRead = () => {
                                                     <div css={s.replyDate}> 
                                                         {replyComment.nickname}
                                                         {" / " + replyComment.replyCommentDate}
-                                                        <button css={s.replyCommentDeleteButton} onClick={() => deleteReplyCommentHandle(replyComment.replyCommentId)}>삭제</button>
+                                                        <button css={s.replyCommentDeleteButton(replyComment.flag)} onClick={() => deleteReplyCommentHandle(replyComment.replyCommentId)}>삭제</button>
                                                     </div>
                                                     <div css={s.replyCommentBox}>
                                                         {replyComment.replyComment}

@@ -22,10 +22,18 @@ export const mainTitle = css`
     width: 200px;
     /* height: 50px; */
 
+
+/* border: 1px solid #121212; */
+`;
+
+export const mainTitleText = css`
+    
     font-weight: 600;
     font-size: 35px;
 
-/* border: 1px solid #121212; */
+    &:hover{
+        cursor: pointer;
+    }
 `;
 
 export const searchBarAndWriteButtonContainer = css`
@@ -51,8 +59,8 @@ export const searchBarContainer = css`
 `;
 
 export const searchInput = css`
-    width: 300px;
-    height: 20px;
+    width: 400px;
+    height: 25px;
 `;
 
 export const searchButton = css`
@@ -79,6 +87,13 @@ export const writeButton = css`
     &:active {
         background-color: #dbdbdb;
     }
+`;
+
+export const tbodyContainer = css`
+    
+    /* height: 550px; */
+
+    /* border: 2px solid #121212; */
 `;
 
 export const tableContainer = css`
@@ -108,7 +123,7 @@ export const thTitle = css`
 export const tableTR2 = css`
     position: relative;
     text-align: center;
-    height: 30px;
+    /* height: 300px; */
 
     &:hover {
         background-color: #fafafa;
@@ -147,6 +162,7 @@ export const nicknameTable = css`
 `;
 
 export const viewsTable = css`
+    border-right: 1px solid #dbdbdb;
     border-bottom: 1px solid #dbdbdb;
     `;
 
@@ -154,4 +170,16 @@ export const modifyTable = css`
     font-size: 15px;
     color: red;
     border-bottom: 1px solid #dbdbdb;
+`;
+
+export const footerContainer = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 100px;
+    width: 1200px;
+    height: 50px;
+
+/* border: 1px solid #121212 */
 `;

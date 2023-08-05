@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mini.board.miniprojectBoard.dto.board.request.SearchBoardRequestDto;
 import com.mini.board.miniprojectBoard.service.board.MainBoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,22 +28,15 @@ public class MainBoardController {
 	}
 
 	@GetMapping("/board")
-	public ResponseEntity<?> getBoards(int page) {
-
-		return ResponseEntity.ok().body(mainBoardService.getBoards(page));
+	public ResponseEntity<?> getBoards(SearchBoardRequestDto searchBoardRequestDto) {
+		System.out.println(searchBoardRequestDto);
+		return ResponseEntity.ok().body(mainBoardService.getBoards(searchBoardRequestDto));
 	}
 	
 	@PostMapping("/board/views")
 	public ResponseEntity<?> increaseViews(@RequestBody Map<String, Object> boardData) {
 
 		return ResponseEntity.ok().body(mainBoardService.increaseViews(boardData));
-	}
-	
-	@GetMapping("/board/search")
-	public ResponseEntity<?> getSearchBoards(Map<String, Object> searchValue) {
-		System.out.println(searchValue);
-		return null;
-//		return ResponseEntity.ok().body(mainBoardService);
 	}
 	
 }

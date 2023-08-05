@@ -12,10 +12,11 @@ import com.mini.board.miniprojectBoard.entity.User;
 public interface MainBoardRepository {
 
 	public User getUserInfo(Map<String, Object> userInfoMap); 
-	public List<Board> getBoards(int index);
-	public int getTotalCount(int index);
+	public List<Board> getBoards(Map<String, Object> searchBoardMap);
+	public int getTotalCount(Map<String, Object> map);
 	
 	public int readBoard(Map<String, Object> map);
 	public List<Map<String, Object>> alreadyReadBoard(Map<String, Object> map);
 	public int increaseViews(Map<String, Object> boardData);
+	public List<Board> getSearchBoards(Map<String, Object> searchBoardMap);
 }
