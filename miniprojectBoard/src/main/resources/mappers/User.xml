@@ -23,6 +23,14 @@
 		<result property="roleName" column="role_name"/>
 	</resultMap>
 		
+	<select id="getQuestionCategory" resultType="com.mini.board.miniprojectBoard.dto.auth.RegisterQuestionCategoryResponseDto">
+	SELECT
+		question_id AS questionId,
+		question AS question
+	FROM
+		question_tb
+	</select>
+	
 	<select id="findUserByUsername" resultMap="UserMap">
 		select
 			ut.user_id,
@@ -59,7 +67,7 @@
 	useGeneratedKeys="true"
 	keyProperty="userId">
 		insert into user_tb
-		values (0, #{username}, #{password}, #{nickname})
+		values (0, #{username}, #{password}, #{nickname}, #{questionId}, #{answer})
 	</insert>
 	
 	<insert id="saveAuthority" parameterType="com.mini.board.miniprojectBoard.entity.Authority">
@@ -67,5 +75,12 @@
 		values (0, #{userId}, #{roleId})
 	</insert>
 	
+	<update id="updatePassword" parameterType="com.mini.board.miniprojectBoard.entity.User">
+		UPDATE user_tb
+		SET
+			password = #{password}
+		WHERE
+			user_id = #{userId}
+	</update>
 
 </mapper>

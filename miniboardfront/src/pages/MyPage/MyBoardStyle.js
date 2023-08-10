@@ -1,24 +1,22 @@
 import { css } from "@emotion/react";
 
 export const myBoardContainer = css`
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
+    width: 1000px;
+    height: 600px;
+    background-color: #f9ebee;
 
-    width: 1200px;
-    height: 830px;
+    border: 1px solid #121212;
+    border-radius: 25px;
+
+    overflow: auto;
 `;
 
 export const myBoardLabelContainer = css`
-    width: 1200px;
-    height: 80px;
-
-    margin: 30px auto;
-    margin-bottom: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 900px;
+    height: 100px;
 `;
 
 export const myBoardLabel = css`
@@ -27,32 +25,26 @@ export const myBoardLabel = css`
 `;
 
 export const tableContainer = css`
-    width: 1150px;
-
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
+    width: 950px;
+    margin: auto;
 `;
 
 export const thead = css`
-    /* text-size-adjust: 50px; */
-    height: 25px;
-
     text-align: center;
-    text-justify: center;
-    margin: auto;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 600;
     border-top: 2px solid #121212;
     border-bottom: 2px solid #121212;
 `;
 
 export const thTitle = css`
-    width: 600px;
+    width: 470px;
 `;
 export const tableTR2 = css`
+    position: relative;
     text-align: center;
-    height: 30px;
+    height: 25px;
+    background-color: #FBF5F6;
 
     td {
         position: relative;
@@ -82,38 +74,50 @@ export const tableTR2 = css`
 export const numberTable = css`
     border-bottom: 1px solid #dbdbdb;
     border-right: 1px solid #dbdbdb;
+    font-size: 12px;
 `;
 
 export const titleTable = css`
-    text-align: center;
     white-space: nowrap;
     overflow: hidden;
+    max-width: 470px;
     text-overflow: ellipsis;
-    max-width: 300px;
     border-bottom: 1px solid #dbdbdb;
     border-right: 1px solid #dbdbdb;
+    font-size: 12px;
+    padding: 5px 5px 0px 5px;
 `;
 
 export const dateTable = css`
     border-bottom: 1px solid #dbdbdb;
     border-right: 1px solid #dbdbdb;
+    font-size: 12px;
 `;
 export const nicknameTable = css`
     border-bottom: 1px solid #dbdbdb;
     border-right: 1px solid #dbdbdb;
-    color: #CC9074;
+    color: #7a49a5;
+    width: 120px;
+    font-size: 12px;
 `;
 
 export const viewsTable = css`
+    border-right: 1px solid #dbdbdb;
     border-bottom: 1px solid #dbdbdb;
-    `;
+    font-size: 12px;
+`;
 
 export const deleteAndModifyButton = css`
     font-size: 14px;
     width: 100px;
     margin-left: 30px;
-
-    &:hover{
+    background-color: #FBF5F6;
+    font-weight: 600;
+    &:hover {
+        background-color: #FAEFF1;
         font-weight: 600;
+        box-shadow: 0px 0px 10px 5px #C7BCBE;
+        border: none;
+        cursor: pointer;
     }
 `;

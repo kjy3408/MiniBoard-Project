@@ -88,7 +88,7 @@ const ModifyBoard = () => {
                     {errorMessages.modifyContent}
                 </div>
                 <div css={s.registerButtonContainer}>
-                    <button onClick={() => modifyMyBoardHandle(getBoard.data.data.userId)}>등록하기</button>
+                    <button css={s.registerButton} onClick={() => modifyMyBoardHandle(getBoard.data.data.userId)}>등록하기</button>
                 </div>
             </main>
         </div>

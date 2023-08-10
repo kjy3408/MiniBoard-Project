@@ -29,7 +29,7 @@ public class MainBoardController {
 
 	@GetMapping("/board")
 	public ResponseEntity<?> getBoards(SearchBoardRequestDto searchBoardRequestDto) {
-		System.out.println(searchBoardRequestDto);
+		
 		return ResponseEntity.ok().body(mainBoardService.getBoards(searchBoardRequestDto));
 	}
 	

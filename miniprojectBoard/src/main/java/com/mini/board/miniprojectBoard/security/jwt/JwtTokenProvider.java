@@ -38,7 +38,7 @@ public class JwtTokenProvider {
 	
 	public String generateToken(Authentication authentication) {
 		String username = null;
-		System.out.println(authentication);
+//		System.out.println(authentication);
 		
 		if(authentication.getPrincipal().getClass() == PrincipalUser.class) {
 			PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();
@@ -53,7 +53,8 @@ public class JwtTokenProvider {
 		StringBuilder builder = new StringBuilder();
 		
 		authentication.getAuthorities().forEach(authority -> {
-			builder.append(authority.getAuthority() + ",");
+			builder.append(authority.getAuthority());
+			builder.append(",");
 		});
 		
 		builder.delete(builder.length() - 1, builder.length());
@@ -81,15 +82,15 @@ public class JwtTokenProvider {
 			return true;
 			
 		} catch (SecurityException | MalformedJwtException e) {
-			log.info("Invaild JWT Token", e);
+//			log.info("Invaild JWT Token", e);
 		} catch (ExpiredJwtException e) {
-			log.info("Expired JWT Token", e);
+//			log.info("Expired JWT Token", e);
 		} catch (UnsupportedJwtException e) {
-			log.info("Unsupported JWT Token", e);
+//			log.info("Unsupported JWT Token", e);
 		} catch (IllegalArgumentException e) {
-			log.info("IllegalArgument JWT Token", e);
+//			log.info("IllegalArgument JWT Token", e);
 		} catch (Exception e) {
-			log.info("JWT Token Error", e);
+//			log.info("JWT Token Error", e);
 		}
 		
 		return false;

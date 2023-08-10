@@ -3,13 +3,15 @@ import { css } from "@emotion/react";
 export const myPageContainer = css`
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
 
-    width: 1200px;
-    height: 830px;
+    width: 1000px;
+    height: 450px;
 
-    /* border: 1px solid #121212; */
+    
+    background-color: #f9ebee;
+    border-radius: 25px;
+    border: 1px solid #121212;
 `;
 
 export const myPageTitleContainer = css`
@@ -17,16 +19,12 @@ export const myPageTitleContainer = css`
     justify-content: center;
     align-items: center;
     margin: 0px auto;
-    width: 1200px;
+    width: 1000px;
     height: 100px;
-
-    /* border: 1px solid #121212; */
 `;
 
 export const myPageTitle = css`
-
     font-size: 30px;
-
     font-weight: 600;
 `;
 
@@ -35,25 +33,24 @@ export const myPageButtonContainer = css`
     justify-content: center;
     align-items: center;
     
-    width: 1200px;
-    height: 100px;
-    margin-top: 50px;
+    width: 1000px;
+    height: 70px;
+    margin-top: 30px;
     /* border: 1px solid #121212; */
 `;
 
 export const myPageButton = css`
     border:none;
-    border-bottom: 2px solid gray;
-    border-radius: 20px;
-    background-color: #fafafa;
-    font-size: 20px;
-    box-shadow: 0px 0px 4px 0px;
-
+    border-radius: 7px;
+    background-color: #F3F4FB;
+    font-size: 15px;
+    border: 1px solid #121212;
     &:hover {
-        box-shadow: 1px 0px 5px 2px;
+        box-shadow: 0px 0px 10px 0px #646161;
+        border: none;
         font-weight: 600;
     }
 
-    width: 500px;
-    height: 80px;
+    width: 300px;
+    height: 40px;
 `;

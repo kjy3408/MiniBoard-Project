@@ -30,11 +30,19 @@ public class SignupDto {
 	@NotBlank(message = "닉네임을 입력하세요.")
 	private String nickname;
 	
+	@NotBlank(message = "질문을 선택하세요.")
+	private String questionId;
+	
+	@NotBlank(message = "답변을 입력하세요.")
+	private String answer;
+	
 	public User toEntity() {
 		return User.builder()
 				.username(username)
 				.password(new BCryptPasswordEncoder().encode(password))
 				.nickname(nickname)
+				.questionId(questionId)
+				.answer(answer)
 				.build();
 	}
 }

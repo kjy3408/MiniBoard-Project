@@ -18,7 +18,6 @@ const SideBar = () => {
             setLoginFlag(true);
             //로그인OK
         }else{
-            console.log("로그인?")
             setLoginFlag(false)
             //로그인NO
         }

@@ -1,14 +1,22 @@
 package com.mini.board.miniprojectBoard.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.mini.board.miniprojectBoard.dto.auth.LoginReqDto;
+import com.mini.board.miniprojectBoard.dto.auth.PasswordChangeDto;
+import com.mini.board.miniprojectBoard.dto.auth.RegisterQuestionCategoryResponseDto;
 import com.mini.board.miniprojectBoard.dto.auth.SignupDto;
 import com.mini.board.miniprojectBoard.entity.Authority;
 import com.mini.board.miniprojectBoard.entity.User;
@@ -26,6 +34,16 @@ public class AuthenticationService implements UserDetailsService {
 	private final UserRepository userRepository;
 	private final AuthenticationManagerBuilder authenticationManagerBuilder;
 	private final JwtTokenProvider jwtTokenProvider;
+	
+	public List<RegisterQuestionCategoryResponseDto> getQuestionCategory() {
+		
+		List<RegisterQuestionCategoryResponseDto> categoryList = new ArrayList<>();
+		userRepository.getQuestionCategory().forEach(category -> {
+			categoryList.add(category);
+		});
+		
+		return categoryList;
+	}
 	
 	public void checkDuplicatedUsername(String username) {
 		if(userRepository.findUserByUsername(username) != null) {
@@ -94,5 +112,35 @@ public class AuthenticationService implements UserDetailsService {
 	public int userDelete(User user) {
 		userRepository.userDelete(user);
 		return userRepository.userDelete(user);
+	}
+	
+	public void updatePassword(PasswordChangeDto passwordChangeDto) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+	    if (!StringUtils.hasText(passwordChangeDto.getOldPassword())) {
+	        throw new CustomException("MisMatchPassword", 
+	            ErrorMap.builder().put("oldPassword", "비밀번호를 입력해주세요.").build());
+	    }
+	    
+		if(!encoder.matches(passwordChangeDto.getOldPassword(),principalUser.getPassword())) {
+			throw new CustomException("MisMatchPassword", 
+					ErrorMap.builder().put("oldPassword", "사용자 정보를 확인하세요").build());
+			
+		}
+		
+		if(!passwordChangeDto.getNewPassword().equals(passwordChangeDto.getCheckPassword())) {
+			throw new CustomException("MisMatchPassword", 
+					ErrorMap.builder().put("checkPassword", "새 비밀번호와 비밀번호 확인이 일치하지 않습니다.").build());
+		}
+		String password = (new BCryptPasswordEncoder().encode(passwordChangeDto.getCheckPassword()));
+		int userId = principalUser.getUserId();
+		
+		User userEntity = User.builder()
+							.userId(userId)
+							.password(password)
+							.build();
+		userRepository.updatePassword(userEntity);
+
 	}
 }

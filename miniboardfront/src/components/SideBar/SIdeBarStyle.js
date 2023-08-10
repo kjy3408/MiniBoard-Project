@@ -4,16 +4,14 @@ import { addCommentContainer } from './../../pages/Board/ReadBoard/BoardReadStyl
 export const sideBarContainer = css`
     width: 300px;
     height: 100%;
-    /* position: absolute; */
     position: fixed;
     top: 0px;
-    left: -270px;
+    left: -200px;
     z-index: 999;
-    /* border: 1px solid #121212; */
     transition: left 0.5s ease-out;
     display: flex;
     flex-direction: column;
-    background-color: #dbdbdb;
+    background-color: #dedeed;
     .myPageMenu {
         display: none;
     }
@@ -51,14 +49,18 @@ export const myPageButton = css`
     width: 300px;
     height: 60px;
     border:none;
-    border-bottom: 2px solid #dbdbdb;
-    background-color: #fafafa;
- 
+    /* border-bottom: 2px solid #dbdbdb; */
+    background-color: #F1F1F7;
+    border-radius: 10px;
     &:hover {
         cursor: pointer;
         
-        transition: 0.5s;
-        background-color: #ffc045;    
+        font-weight: 600;
+        font-size: 17px;
+        transition: 0.3s;
+        background-color: #EDDEDE;    
+        
+        box-shadow: 0px 0px 10px 0px #121212;
     }
 
 `;
@@ -68,12 +70,16 @@ export const sideBarButton = css`
     height: 60px;
     border:none;
     border-bottom: 2px solid #dbdbdb;
-    background-color: #fafafa;
-
+    background-color: #F1F1F7;
+    border-radius: 10px;
+    
     &:hover {
         cursor: pointer;
         
-        transition: 0.5s;
-        background-color: #ffc045;
+        font-weight: 600;
+        font-size: 17px;
+        transition: 0.3s;
+        background-color: #EDDEDE;
+        box-shadow: 0px 0px 10px 0px #121212;
     }
 `;

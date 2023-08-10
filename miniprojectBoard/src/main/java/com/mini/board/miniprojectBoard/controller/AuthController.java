@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mini.board.miniprojectBoard.aop.annotation.ValidAspect;
 import com.mini.board.miniprojectBoard.dto.auth.LoginReqDto;
+import com.mini.board.miniprojectBoard.dto.auth.PasswordChangeDto;
 import com.mini.board.miniprojectBoard.dto.auth.SignupDto;
 import com.mini.board.miniprojectBoard.service.AuthenticationService;
 
@@ -23,6 +25,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthController{
 	private final AuthenticationService authenticationService;
+	
+	@GetMapping("/register/category")
+	public ResponseEntity<?> getQuestionCategory() {
+		
+		return ResponseEntity.ok().body(authenticationService.getQuestionCategory());
+	}
 	
 	@ValidAspect
 	@PostMapping("/signup")
@@ -49,6 +57,15 @@ public class AuthController{
 	@GetMapping("/userInfo")
 	public ResponseEntity<?> getUserInfo(@RequestHeader(value="Authorization") String accessToken) {
 		return ResponseEntity.ok().body(authenticationService.getUserInfo(accessToken));
+	}
+	
+	@ValidAspect
+	@PutMapping("/updatepassword")
+	public ResponseEntity<?> passwordChange(@Valid @RequestBody PasswordChangeDto passwordChangeDto, BindingResult bindingResult){
+		System.out.println(passwordChangeDto);
+		authenticationService.updatePassword(passwordChangeDto);
+		
+		return ResponseEntity.ok().body(null);
 	}
 	
 }

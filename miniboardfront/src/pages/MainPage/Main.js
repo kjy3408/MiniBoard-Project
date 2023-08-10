@@ -91,17 +91,17 @@ const Main = () => {
   
     return (
       <>
-        <button disabled={nowPage === 1} onClick={() => {
+        <button css={s.pageButton}disabled={nowPage === 1} onClick={() => {
             setGetBoardData({ ...getBoardData, page: 1 });
             setGetBoardsFlag(true);}}>처음으로</button>
   
         {pageNumbers.map((page) => (
-          <button onClick={() => {
+          <button css={s.pageNumberButton} onClick={() => {
               setGetBoardData({ ...getBoardData, page});
               setGetBoardsFlag(true);}}
             disabled={page === nowPage} key={page}>{page}</button>))}
   
-        <button disabled={nowPage === lastPage} onClick={() => {
+        <button css={s.pageButton} disabled={nowPage === lastPage} onClick={() => {
             setGetBoardData({ ...getBoardData, page: lastPage });
             setGetBoardsFlag(true);}}>끝으로</button>
       </>
@@ -135,12 +135,12 @@ const Main = () => {
 
   return (
     <div css={s.mainContainer} >
+      <header css={s.header}>
         <div css={s.mainTitle}>
           <label css={s.mainTitleText} onClick={mainTitleHandle}>
             자유게시판
           </label>
         </div>
-      <header css={s.header}>
         <div css={s.searchBarAndWriteButtonContainer}>
           <div css={s.searchBarContainer}>
             <input css={s.searchInput} onChange={searchBoardHandle} onKeyUp={searchOnKeyUp} type="text" placeholder='검색어를 입력해주세요.' name='searchValue' value={getBoardData.searchValue} />
@@ -163,7 +163,7 @@ const Main = () => {
             <th>수정 여부</th>
           </tr>
         </thead>
-        <tbody css={s.tbodyContainer}>
+        <tbody>
           {getBoards.isLoading ? (
             <tr>
               <td>Loading...</td>

@@ -14,4 +14,6 @@ public class UserInfoResponseDto {
 	private int userId;
 	private String username;
 	private String nickname;
+	private String questionId;
+	private String answer;
 }

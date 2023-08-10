@@ -41,7 +41,7 @@ const BoardWrite = () => {
         <div css={s.writeBoardContainer}>
             <header css={s.headerContainer}>
                 <label css={s.text}>
-                    글  쓰  기
+                    글 쓰 기
                 </label>
             </header>
             <main css={s.mainConatiner}> 
@@ -58,7 +58,7 @@ const BoardWrite = () => {
                     {errorMessages.content}
                 </div>
                 <div css={s.registerButtonContainer}>
-                    <button onClick={registerBoardHandle}>등록하기</button>
+                    <button css={s.registerButton} onClick={registerBoardHandle}>등록하기</button>
                 </div>
             </main>
         </div>

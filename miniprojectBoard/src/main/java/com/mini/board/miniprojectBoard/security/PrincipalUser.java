@@ -23,6 +23,8 @@ public class PrincipalUser implements UserDetails {
 	private String username;
 	private String password;
 	private String nickname;
+	private String questionId;
+	private String answer;
 	private List<Authority> authorities;
 
 	@Override

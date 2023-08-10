@@ -3,70 +3,112 @@ import { css } from "@emotion/react";
 export const writeBoardContainer = css`
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
-    width: 1200px;
-    height: 700px;
-
+    width: 800px;
+    height: 550px;
+    background-color: #f9ebee;
+    border-radius: 25px;
 border: 1px solid #121212;
 `;
 
 export const headerContainer = css`
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: 1000px;
+    width: 800px;
     height: 100px;
-/* border: 1px solid #121212; */
 `;
- export const text = css`
+
+export const text = css`
     font-size: 30px;
     font-weight: 600;
-
-    margin: 40px 0px 40px 0px;
  `;
 
 export const mainConatiner = css`
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
 
-    width: 1000px;
-    height: 600px;
-/* border: 1px solid blue; */
+    width: 800px;
+    height: 400px;
 `;
 
 export const titleContainer = css`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 900px;
+    width: 700px;
     height: 60px;
+    
 `;
 
 export const titleInput = css`
-    width: 800px;
-    height: 50px;
+    width: 600px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    &:hover{
+        box-shadow: 0px 0px 5px #C7BCBE;
+        border: none;
+    }
+    
+    &:focus{
+        box-shadow: 0px 0px 5px 3px #C7BCBE;
+        border: none;
+        outline: none;
+    }
 `;
 
 export const contentInput = css`
-/* margin-top: 5px; */
-    width: 800px;
-    height: 450px;
+    width: 600px;
+    height: 300px;
+    border: none;
+    border-radius: 5px;
+    resize: none;
+    &:hover{
+        box-shadow: 0px 0px 5px #C7BCBE;
+        border: none;
+    }
+    
+    &:focus{
+        box-shadow: 0px 0px 5px 3px #C7BCBE;
+        border: none;
+        outline: none;
+    }
+    margin: 20px 0px 5px 0px;
 `;
 
 export const registerButtonContainer = css`
     display: flex;
     justify-content: flex-end;
 
-    width: 805px;
-    height: 40px;
-
-    /* border: 1px solid #121212; */
+    width: 605px;
+    height: 30px;
+    margin-top: 20px;
 `;
 
+export const registerButton = css`
+    border-radius: 5px;
+    border: 1px solid #121212;
+    background-color: #ECEAFD;
+    border: 1px solid #121212;
+    color: #0c3934;
+
+    &:hover {
+        background-color: #C7BCBE;
+        color: #312F2F;
+        border: none;
+        box-shadow: 0px 0px 8px #646161;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    &:active {
+        background-color: #e5e8dc;
+    }
+`;
 export const errorMessages = css`
-font-size: 15px;
+    font-size: 15px;
     color: red;
 `;
