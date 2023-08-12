@@ -3,145 +3,142 @@ import { css } from "@emotion/react";
 export const BoardReadContainer = css`
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
-    width: 1200px;
-    /* height: 830px; */
+    width: 1000px;
+    background-color: #f9ebee;
+    border-radius: 25px;
+border: 1px solid #121212;
 `;
 
 export const headerContainer = css`
     display: flex;
     justify-content: center;
+    align-items: center;
 
-    margin-top: 60px;
-    padding: 30px;
-    overflow: auto; 
-
+    padding: 20px;
     width: 800px;
-    /* height: 100px; */
-    border: 1px solid #121212;
-    `;
+`;
 
 export const boardTitle = css`
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
     font-size: 20px;
     font-weight: 600;
 `;
 
 export const mainContainer = css`
-    display: flex;
-    /* justify-content: center; */
-    /* align-items: center; */
-    width: 800px;
+    /* display: flex; */
+    width: 1000px;
     height: 500px;
+
     overflow: auto;
     border: 1px solid #121212;
-    `;
+`;
 
 export const boardContent = css`
     padding: 30px;
+    margin: auto;
+`;
+
+export const boardContentDetail = css`
+    font-size: 14px;
+    line-height: 18px;
+    /* background-color: #fafafa; */
+    /* margin: auto; */
+    padding: 10px;
+    
 `;
 
 export const footerContainer = css`
-    /* display: flex; */
-    
     width: 800px;
-    /* height: 800px; */
-    /* border: 1px solid #121212; */
 `;
 
 export const addCommentContainer = css`
     display: flex;
-    /* flex-direction: column; */
-    /* justify-content: center; */
-    /* align-items: center; */
     width: 800px;
     height: 100px;
-    /* border: 2px solid #121212; */    
 `;
 
 export const commentTextarea = css`
     width: 700px;
     height: 75px;
-    margin: 10px 0px 0px 5px;
+    margin: auto;
     background-color: #fafafa;
+    border: none;
+    border-radius: 7px;
     resize: none;
-    border: 1px solid #dbdbdb;
+    padding: 10px;
 `;
 
 export const commentButton = css`
     width: 80px;
-    height: 80px;
-    /* margin: 10px 7px 0px 0px; */
+    height: 75px;
+    /* padding: 5px; */
     margin: auto;
+    border-radius: 5px;
+    background-color: #ECEAFD;
+    border: 1px solid #121212;
+
+    &:hover {
+        background-color: #C7BCBE;
+        color: #312F2F;
+        border: none;
+        box-shadow: 0px 0px 8px #646161;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    &:active {
+        background-color: #e5e8dc;
+    }
 `;
 
 export const comentContainer = css`
     width: 770px;
-    /* height: 500px; */
     margin: auto;
     padding: 10px;
-    /* border: 1px solid #121212; */
 `;
 
 export const comment = css`
     position: relative;
-
     width: 750px;
-    /* height: 110px; */
     padding: 10px;
-    /* margin: 0px auto auto 20px; */
     margin: 0px 0px 20px 0px;
-    background-color: #fafafa;
-    border:1px solid #dbdbdb;
+    border-radius: 5px;
     border: 1px solid #121212;
-    &:hover {
-        position: relative;
-}
+    background-color: #e5e8dc;
+`;
 
-    `;
+export const commentDetail = css`
+    font-size: 13px;
+    line-height: 15px;
+`;
 
 export const commentDate = css`
     width: 730px;
-    /* height: 20px; */
     display: flex;
     justify-content: space-between;
-    /* font-size: 16px; */
-    /* border: 1px solid #121212; */
-`;
-
-export const commentNickname = css`
-    width: 120px;
-    font-weight: 600;
-    /* font-size: 20px; */
+    font-size: 16px;
 `;
 
 export const nicknameFontSize = css`
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 600;
 `;
 
 export const dateFontSize = css`
-    font-size: 15px;
+    font-size: 14px;
 `;
 
 export const commentText = css`
     width: 708px;
-    height: 80px;
     margin: auto;
     padding: 10px;
 `;
 
 export const buttonContainer = css`
     display: flex;
-    /* flex-wrap: wrap; */
     justify-content: flex-end;
-    /* align-items: center; */
     width: 200px;
     height: 20px;
-/* border: 1px solid #121212; */
 `;
 
 export const commnetDeleteAndModifyButton = (buttonFlag) => css`
@@ -150,10 +147,10 @@ export const commnetDeleteAndModifyButton = (buttonFlag) => css`
     align-items: center;
     margin: 2px 0px 0px 2px;
     display: ${buttonFlag ? "flex" : "none"};
-
-    border: 1px solid #dbdbdb;
-    
-    background-color: #fafafa;
+    height: 20px;
+    border: 1px solid #121212;
+    border-radius: 5px;
+    background-color: #ECEAFD;
     
     &:hover {
         font-weight: 600;
@@ -166,13 +163,13 @@ export const commnetDeleteAndModifyButton = (buttonFlag) => css`
 
 export const recommentButton = css`
     width: 80px;
+    height: 20px;
     justify-content: center;
     align-items: center;
     margin: 2px 0px 0px 2px;
-
-    border: 1px solid #dbdbdb;
-    
-    background-color: #fafafa;
+    border: 1px solid #121212;
+    border-radius: 5px;
+    background-color: #ECEAFD;
     
     &:hover {
         font-weight: 600;
@@ -184,11 +181,10 @@ export const recommentButton = css`
 `;
 
 export const modifyCommentContainer = css`
-    width: 1200px;
-    height: 800px;
+    width: 1000px;
     background-color: #fafafa;
     margin: auto;
- border: 1px solid #121212;
+border: 1px solid #121212;
 `;
 
 export const modifyCommentTextarea = css`
@@ -198,19 +194,28 @@ export const modifyCommentTextarea = css`
     background-color: #fafafa;
     resize: none;
     border: 1px solid #dbdbdb;
+    border-radius: 7px;
+    margin: auto;
+    margin-bottom: 5px;
 `;
 
 export const modifyOkAndCancelContainer = css`
-    width: 725px;
-
+    width: 715px;
     display: flex;
     justify-content: flex-end;
 `;
 
 export const modifyOkAndCancelButton = css`
     width: 100px;
-    /* height: 20px; */
     font-size: 13px;
+    border: 1px solid #121212;
+    border-radius: 5px;
+    background-color: #ECEAFD;
+    
+    &:hover {
+        font-weight: 600;
+    }
+
 `;
 
 export const rplyCommentContainer = css`
@@ -221,8 +226,8 @@ export const rplyCommentContainer = css`
 `;
 
 export const replyCommentInputAndButtonBox = css`
-    width: 730px;
     display: flex;
+    width: 730px;
 `;
 
 export const replyCommentTextarea = css`
@@ -232,12 +237,16 @@ export const replyCommentTextarea = css`
     background-color: #fafafa;
     resize: none;
     border: 1px solid #dbdbdb;
+    border-radius: 7px;
 `;
 
 export const registerReplyCommentButton = css`
     width: 80px;
     height: 74px;
     margin: 10px 0px 0px 5px;
+    border: 1px solid #121212;
+    border-radius: 5px;
+    background-color: #ECEAFD;
 `;
 
 export const replyCommentData = css`
@@ -245,8 +254,15 @@ export const replyCommentData = css`
     flex-direction: column;
     margin: 10px auto 0px auto;
     width: 600px;
-    /* height: 80px; */
-border: 1px solid #dbdbdb;
+    border: 1px solid #dbdbdb;
+    border-radius: 7px;
+    background-color: #eee9dc;
+border: 1px solid #121212;
+`;
+
+export const replyCommentDetail = css`
+    font-size: 12px;
+    line-height: 14px;
 `;
 
 export const replyNickname = css`
@@ -256,9 +272,8 @@ export const replyNickname = css`
 
 export const replyDate = css`
     width: 600px;
-    /* height: 40px; */
     padding: 10px;
-    font-size: 13px;
+    font-size: 12px;
     display: flex;
     justify-content: space-between;
     
@@ -272,7 +287,6 @@ export const replyCommentDeleteButton  = (buttonFlag) => css`
 
 export const replyCommentBox = css`
     width: 600px;
-    /* height: 60px; */
     padding: 10px;
     font-size: 18px;
     font-weight: 600;

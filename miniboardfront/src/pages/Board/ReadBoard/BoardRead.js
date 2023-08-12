@@ -17,7 +17,7 @@ const BoardRead = () => {
     const [ replyCommentFlag, setReplyCommentFlag ] = useState({});
     const [ getReplyCommentFlag, setGetReplyCommentFlag] = useState(false);
     const [ getCommentId, setGetCommentId ] = useState("");
-    
+
     const commentOnChangeHandle = (e) => {
         const { name, value } = e.target;
         setCommentData({...commentData, [name]: value});
@@ -26,6 +26,7 @@ const BoardRead = () => {
     const modifyCommentOnChangeHandle = (commentId, e) => {
         const { name, value } = e.target;
         setModifyCommentData(prevState => ({ ...prevState, [name]: value, commentId: commentId }));
+        console.log(modifyCommentData.modifyComment)
     }
 
     const replyCommentOnChangeHandle = (commentId, e) => {
@@ -203,6 +204,7 @@ const BoardRead = () => {
     
     const modifyCancelHandle = () => {
         setModifyCommentFlag(false);
+        setModifyCommentData({...modifyComment})
     }
       
     const replyCommentButtonHandle = (commentId) => {
@@ -247,12 +249,12 @@ const BoardRead = () => {
         <div css={s.BoardReadContainer}>
             <header css={s.headerContainer}>
                 <div css={s.boardTitle}>
-                    {getBoard.data.data.boardTitle}
+                    <pre>{getBoard.data.data.boardTitle}</pre>
                 </div>
             </header>
             <main css={s.mainContainer}>
                 <div css={s.boardContent}>
-                    {getBoard.data.data.boardContent}
+                    <pre css={s.boardContentDetail}>{getBoard.data.data.boardContent}</pre>
                 </div>
             </main>
             <footer css={s.footerContainer}>
@@ -265,7 +267,7 @@ const BoardRead = () => {
                         <div key={comment.commentId} css={s.comment}>
                             {modifyCommentFlag[comment.commentId] ? (
                             <div key={comment.commentId}>
-                                <textarea css={s.modifyCommentTextarea} onChange={(e) => modifyCommentOnChangeHandle(comment.commentId, e)} type="text" name="modifyComment"  value={modifyCommentData.modifyComment} /> 
+                                <textarea css={s.modifyCommentTextarea} onChange={(e) => modifyCommentOnChangeHandle(comment.commentId, e)} type="text" name="modifyComment" value={modifyCommentData.modifyComment} /> 
                                 <div css={s.modifyOkAndCancelContainer}>
                                     <button css={s.modifyOkAndCancelButton} onClick={() => modifyOkButtonHandle(comment.commentId)}>등록하기</button>
                                     <button css={s.modifyOkAndCancelButton} onClick={modifyCancelHandle}>취소</button>
@@ -291,7 +293,7 @@ const BoardRead = () => {
                                     </div>
                                 </div>
                                 <div css={s.commentText}>
-                                    {comment.comment}
+                                    <pre css={s.commentDetail}>{comment.comment}</pre>
                                 </div>
                                 {replyCommentFlag[comment.commentId]  ? (
                                     <>
@@ -308,13 +310,8 @@ const BoardRead = () => {
                                                         <button css={s.replyCommentDeleteButton(replyComment.flag)} onClick={() => deleteReplyCommentHandle(replyComment.replyCommentId)}>삭제</button>
                                                     </div>
                                                     <div css={s.replyCommentBox}>
-                                                        {replyComment.replyComment}
+                                                        <pre css={s.replyCommentDetail}>{replyComment.replyComment}</pre>
                                                     </div>
-                                                    {/* <div css={s.buttonContainer}>
-                                                        <button css={s.commnetDeleteAndModifyButton(replyComment.flag)} onClick={() => modifyButtonHandle(replyComment.replyCommentId)}> 수정 </button>
-                                                        <button css={s.commnetDeleteAndModifyButton(replyComment.flag)} onClick={() => deleteButtonHandle(replyComment.replyCommentId)}> 삭제 </button>
-                                                        <button css={s.recommentButton} onClick={(e) => replyCommentButtonHandle(comment.commentId, e)}>답글 달기</button>
-                                                    </div> */}
                                                 </div>    
                                             )): ""}
                                         </div>

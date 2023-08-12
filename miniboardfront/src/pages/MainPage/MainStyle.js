@@ -8,6 +8,7 @@ export const mainContainer = css`
     width: 1000px;
     height: 600px;
     border-radius: 25px;
+    margin: auto;
 border: 1px solid #121212;
 `;
 

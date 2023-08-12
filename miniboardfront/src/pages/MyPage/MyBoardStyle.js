@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 
 export const myBoardContainer = css`
     width: 1000px;
-    height: 600px;
+    height: 650px;
     background-color: #f9ebee;
 
     border: 1px solid #121212;

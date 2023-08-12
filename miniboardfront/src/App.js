@@ -24,10 +24,8 @@ const container = css`
   align-items: center;
   justify-content: center;
   position: relative;
-
-  margin: 50px auto;
+  margin: 50px auto 30px auto;
   width: 1200px;
-
   overflow: auto;
 `;
 
@@ -52,7 +50,6 @@ function App() {
           <Route path="/myinfo/:userId" element={<AuthRoute path="/myinfo" element={<MyInfo/>}/>}/>
           <Route path="/mypage/modify/:boardId" element={<AuthRoute path="/mypage/momdify" element={<ModifyBoard/>}/>}/>
         </Routes>
-        
       </div>
     </>
   );

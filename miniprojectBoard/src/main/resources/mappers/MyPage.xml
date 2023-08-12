@@ -117,6 +117,8 @@
 			ut.user_id = #{userId}
 		ORDER BY
 			rt.read_id DESC
+		LIMIT
+			20;
 					
 	</select>
 	
