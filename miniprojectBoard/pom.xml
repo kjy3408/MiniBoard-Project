@@ -96,7 +96,6 @@
 		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson -->
 	</dependencies>
 
-
 	<build>
 		<plugins>
 			<plugin>

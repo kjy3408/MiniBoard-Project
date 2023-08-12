@@ -45,8 +45,6 @@ export const loginInput = css`
     width: 300px;
     height: 30px;
     border: none;
-    /* border-bottom: 2px solid #0c3934; */
-    /* box-shadow: 0px 3px 4px 0px #C7BCBE; */
     border-radius: 4px;
     &:hover{
         box-shadow: 0px 0px 5px #C7BCBE;
@@ -76,7 +74,6 @@ export const passwordErrorMessage = css`
 export const loginButton = css`
     width: 300px;
     border-radius: 5px;
-    /* font-size: 15px; */
     border: 1px solid #121212;
     background-color: #ECEAFD;
     border: 1px solid #121212;
@@ -100,12 +97,8 @@ export const loginButton = css`
 `;
 export const findIdAndPasswordContainer = css`
     display: flex;
+    justify-content: space-between;
     width: 300px;
-    /* border: 1px solid #121212; */
-`;
-
-export const findIdAndPasswordBox = css`
-    width: 160px;
 `;
 
 export const findIdAndPasswordButton = css`
@@ -121,15 +114,7 @@ export const findIdAndPasswordButton = css`
     }
 `;
 
-export const registerBox = css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 140px;
-`;
-
 export const registerButton = css`
-    width: 150px;
     border-radius: 5px;
     font-size: 14px;
     border: none;

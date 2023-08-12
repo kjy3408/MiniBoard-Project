@@ -82,5 +82,36 @@
 		WHERE
 			user_id = #{userId}
 	</update>
-
+	
+	<select id="findUsername" parameterType="hashmap" resultType="String">
+		SELECT
+			username
+		FROM
+			user_tb
+		WHERE
+			nickname = #{nickname}
+		AND question_id = #{questionId}
+		AND answer = #{findUsernameAnswer}
+	</select>
+	
+	<select id="findPassword" parameterType="hashmap" resultType="com.mini.board.miniprojectBoard.dto.auth.FindUserIdResponseDto">
+		SELECT
+			user_id as userId,
+			password as password
+		FROM
+			user_tb
+		WHERE
+			username = #{username}
+		AND question_id = #{questionId}
+		AND answer = #{findPasswordAnswer}
+			
+	</select>
+	
+	<update id="findUpdatePassword" parameterType="com.mini.board.miniprojectBoard.entity.User">
+		UPDATE user_tb
+		SET
+			password = #{password}
+		WHERE
+			user_id = #{userId}
+	</update>
 </mapper>

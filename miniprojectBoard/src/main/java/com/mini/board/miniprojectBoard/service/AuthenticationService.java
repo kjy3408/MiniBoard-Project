@@ -1,7 +1,9 @@
 package com.mini.board.miniprojectBoard.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,6 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.mini.board.miniprojectBoard.dto.auth.FindPasswordRequestDto;
+import com.mini.board.miniprojectBoard.dto.auth.FindUpdatePasswordRequestDto;
+import com.mini.board.miniprojectBoard.dto.auth.FindUserIdResponseDto;
+import com.mini.board.miniprojectBoard.dto.auth.FindUsernameRequestDto;
 import com.mini.board.miniprojectBoard.dto.auth.LoginReqDto;
 import com.mini.board.miniprojectBoard.dto.auth.PasswordChangeDto;
 import com.mini.board.miniprojectBoard.dto.auth.RegisterQuestionCategoryResponseDto;
@@ -141,6 +147,50 @@ public class AuthenticationService implements UserDetailsService {
 							.password(password)
 							.build();
 		userRepository.updatePassword(userEntity);
-
+	}
+	
+	public String findUsername(FindUsernameRequestDto findUsernameRequestDto){
+		Map<String, Object> findUsernameMap = new HashMap<>();
+		findUsernameMap.put("nickname", findUsernameRequestDto.getNickname());
+		findUsernameMap.put("questionId", findUsernameRequestDto.getQuestionId());
+		findUsernameMap.put("findUsernameAnswer", findUsernameRequestDto.getFindUsernameAnswer());
+		
+		return userRepository.findUsername(findUsernameMap);
+	}
+	
+	public Map<String, Object> findPassword(FindPasswordRequestDto findPasswordRequestDto ) {
+		Map<String, Object> findPasswordMap = new HashMap<>();
+		findPasswordMap.put("username", findPasswordRequestDto.getUsername());
+		findPasswordMap.put("questionId", findPasswordRequestDto.getQuestionId());
+		findPasswordMap.put("findPasswordAnswer", findPasswordRequestDto.getFindPasswordAnswer());
+		
+		Map<String, Object> responseMap = new HashMap<>();
+		if(userRepository.findPassword(findPasswordMap).size() < 1) {
+			
+			return null;
+		}else {
+			userRepository.findPassword(findPasswordMap).forEach(list-> {
+				responseMap.put("userId", list.getUserId());
+			});
+			return responseMap;
+		}
+	}
+	
+	public void findUpdatePassword(FindUpdatePasswordRequestDto findUpdatePasswordRequestDto) {
+		System.out.println(findUpdatePasswordRequestDto);
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		if(!findUpdatePasswordRequestDto.getNewPassword().equals(findUpdatePasswordRequestDto.getCheckPassword())) {
+			throw new CustomException("MisMatchPassword", 
+					ErrorMap.builder().put("checkPassword", "새 비밀번호와 비밀번호 확인이 일치하지 않습니다.").build());
+		}
+		
+		String password = (new BCryptPasswordEncoder().encode(findUpdatePasswordRequestDto.getCheckPassword()));
+		
+		User userEntity = User.builder()
+							.userId(findUpdatePasswordRequestDto.getUserId())
+							.password(password)
+							.build();
+		userRepository.findUpdatePassword(userEntity);
 	}
 }

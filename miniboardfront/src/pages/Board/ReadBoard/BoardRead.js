@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import * as s from './BoardReadStyle';
@@ -17,7 +17,7 @@ const BoardRead = () => {
     const [ replyCommentFlag, setReplyCommentFlag ] = useState({});
     const [ getReplyCommentFlag, setGetReplyCommentFlag] = useState(false);
     const [ getCommentId, setGetCommentId ] = useState("");
-
+    
     const commentOnChangeHandle = (e) => {
         const { name, value } = e.target;
         setCommentData({...commentData, [name]: value});

@@ -1,25 +1,22 @@
 import { css } from "@emotion/react";
-import { alreadyBoardContainer } from './../MyPage/AlreadyReadBoardStyle';
 
 export const registerContainer = css`
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
     width: 500px;
-    /* height: 550px; */
     margin: auto;
     border: 1px solid #121212;
-    `;
+    border-radius: 25px;
+    background-color: #f9ebee ;
+`;
 
 export const registerTitleBox = css`
     display: flex;
     justify-content: center;
     align-items: center;
     width: 300px;
-    height: 80px;
-    margin-bottom: 50px;
-    /* border: 1px solid #121212; */
+    height: 100px;
     font-size: 30px;
     font-weight: 600;
 `;
@@ -30,28 +27,69 @@ export const mainContainer =css`
     justify-content: center;
     align-items: center;
     width: 500px;
-    /* height: 400px; */
-    /* border: 1px solid #121212; */
 `;
 
 export const registerLabel = css`
 margin: 0px 0px 20px 0px;
     font-size:20px;
-    /* height: 50px; */
     font-weight: 600;
 `;
 
-export const errorMessage = css`
-font-size: 14px;
-    color: red;
-    margin: 0px 0px 50px 0px;
+export const registerInput = css`
+    width: 300px;
+    height: 25px;
+    margin-bottom: 5px;
+    border: none;
+    border-radius: 4px;
+    &:hover{
+        box-shadow: 0px 0px 5px #C7BCBE;
+        border: none;
+    }
+    
+    &:focus{
+        box-shadow: 0px 0px 5px 3px #C7BCBE;
+        border: none;
+        outline: none;
+    }
 `;
 
-export const questionSelectButton = css`
-    width: 200px;
-    height: 50px;
+export const IdAndPasswordLabel = css`
+    font-size: 13px;
+    color: red;
+`;
 
+export const errorMessage = css`
+    font-size: 12px;
+    color: red;
+    margin: 0px 0px 20px 0px;
+`;
+
+export const questionSelectButton = (questionButtonCheckFlag) => css`
+    width: 300px;
+    height: 30px;
+    border: 1px solid #121212;
+    background-color: #ECEAFD;
+    border: 1px solid #121212;
+    box-shadow: ${questionButtonCheckFlag ? "0px 0px 10px 5px red" 
+                                        : "0px 0px 0px 0px"};
+    font-size: ${questionButtonCheckFlag ? "16px" : ""};
+    font-weight: ${questionButtonCheckFlag ? "600" : ""};
+
+    color: #0c3934;
     margin-bottom: 20px;
+    &:hover {
+        background-color: #C7BCBE;
+        color: #312F2F;
+        border: none;
+        box-shadow: 0px 0px 8px #646161;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    &:active {
+        background-color: #e5e8dc;
+    }
 `;
 
 export const questionContainer = css`
@@ -63,7 +101,6 @@ export const questionContainer = css`
 
 export const questionUi = css`
     width: 300px;
-    /* border: 1px solid #121212; */
     margin-bottom: 5px;
 
     &:hover {
@@ -81,8 +118,6 @@ export const questionBox = css`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    /* border: 2px solid #121212; */
 `;
 
 export const answerBox = css`
@@ -90,8 +125,6 @@ export const answerBox = css`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    /* border: 1px solid blue; */
 `;
 
 export const questionErrorMessage = css`
@@ -102,13 +135,44 @@ export const questionErrorMessage = css`
 `;
 
 export const answerErrorMessage = css`
-    font-size: 14px;
+    font-size: 12px;
     color: red;
 
     margin: 20px 0px 5px 0px;
 `;
 
 export const answerInput = css`
-    width: 400px;
-    height: 30px;
+     width: 300px;
+    height: 25px;
+    margin-bottom: 5px;
+    border: none;
+    border-radius: 4px;
+    &:hover{
+        box-shadow: 0px 0px 5px #C7BCBE;
+        border: none;
+    }
+    
+    &:focus{
+        box-shadow: 0px 0px 5px 3px #C7BCBE;
+        border: none;
+        outline: none;
+    }
+`;
+
+export const registerAndLoginButton = css`
+    background-color: #ECEAFD;
+    border: 1px solid #121212;
+    &:hover {
+        background-color: #C7BCBE;
+        color: #312F2F;
+        border: none;
+        box-shadow: 0px 0px 8px #646161;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    &:active {
+        background-color: #e5e8dc;
+    }
 `;

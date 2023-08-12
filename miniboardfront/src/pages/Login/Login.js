@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import axios from 'axios';
 import React, { useState } from 'react';
-import AuthInput from '../../components/AuthInput/AuthInput';
-import * as s from './LoginStyle';
 import { useMutation } from 'react-query';
+import * as s from './LoginStyle';
 
 const Login = () => {
 
@@ -38,10 +37,19 @@ const Login = () => {
     const loginButtonHandle = () => {
         loginHandleSubmit.mutate();
     }
+
     const loginEnterKeyup = (e) => {
         if(e.keyCode === 13) {
             loginHandleSubmit.mutate();
         }
+    }
+
+    const findUsernameButtonHandle = () => {
+        window.location.href = "http://localhost:3000/auth/find/username"
+    }
+
+    const findPasswordButtonHandle = () => {
+        window.location.href = "http://localhost:3000/auth/find/password"
     }
 
     return (
@@ -56,11 +64,14 @@ const Login = () => {
                 <div css={s.passwordErrorMessage}>{errorMessages.password}</div>
                 <button css={s.loginButton} onClick={loginButtonHandle}>로그인</button>
                 <div css={s.findIdAndPasswordContainer}>
-                    <div css={s.registerBox}>
+                    <div >
                         <button css={s.registerButton} onClick={registerButtonHandle}>회원가입</button>
                     </div>
-                    <div css={s.findIdAndPasswordBox}>
-                        <button css={s.findIdAndPasswordButton}>아이디/비밀번호 찾기</button>
+                    <div >
+                        <button css={s.findIdAndPasswordButton} onClick={findUsernameButtonHandle}>아이디 찾기</button>
+                    </div>
+                    <div >
+                        <button css={s.findIdAndPasswordButton} onClick={findPasswordButtonHandle}>비밀번호 찾기</button>
                     </div>
                 </div>
             </main>

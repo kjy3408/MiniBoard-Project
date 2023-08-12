@@ -50,7 +50,6 @@ public class MyPageService {
 	}
 	
 	public List<AlreadyReadBoardResponseDto> getAlreadyReadBoard(int userId){
-		
 		return myPageRepository.getAlreadyReadBoard(userId);
 	}
 	

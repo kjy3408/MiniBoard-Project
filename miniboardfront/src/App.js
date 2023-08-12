@@ -5,16 +5,18 @@ import { Reset } from './common/Global/Reset';
 import AuthRoute from './components/AuthRoute/AuthRoute';
 import Main from './pages/MainPage/Main';
 
-import Login from './pages/Login/Login';
-import Register from './pages/Register/Register';
-import BoardWrite from './pages/Board/WriteBoard/BoardWrite';
-import BoardRead from './pages/Board/ReadBoard/BoardRead';
 import SideBar from './components/SideBar/SideBar';
-import MyPage from './pages/MyPage/MyPage';
 import ModifyBoard from './pages/Board/ModifyBoard/ModifyBoard';
+import BoardRead from './pages/Board/ReadBoard/BoardRead';
+import BoardWrite from './pages/Board/WriteBoard/BoardWrite';
+import FindPassword from './pages/Login/FindPassword';
+import FindUsername from './pages/Login/FindUsername';
+import Login from './pages/Login/Login';
+import AlreadyReadBoard from './pages/MyPage/AlreadyReadBoard';
 import MyBoard from './pages/MyPage/MyBoard';
 import MyInfo from './pages/MyPage/MyInfo';
-import AlreadyReadBoard from './pages/MyPage/AlreadyReadBoard';
+import MyPage from './pages/MyPage/MyPage';
+import Register from './pages/Register/Register';
 
 
 const container = css`
@@ -38,6 +40,8 @@ function App() {
         <Routes>
           <Route path="/" element={<AuthRoute path="/" element={<Main/>}/>}/>
           <Route path="/auth/login" element={<AuthRoute path="/auth/login" element={<Login/>}/>}/>
+          <Route path="/auth/find/username" element={<AuthRoute path="/auth/find/username" element={<FindUsername/>}/>}/>
+          <Route path="/auth/find/password" element={<AuthRoute path="/auth/find/password" element={<FindPassword/>}/>}/>
           <Route path="/auth/register" element={<AuthRoute path="/auth/register" element={<Register/>}/>}/>
           <Route path="/auth/home" element={<AuthRoute path="/auth/home" element={<Main/>}/>}/>
           <Route path="/mini/write/board" element={<AuthRoute path="/mini/write/board" element={<BoardWrite/>}/>}/>
@@ -48,6 +52,7 @@ function App() {
           <Route path="/myinfo/:userId" element={<AuthRoute path="/myinfo" element={<MyInfo/>}/>}/>
           <Route path="/mypage/modify/:boardId" element={<AuthRoute path="/mypage/momdify" element={<ModifyBoard/>}/>}/>
         </Routes>
+        
       </div>
     </>
   );

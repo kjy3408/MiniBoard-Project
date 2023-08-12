@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mini.board.miniprojectBoard.aop.annotation.ValidAspect;
+import com.mini.board.miniprojectBoard.dto.auth.FindPasswordRequestDto;
+import com.mini.board.miniprojectBoard.dto.auth.FindUpdatePasswordRequestDto;
+import com.mini.board.miniprojectBoard.dto.auth.FindUsernameRequestDto;
 import com.mini.board.miniprojectBoard.dto.auth.LoginReqDto;
 import com.mini.board.miniprojectBoard.dto.auth.PasswordChangeDto;
 import com.mini.board.miniprojectBoard.dto.auth.SignupDto;
@@ -63,9 +66,29 @@ public class AuthController{
 	@PutMapping("/updatepassword")
 	public ResponseEntity<?> passwordChange(@Valid @RequestBody PasswordChangeDto passwordChangeDto, BindingResult bindingResult){
 		System.out.println(passwordChangeDto);
-		authenticationService.updatePassword(passwordChangeDto);
-		
+		authenticationService.updatePassword(passwordChangeDto);		
 		return ResponseEntity.ok().body(null);
 	}
 	
+	@ValidAspect
+	@GetMapping("/find/username")
+	public ResponseEntity<?> findUsername(@Valid FindUsernameRequestDto findUsernameRequestDto, BindingResult bindingResult) {
+		
+		return ResponseEntity.ok().body(authenticationService.findUsername(findUsernameRequestDto));
+	}
+	
+	@ValidAspect
+	@GetMapping("/find/password")
+	public ResponseEntity<?> findPassword(@Valid FindPasswordRequestDto findPasswordRequestDto, BindingResult bindingResult) {
+		
+		return ResponseEntity.ok().body(authenticationService.findPassword(findPasswordRequestDto));
+	}
+	
+	@ValidAspect
+	@PutMapping("/find/updatepassword")
+	public ResponseEntity<?> passwordChange(@Valid @RequestBody FindUpdatePasswordRequestDto findUpdatePasswordRequestDto, BindingResult bindingResult){
+//		System.out.println(findUpdatePasswordRequestDto);
+		authenticationService.findUpdatePassword(findUpdatePasswordRequestDto);		
+		return ResponseEntity.ok().body(null);
+	}
 }

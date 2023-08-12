@@ -2,7 +2,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import AuthInput from '../../components/AuthInput/AuthInput';
 import * as s from './RegisterStyle';
 
 const Register = () => {
@@ -10,14 +9,14 @@ const Register = () => {
     const [ errorMessages, setErrorMessages ] = useState({username: "", password: "", checkPassword: "", nickname: "", questionId: "", answer: ""});
     const [ userInfoQuestionOpenFlag, setUserInfoQuestionOpenFlag ] = useState(false); 
     const [ getQuestionCategoryFlag, setGetQuestionCategoryFlag ] = useState(true);
-   
+    const [ questionButtonCheckFlag, setQuestionButtonCheckFlag ] = useState(false);
+    
     const onChangeInputHandle = (e) => {
         const { name, value } = e.target;
         setRegisterUser({...registerUser, [name]: value});
         console.log(registerUser)
     }
 
-    
     const getQuestionCategory = useQuery(["getQuestionCategory"], async() => {
         
         const response = await axios.get("http://localhost:8080/auth/register/category")
@@ -30,8 +29,6 @@ const Register = () => {
         }
     })
     
-  
-
     const submitRegisterHandle = async () => {
         const data = {
             ...registerUser
@@ -48,10 +45,13 @@ const Register = () => {
         } catch(error) {
             console.log(error.response.data)
             setErrorMessages({username: "", password: "", checkPassword: "", nickname: "", questionId:"", answer: "", ...error.response.data.errorData});
+            setQuestionButtonCheckFlag(true);
+            if(error.response.data.errorData.password){
+                
+            }
         }
     }
 
-    
     const onClickLoginButton = () => {
         
         window.location.replace("http://localhost:3000/auth/login")
@@ -60,36 +60,35 @@ const Register = () => {
     const questionOnClickHandle = () => {
         setUserInfoQuestionOpenFlag(!userInfoQuestionOpenFlag);
     }
-
     return (
         <>
         <div css={s.registerContainer}>
             <h1 css={s.registerTitleBox}>회원가입</h1>
 
             <main css={s.mainContainer}>
-                <label css={s.registerLabel}>아이디</label>
-                <AuthInput type="text" onChange={onChangeInputHandle} name="username" placeholder="아이디를 입력하세요"/>
+                {/* <label css={s.registerLabel}>아이디</label> */}
+                <input css={s.registerInput} type="text" onChange={onChangeInputHandle} name="username" placeholder="아이디를 입력하세요"/>
                 <div css={s.errorMessage}>{errorMessages.username}</div>
 
-                <label css={s.registerLabel}>비밀번호</label>
-                <AuthInput type="password" onChange={onChangeInputHandle} name="password" placeholder="비밀번호를 입력하세요"/>
+                {/* <label css={s.registerLabel}>비밀번호</label> */}
+                <input css={s.registerInput} type="password" onChange={onChangeInputHandle} name="password" placeholder="비밀번호를 입력하세요"/>
                 <div css={s.errorMessage}>{errorMessages.password}</div>
 
-                <label css={s.registerLabel}>비밀번호 확인</label>
-                <AuthInput type="password" onChange={onChangeInputHandle} name="checkPassword" placeholder="비밀번호를 확인하세요"/>
+                {/* <label css={s.registerLabel}>비밀번호 확인</label> */}
+                <input css={s.registerInput} type="password" onChange={onChangeInputHandle} name="checkPassword" placeholder="비밀번호를 확인하세요"/>
                 <div css={s.errorMessage}>{errorMessages.password}</div>
 
-                <label css={s.registerLabel}>닉네임</label>
-                <AuthInput type="text" onChange={onChangeInputHandle} name="nickname" placeholder="닉네임을 입력하세요."/>
+                {/* <label css={s.registerLabel}>닉네임</label> */}
+                <input css={s.registerInput} type="text" onChange={onChangeInputHandle} name="nickname" placeholder="닉네임을 입력하세요."/>
                 <div css={s.errorMessage}>{errorMessages.nickname}</div>
                 
-                <label css={s.registerLabel}>아이디/비밀번호 찾기 질문 선택</label>
-                <button css={s.questionSelectButton} onClick={questionOnClickHandle}>질문선택</button>
+                <label css={s.registerLabel}>아이디/비밀번호 찾기 질문 선택<label css={s.IdAndPasswordLabel}>(필수)</label></label>
+                <button css={s.questionSelectButton(questionButtonCheckFlag)} onClick={questionOnClickHandle}>질문선택</button>
                 {userInfoQuestionOpenFlag ? 
                     (
                         <div>    
                             {getQuestionCategory.isLoading ? "" 
-                            : getQuestionCategory.data !== null ? 
+                            : getQuestionCategory.data !== undefined ? 
                             (<div css={s.questionBox}>
                                 <label css={s.questionErrorMessage}>
                                     {errorMessages.questionId}
@@ -121,10 +120,9 @@ const Register = () => {
                         </div>
                     ) : ""}
             </main>
-
             <footer >
-                <button  onClick={submitRegisterHandle}>회원가입</button>
-                <button  onClick={onClickLoginButton}>로그인</button>
+                <button css={s.registerAndLoginButton} onClick={submitRegisterHandle}>회원가입</button>
+                <button css={s.registerAndLoginButton} onClick={onClickLoginButton}>로그인</button>
             </footer>
         </div>
         </>
