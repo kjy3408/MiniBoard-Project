@@ -39,7 +39,6 @@ public class ReadBoardService {
 		commentMap.put("comment", commentRequestDto.getComment());
 		commentMap.put("boardId", commentRequestDto.getBoardId());
 		commentMap.put("userId", principalUser.getUserId());
-//		System.out.println(commentMap);
 		readBoardRepository.registerComment(commentMap);
 		return 0;
 	}

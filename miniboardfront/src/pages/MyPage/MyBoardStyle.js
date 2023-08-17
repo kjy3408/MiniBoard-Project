@@ -80,6 +80,7 @@ export const numberTable = css`
 export const titleTable = css`
     white-space: nowrap;
     overflow: hidden;
+    min-width: 430px;
     max-width: 470px;
     text-overflow: ellipsis;
     border-bottom: 1px solid #dbdbdb;
