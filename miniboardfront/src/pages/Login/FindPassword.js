@@ -8,13 +8,15 @@ const FindPassword = () => {
 
     const [ findPasswordData, setFindPasswordData ] = useState({username:"", questionId: "", findPasswordAnswer: ""})
     const [ getQuestionCategoryFlag, setGetQuestionCategoryFlag ] = useState(true)
-    // const [ errorMessage, setErrorMessage ] = useState(""); 
+    const [ errorMessage, setErrorMessage ] = useState({nickname:"", questionId: "", findUsernameAnswer: ""}) 
+    const [ notFoundUsername, setNotFoundUsername ] = useState({notFoundUsername: ""});
     const [ findPasswordFlag, setFindPasswordFlag ] = useState(false);
     const [ modalOpen, setModalOpen ] = useState(false);
     const [ password, setPassword ] = useState({userId: "", newPassword: "", checkPassword: ""});
     const [ errorMessages, setErrorMessages ] = useState({newPassword: "", checkPassword: ""})
     const [ buttonOpen, setButtonOpen ] = useState(false); 
     const [ userId, setUserId ] = useState({userId: ""})
+    const [ notFoundPasswordFlag, setNotFoundPasswordFlag ] = useState(true);
 
     const onChangeFindPasswordInputHandle = (e) => {
         const { name, value } = e.target;
@@ -46,13 +48,20 @@ const FindPassword = () => {
                 ...findPasswordData
             }
         }
-
-        const response = await axios.get("http://localhost:8080/auth/find/password", option)
-        console.log(response.data.userId)
-        if(response.data.userId !== undefined){
-            setButtonOpen(true);
-            setUserId(response.data.userId)
-            // return response;
+        try{
+            const response = await axios.get("http://localhost:8080/auth/find/password", option)
+            console.log(response.data.userId)
+            setErrorMessage({username:"", questionId: "", findPasswordAnswer: ""})
+            setNotFoundPasswordFlag(false);
+            if(response.data.userId !== undefined){
+                setButtonOpen(true);
+                setUserId(response.data.userId)
+            }
+        }catch(error){
+            console.log(error.response.data.errorData)
+            setErrorMessage({username:"", questionId: "", findPasswordAnswer: "", ...error.response.data.errorData})
+            setNotFoundUsername({notFoundPassword: "", ...error.response.data.errorData})
+            setNotFoundPasswordFlag(true);
         }
     },{
         enabled: findPasswordFlag,
@@ -81,6 +90,7 @@ const FindPassword = () => {
             setModalOpen(false);
         }catch(error){
             console.log(error.response.data.errorData)
+
         }
     })
 
@@ -120,6 +130,11 @@ const FindPassword = () => {
                             name='username'
                             onChange={onChangeFindPasswordInputHandle}/>
                 </div>
+                <div css={s.errorMessageBox}>
+                    <label css={s.errorMessage}>
+                        {errorMessage.username}
+                    </label>
+                </div>
                 <div css={s.questionBox}>
                     {getQuestionCategory.isLoading ? "" : 
                         getQuestionCategory.data !== undefined ?  (
@@ -137,6 +152,11 @@ const FindPassword = () => {
                                 </ul>
                             ))
                             ) : ""}
+                    <div css={s.errorMessageBox}>
+                        <label css={s.errorMessage}>
+                            {errorMessage.questionId}
+                        </label>
+                    </div>
                 </div>
                 <div css={s.findPasswordAnswerBox}>
                     <input css={s.answerInput} 
@@ -144,41 +164,46 @@ const FindPassword = () => {
                             name='findPasswordAnswer' 
                             placeholder='질문에 대한 답을 작성하세요.'
                             onChange={onChangeFindPasswordInputHandle} />
-                    <button onClick={findPasswordButtonHandle}>찾기</button>
+                    <button css={s.findPasswordButton} onClick={findPasswordButtonHandle}>찾기</button>
+                </div>
+                <div css={s.errorMessageBox}>
+                    <label css={s.errorMessage}>
+                        {errorMessage.findPasswordAnswer}
+                    </label>
                 </div>
                 {findPassword.isLoading ? "" :
-                         findPassword.data !== undefined ? 
-                            (
-                            <div css={s.resultBox}>
-                                {findPassword.data.data}
-                            </div>
-                            ) : ""}
-                    <div css={s.modalBackDrop(modalOpen)}>
-                        <div css={s.modalBox}>
-                            <div css={s.modalTitleBox}>
-                                <label css={s.modalTitle}>비밀번호 변경</label>
-                            </div>
-                            <div css={s.modalInputBox}>
-                                <input css={s.modalInput} type="password" placeholder='새 비밀번호' onChange={changePasswordOnChangeHandle} value={password.newPassword} name='newPassword'/>
-                                <label css={s.errorMessage}>
-                                    {errorMessages.newPassword}
-                                </label>
-                                <input css={s.modalInput} type="password" placeholder='새 비밀번호 확인' onChange={changePasswordOnChangeHandle} value={password.checkPassword} name='checkPassword'/>
-                                <label css={s.errorMessage}>
-                                    {errorMessages.checkPassword}
-                                </label>
-                            </div>
-                            <div css={s.modalButtonBox}>
-                                <button css={s.modalChangePasswordButton} onClick={changePasswordButtonHandle}>변경하기</button>
-                                <button css={s.modalChangePasswordButton} onClick={changePasswordModalOpenButton}>취소</button>
-                            </div>
+                    findPassword.data !== undefined ? 
+                    (
+                    <div css={s.resultBox}>
+                        {findPassword.data.data}
+                    </div>
+                    ) : ""}
+                <div css={s.modalBackDrop(modalOpen)}>
+                    <div css={s.modalBox}>
+                        <div css={s.modalTitleBox}>
+                            <label css={s.modalTitle}>비밀번호 변경</label>
+                        </div>
+                        <div css={s.modalInputBox}>
+                            <input css={s.modalInput} type="password" placeholder='새 비밀번호' onChange={changePasswordOnChangeHandle} value={password.newPassword} name='newPassword'/>
+                            <label css={s.errorMessage}>
+                                {errorMessages.newPassword}
+                            </label>
+                            <input css={s.modalInput} type="password" placeholder='새 비밀번호 확인' onChange={changePasswordOnChangeHandle} value={password.checkPassword} name='checkPassword'/>
+                            <label css={s.errorMessage}>
+                                {errorMessages.checkPassword}
+                            </label>
+                        </div>
+                        <div css={s.modalButtonBox}>
+                            <button css={s.modalChangePasswordButton} onClick={changePasswordButtonHandle}>변경하기</button>
+                            <button css={s.modalChangePasswordButton} onClick={changePasswordModalOpenButton}>취소</button>
                         </div>
                     </div>
-                    <div>
-                        <button css={s.changePasswordButton(buttonOpen)} onClick={changePasswordModalOpenButton}>비밀번호 번경</button>
-                    </div>
-                <div>
-                    <button onClick={findUsernameButtonHandle}>아이디 찾기</button>
+                </div>
+                <div css={s.changePasswordButtonBox}>
+                        {notFoundPasswordFlag ? (<button disabled={true}>비밀번호 변경 비활성</button>) : (<button css={s.changePasswordButton(buttonOpen)} onClick={changePasswordModalOpenButton}  >비밀번호 번경</button>)}
+                </div>
+                <div css={s.findUsernameButtonBox}>
+                    <button css={s.findPasswordButton} onClick={findUsernameButtonHandle}>아이디 찾기</button>
                 </div>
             </div>
         </div>

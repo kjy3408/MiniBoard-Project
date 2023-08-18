@@ -154,7 +154,11 @@ public class AuthenticationService implements UserDetailsService {
 		findUsernameMap.put("nickname", findUsernameRequestDto.getNickname());
 		findUsernameMap.put("questionId", findUsernameRequestDto.getQuestionId());
 		findUsernameMap.put("findUsernameAnswer", findUsernameRequestDto.getFindUsernameAnswer());
-		
+
+		if(userRepository.findUsername(findUsernameMap) == null) {
+			throw new CustomException("notFoundUsername",
+					ErrorMap.builder().put("notFoundUsername", "사용자를 찾을 수 없습니다.").build());
+		}
 		return userRepository.findUsername(findUsernameMap);
 	}
 	
@@ -166,8 +170,9 @@ public class AuthenticationService implements UserDetailsService {
 		
 		Map<String, Object> responseMap = new HashMap<>();
 		if(userRepository.findPassword(findPasswordMap).size() < 1) {
-			
-			return null;
+			throw new CustomException("notFoundPassword",
+					ErrorMap.builder().put("notFoundPassword", "사용자를 찾을 수 없습니다.").build());
+		
 		}else {
 			userRepository.findPassword(findPasswordMap).forEach(list-> {
 				responseMap.put("userId", list.getUserId());

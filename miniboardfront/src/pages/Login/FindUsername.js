@@ -1,13 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
-import * as s from './FindUserInfoStyle';
-import { useQuery } from 'react-query';
 import axios from 'axios';
+import React, { useState } from 'react';
+import { useQuery } from 'react-query';
+import * as s from './FindUserInfoStyle';
 
 
 const FindUsername = () => {
     const [ findUsernameData, setFindUsernameData ] = useState({nickname:"", questionId: "", findUsernameAnswer: ""})
-    const [ errorMessage, setErrorMessage ] = useState({nickname:"", questionId: "", findUsernameAnswer: ""}); 
+    const [ errorMessage, setErrorMessage ] = useState({nickname:"", questionId: "", findUsernameAnswer: ""}) 
+    const [ notFoundUsername, setNotFoundUsername ] = useState({notFoundUsername: ""});
     const [ getQuestionCategoryFlag, setGetQuestionCategoryFlag ] = useState(true)
     const [ findUsernameFlag, setFindUsernameFlag ] = useState(false);
 
@@ -36,15 +37,14 @@ const FindUsername = () => {
         }
         try{
             const response = await axios.get("http://localhost:8080/auth/find/username", option)
-            // console.log(response === 400)
-            if(response.data === ""){
-                setErrorMessage("닉네임 또는 질문과 답을 다시 확인하세요.")
-            }
+            setErrorMessage({nickname:"", questionId: "", findUsernameAnswer: ""})
             return response;
         }catch(error){
-            setErrorMessage({nickname:"", questionId: "", findUsernameAnswer: "", ...error.response.data.errorData})
             console.log(error.response.data.errorData)
+            setErrorMessage({nickname:"", questionId: "", findUsernameAnswer: "", notFouneUsername: "", ...error.response.data.errorData})
+            setNotFoundUsername({notFoundUsername: "", ...error.response.data.errorData})
         }
+
         
     },{
         enabled: findUsernameFlag,
@@ -73,7 +73,11 @@ const FindUsername = () => {
                             placeholder='닉네임을 입력하세요.' 
                             name='nickname'
                             onChange={onChangeFindUsernameInputHandle}/>
-                    {errorMessage.questionId}
+                </div>
+                <div css={s.errorMessageBox}>
+                    <label css={s.errorMessage}>
+                        {errorMessage.nickname}
+                    </label>
                 </div>
                 <div css={s.questionBox}>
                     {getQuestionCategory.isLoading ? "" : 
@@ -92,27 +96,38 @@ const FindUsername = () => {
                                 </ul>
                             ))
                             ) : ""}
-                    {errorMessage.nickname}
+                            <div css={s.errorMessageBox}>
+                                <label css={s.errorMessage}>
+                                    {errorMessage.questionId}
+                                </label>
+                            </div>
                 </div>
                 <div css={s.findUsernameAnswerBox}>
                     <input css={s.answerInput} 
                             type="text" 
                             placeholder='질문에 대한 답을 작성하세요.' 
                             onChange={onChangeFindUsernameInputHandle} name="findUsernameAnswer"/>
-                    {errorMessage.findUsernameAnswer}
-                    <button onClick={findUsernameOnclickHandle}>찾기</button>
+                    <button css={s.findUsernameButton} onClick={findUsernameOnclickHandle}>찾기</button>
                 </div>
-                {findUsername.isLoading ? "" :
-                        findUsername.data !== undefined ?
-                        (
-                        <div css={s.resultBox}>
-                            {findUsername.data.data}
-                        </div>
-                        ) : ""}
-
-                <button onClick={findPasswordButtonHandle}>
-                    비밀번호 찾기
-                </button>
+                <div css={s.errorMessageBox}>
+                    <label css={s.errorMessage}>
+                        {errorMessage.findUsernameAnswer}
+                    </label>
+                </div>
+                <div css={s.usernameResultBox}>
+                    {findUsername.isLoading ? "" :
+                            findUsername.data !== undefined ?
+                            (
+                            <div css={s.resultBox}>
+                                {findUsername.data.data}
+                            </div>
+                            ) : (<div css={s.errorMessage}>{notFoundUsername.notFoundUsername}</div>)}
+                </div>
+                <div css={s.findPasswordButtonBox}>
+                    <button css={s.findPasswordButton} onClick={findPasswordButtonHandle}>
+                        비밀번호 찾기
+                    </button>
+                </div>
             </div>
         </div>
     );
