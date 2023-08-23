@@ -48,8 +48,6 @@ const ModifyBoard = () => {
         }
         try{
             await axios.post(`http://localhost:8080/mypage/modify/${boardId}`, JSON.stringify(modifyBoardContent), option)
-        
-
             alert("수정완료~");
             window.location.replace(`http://localhost:3000/myboard/${userId}`);
         }catch(error){

@@ -1,7 +1,5 @@
 package com.mini.board.miniprojectBoard.controller.board;
 
-import java.util.Map;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,43 +24,36 @@ public class ReadBoardController {
 	
 	@GetMapping("/board")
 	public ResponseEntity<?> readBoard(int boardId) {
-		
 		return ResponseEntity.ok().body(readBoardService.readBoard(boardId));
 	}
 	
 	@PostMapping("/board/comment")
 	public ResponseEntity<?> registerComment(@RequestBody CommentRequestDto commentRequestDto) {
-
 		return ResponseEntity.ok().body(readBoardService.registerComment(commentRequestDto));
 	}
 	
 	@GetMapping("/get/comments")
 	public ResponseEntity<?> getComments(int boardId){
-		
 		return ResponseEntity.ok().body(readBoardService.getComments(boardId));
 	}
 	
 	@DeleteMapping("/board/comment/delete")
 	public ResponseEntity<?> deleteComment(int commentId){
-	
 		return ResponseEntity.ok().body(readBoardService.deleteComment(commentId));
 	}
 	
 	@PostMapping("/board/comment/modify")
 	public ResponseEntity<?> modifyComment(@RequestBody ModifyCommentRequestDto modifyCommentRequestDto){
-		
 		return ResponseEntity.ok().body(readBoardService.modifyComment(modifyCommentRequestDto));
 	}
 	
 	@PostMapping("/board/replycomment")
 	public ResponseEntity<?> registerReplyComment(@RequestBody ReplyCommentRequestDto replyCommentRequestDto){
-		
 		return ResponseEntity.ok().body(readBoardService.registerReplyComment(replyCommentRequestDto));
 	}
 	
 	@GetMapping("/replycomment")
 	public ResponseEntity<?> getReplyComment(int getCommentId){
-		System.out.println(getCommentId);
 		return ResponseEntity.ok().body(readBoardService.getReplyComment(getCommentId));
 	}
 	

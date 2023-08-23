@@ -39,7 +39,6 @@ public class MyPageController {
 	@ValidAspect
 	@PostMapping("/modify/{boardId}")
 	public ResponseEntity<?> deleteMyBoard(@PathVariable int boardId, @Valid @RequestBody ModifyBoardRequestDto modifyBoardRequestDto, BindingResult bindingResult) {
-//		System.out.println(boardId +  " + " +  writeBoardRequestDto);
 		return ResponseEntity.ok().body(myPageService.modifyMyboard(boardId, modifyBoardRequestDto));
 	}
 	

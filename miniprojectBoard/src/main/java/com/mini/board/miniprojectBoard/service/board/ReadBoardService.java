@@ -27,7 +27,6 @@ public class ReadBoardService {
 	private final ReadBoardRepository readBoardRepository;
 	
 	public ReadBoardResponseDto readBoard(int boardId) {
-		
 		return readBoardRepository.readBoard(boardId).toReadBoardDto();
 	}
 	

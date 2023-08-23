@@ -23,7 +23,8 @@ public class WriteBoardService {
 		Map<String, Object> map = new HashMap<>();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();
-		System.out.println(authentication);
+		System.out.println("authentication: " + authentication);
+		System.out.println("principalUser: " + principalUser);
 		map.put("title", writeBoardRequestDto.getTitle());
 		map.put("content", writeBoardRequestDto.getContent());
 		map.put("userId", principalUser.getUserId());

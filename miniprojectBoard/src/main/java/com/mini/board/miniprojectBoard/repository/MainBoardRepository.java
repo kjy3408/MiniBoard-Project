@@ -18,5 +18,4 @@ public interface MainBoardRepository {
 	public int readBoard(Map<String, Object> map);
 	public List<Map<String, Object>> alreadyReadBoard(Map<String, Object> map);
 	public int increaseViews(Map<String, Object> boardData);
-	public List<Board> getSearchBoards(Map<String, Object> searchBoardMap);
 }

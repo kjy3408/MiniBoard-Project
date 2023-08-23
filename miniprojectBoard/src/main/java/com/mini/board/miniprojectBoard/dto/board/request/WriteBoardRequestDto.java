@@ -8,9 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class WriteBoardRequestDto {
 
 	@NotBlank(message = "제목을 입력하세요.")

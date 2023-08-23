@@ -12,7 +12,6 @@ const Main = () => {
 
   const searchBoardHandle = (e) => {
     setGetBoardData({ ...getBoardData, searchValue: e.target.value});
-    console.log(getBoardData);
   }
 
   const getBoards = useQuery(["getBoards"], async () => {
@@ -22,7 +21,7 @@ const Main = () => {
       }
     }
     const response = await axios.get("http://localhost:8080/main/board", data);
-
+    console.log(response.data)
     for(let i = 0; i < response.data.boards.length; i++){
       if(response.data.boards[i].boardModifyFlag){
         setModifyBoardEditedFlag(prevState => ({...prevState, [response.data.boards[i].boardId]: true}))
@@ -35,7 +34,7 @@ const Main = () => {
     onSuccess: () => {
       setGetBoardsFlag(false);
       getBoardData.searchValue = ""
-    },
+    }
   });
 
   const increaseViews = useMutation(async({userId, boardId}) => {
@@ -45,7 +44,6 @@ const Main = () => {
         "Content-Type" : "application/json"
       }
     }
-
     try{
       await axios.post("http://localhost:8080/main/board/views", {userId, boardId}, option)
       window.location.href = `/mini/board/${boardId}`
@@ -125,7 +123,8 @@ const Main = () => {
     if(localStorage.getItem("accessToken") === null){
       if(window.confirm("로그인이 필요합니다.")){
         window.location.href = "http://localhost:3000/auth/login"
-      }else{
+      }
+      else{
         return;
       }
     }else{
@@ -174,7 +173,7 @@ const Main = () => {
                 <td css={s.numberTable}>{(getBoardData.page - 1) * 15 + index + 1}</td>
                 <td css={s.titleTable}>{board.boardTitle}</td>
                 <td css={s.dateTable}>{board.boardDate}</td>
-                <td css={s.nicknameTable}>{board.username}</td>
+                <td css={s.nicknameTable}>{board.nickname}</td>
                 <td css={s.viewsTable}>{board.boardViews}</td>
                 {modifyBoardEditedFlag[board.boardId] ? (
                   <td css={s.modifyTable}>수정됨</td>) : (<td css={s.modifyTable}></td>)}

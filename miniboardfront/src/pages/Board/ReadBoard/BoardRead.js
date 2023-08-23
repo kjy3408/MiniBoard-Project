@@ -44,6 +44,7 @@ const BoardRead = () => {
             }
         }
         const response = await axios.get("http://localhost:8080/read/board", option)
+        console.log(response.data)
         return response;
     }, {
         enabled: getBoardFlag,

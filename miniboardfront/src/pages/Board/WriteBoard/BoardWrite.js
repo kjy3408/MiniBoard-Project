@@ -11,6 +11,7 @@ const BoardWrite = () => {
     const contentOnChangeHandle = (e) => {
         const { name, value } = e.target;
         setBoardContent({ ...boardContent, [name]: value });
+        console.log(boardContent)
     }  
 
     const registerBoard = useMutation(async() => {
@@ -22,11 +23,9 @@ const BoardWrite = () => {
         }
         try{
             await axios.post("http://localhost:8080/write/board", JSON.stringify(boardContent), option)
-            console.log(boardContent)
             alert("등록완료~");
             window.location.replace("http://localhost:3000/auth/home");
         }catch(error){
-            console.log(error.response.data.errorData);
             setErrorMessages(error.response.data.errorData);
       
         }
@@ -36,7 +35,6 @@ const BoardWrite = () => {
         registerBoard.mutate();
     }
 
-    console.log(errorMessages)
     return (
         <div css={s.writeBoardContainer}>
             <header css={s.headerContainer}>

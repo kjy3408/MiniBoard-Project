@@ -96,7 +96,7 @@ const MyBoard = () => {
                           </div>
                         </td>
                         <td css={s.dateTable}>{board.boardDate}</td>
-                        <td css={s.nicknameTable}>{board.username}</td>
+                        <td css={s.nicknameTable}>{board.nickname}</td>
                         <td css={s.viewsTable}>{board.boardViews}</td>
                     </tr>
                     ))
