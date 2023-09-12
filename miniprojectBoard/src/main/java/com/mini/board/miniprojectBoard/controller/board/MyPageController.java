@@ -2,6 +2,7 @@ package com.mini.board.miniprojectBoard.controller.board;
 
 import javax.validation.Valid;
 
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,5 +51,11 @@ public class MyPageController {
 	@GetMapping("/info/data")
 	public ResponseEntity<?> getMyInfoData(int userId) {
 		return ResponseEntity.ok().body(myPageService.getMyInfoData(userId));
+	}
+	
+	@DeleteMapping("/already/delete/all")
+	public ResponseEntity<?> AlreadyReadDeleteAll(int userId) {
+		System.out.println(userId);
+		return ResponseEntity.ok().body(myPageService.AlreadyReadDeleteAll(userId));
 	}
 }

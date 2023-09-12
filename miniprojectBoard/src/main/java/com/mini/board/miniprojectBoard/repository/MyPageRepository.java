@@ -19,4 +19,5 @@ public interface MyPageRepository {
 	public List<AlreadyReadBoardResponseDto> getAlreadyReadBoard(int userId);
 	public Map<String, Integer> registerBoardCount(int userId);
 	public Map<String, Integer>readBoardCount(int userId);
+	public int AlreadyReadDeleteAll(int userId);
 }

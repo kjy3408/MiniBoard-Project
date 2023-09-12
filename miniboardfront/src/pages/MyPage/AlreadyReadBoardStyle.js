@@ -24,6 +24,34 @@ export const alreadyBoardTitle = css`
     font-weight: 600;
 `;
 
+export const deleteAllButtonBox = css`
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-right: 25px;
+    margin-bottom: 10px;
+`;
+
+export const deleteAllButton = css`
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid #121212;
+    background-color: #ECEAFD;
+    border: 1px solid #121212;
+    color: #0c3934;
+    &:hover {
+        background-color: #C7BCBE;
+        color: #312F2F;
+        border: none;
+        box-shadow: 0px 0px 8px #646161;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    &:active {
+        background-color: #e5e8dc;
+    }
+`;
 export const tableContainer = css`
     width: 950px;
     margin: auto;

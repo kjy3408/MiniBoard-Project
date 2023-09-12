@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import * as s from './AlreadyReadBoardStyle';
 
@@ -36,11 +36,33 @@ const AlreadyReadBoard = () => {
             }
         }, {
             enabled: getAlreadyReadBoardsFlag,
-            onSuccess: (response) => {
+            onSuccess: () => {
                 setGetAlreadyReadBoardsFlag(false);
                
             }
         })
+
+        const boardDeleteAll = useMutation(async() => {
+            const option = {
+                headers: {
+                    Authorization : `Bearer ${localStorage.getItem("accessToken")}`
+                },
+                params: {
+                    userId: userId
+                }
+            }
+            try{
+                await axios.delete("http://localhost:8080/mypage/already/delete/all", option)
+                setGetAlreadyReadBoardsFlag(true);
+            }catch(error){
+
+            }
+        })
+        const deleteAllHandle = () => {
+            if(window.confirm("최근 기록을 전체 삭제 하시겠습니까?")){
+                boardDeleteAll.mutate()
+            }
+        }
 
         
     const readBoardHandle = (boardId) => {
@@ -51,6 +73,9 @@ const AlreadyReadBoard = () => {
         <div css={s.alreadyBoardContainer}>
             <div css={s.alreadyBoardTitleBox}> 
                 <label css={s.alreadyBoardTitle}>최근 본 글</label>
+            </div>
+            <div css={s.deleteAllButtonBox}>
+                <button css={s.deleteAllButton} onClick={deleteAllHandle}>전체삭제</button>
             </div>
             <div>
                 <table css={s.tableContainer}>

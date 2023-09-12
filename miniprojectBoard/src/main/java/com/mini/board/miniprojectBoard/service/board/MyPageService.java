@@ -32,7 +32,6 @@ public class MyPageService {
 	}
 	
 	public int deleteMyBoard(int boardId) {
-		
 		myPageRepository.deleteMyBoardComment(boardId);
 		myPageRepository.deleteMyBoard(boardId);
 		myPageRepository.deleteReadBoard(boardId);
@@ -61,5 +60,10 @@ public class MyPageService {
 		countList.add(myPageRepository.readBoardCount(userId));
 		
 		return countList;
+	}
+	
+	public int AlreadyReadDeleteAll(int userId) {
+		myPageRepository.AlreadyReadDeleteAll(userId);
+		return 1;
 	}
 }
