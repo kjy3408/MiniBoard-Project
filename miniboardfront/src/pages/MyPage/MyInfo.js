@@ -15,7 +15,6 @@ const MyInfo = () => {
     const { userId } = useParams();
 
     const changePasswordOnChangeHandle = (e) => {
-
         const { name, value } = e.target;
         setPassword({...password, [name]: value, userId: userId});
         console.log(password)
@@ -84,7 +83,6 @@ const MyInfo = () => {
     const changePasswordButtonHandle = () => {
         if(window.confirm("비밀번호를 변경 하시겠습니까?")){
             changePassword.mutate()
-            
         }
     }
     

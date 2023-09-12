@@ -17,6 +17,7 @@ const BoardRead = () => {
     const [ replyCommentFlag, setReplyCommentFlag ] = useState({});
     const [ getReplyCommentFlag, setGetReplyCommentFlag] = useState(false);
     const [ getCommentId, setGetCommentId ] = useState("");
+    const [ replyComment, setReplyComment ] = useState({});
 
     const commentOnChangeHandle = (e) => {
         const { name, value } = e.target;
@@ -26,7 +27,6 @@ const BoardRead = () => {
     const modifyCommentOnChangeHandle = (commentId, e) => {
         const { name, value } = e.target;
         setModifyCommentData(prevState => ({ ...prevState, [name]: value, commentId: commentId }));
-        console.log(modifyCommentData.modifyComment)
     }
 
     const replyCommentOnChangeHandle = (commentId, e) => {
@@ -44,7 +44,6 @@ const BoardRead = () => {
             }
         }
         const response = await axios.get("http://localhost:8080/read/board", option)
-        console.log(response.data)
         return response;
     }, {
         enabled: getBoardFlag,
@@ -60,7 +59,6 @@ const BoardRead = () => {
                 "Content-Type" : "application/json"
             }
         }
-
         try{
             await axios.post("http://localhost:8080/read/board/comment", JSON.stringify(commentData), option);
             alert("댓글 등록 완료~")
@@ -85,7 +83,6 @@ const BoardRead = () => {
                 setModifyCommentEditedFlag(prevState => ({ ...prevState, [response.data[i].commentId]: true }));
             }
         }
-
         return response;
     },{
         enabled: getCommentsFlag,
@@ -106,7 +103,7 @@ const BoardRead = () => {
         }
         try{
             await axios.delete("http://localhost:8080/read/board/comment/delete", option)
-            window.location.reload();
+            setGetCommentsFlag(true);
         }catch(error){
             alert("삭제 실패")
         }
@@ -137,7 +134,8 @@ const BoardRead = () => {
         }
         try{
             await axios.post("http://localhost:8080/read/board/replycomment/", JSON.stringify(replyCommentData), option)
-            window.location.reload();
+            setReplyCommentData({replyComment: ""})
+            setGetReplyCommentFlag(true);
         }catch(error){
 
         }
@@ -154,7 +152,6 @@ const BoardRead = () => {
                 }
             }
             const response  = await axios.get("http://localhost:8080/read/replycomment", option)
-        
             return response;
         }
     }, {
@@ -175,14 +172,15 @@ const BoardRead = () => {
         }
         try{
             await axios.delete("http://localhost:8080/read/delete/replycomment", option)
-            window.location.reload();
+            setReplyCommentData("");
+            setGetReplyCommentFlag(true);
         }catch(error){
             alert("삭제 실패")
         }
     })
     
-    const commentSubmitHandle = (commentId) => {
-        submitComment.mutate(commentId);
+    const commentSubmitHandle = () => {
+        submitComment.mutate();
         setCommentData({...commentData, comment:""});
     }
 
@@ -300,7 +298,7 @@ const BoardRead = () => {
                                     <>
                                         <div css={s.rplyCommentContainer} key={comment.commentId}>
                                             <div css={s.replyCommentInputAndButtonBox}>
-                                                <textarea css={s.replyCommentTextarea} onChange={(e) => replyCommentOnChangeHandle(comment.commentId, e)} name="replyComment" placeholder='답글달기'></textarea>
+                                                <textarea css={s.replyCommentTextarea} onChange={(e) => replyCommentOnChangeHandle(comment.commentId, e)} name="replyComment" placeholder='답글달기' value={replyCommentData.replyComment}></textarea>
                                                 <button css={s.registerReplyCommentButton} onClick={() => registerReplyCommentButton(comment.commentId)}>답글 등록</button>
                                             </div>
                                                 {getReplyComment.isLoading ? "로딩중" : getReplyComment !== undefined ? getReplyComment.data.data.map(replyComment => (

@@ -25,7 +25,6 @@ export const boardTitle = css`
 `;
 
 export const mainContainer = css`
-    /* display: flex; */
     width: 1000px;
     height: 500px;
 
@@ -41,8 +40,6 @@ export const boardContent = css`
 export const boardContentDetail = css`
     font-size: 14px;
     line-height: 18px;
-    /* background-color: #fafafa; */
-    /* margin: auto; */
     padding: 10px;
     
 `;
@@ -71,7 +68,6 @@ export const commentTextarea = css`
 export const commentButton = css`
     width: 80px;
     height: 75px;
-    /* padding: 5px; */
     margin: auto;
     border-radius: 5px;
     background-color: #ECEAFD;
@@ -276,8 +272,6 @@ export const replyDate = css`
     font-size: 12px;
     display: flex;
     justify-content: space-between;
-    
-    /* border: 2px solid #121212; */
 `;
 
 export const replyCommentDeleteButton  = (buttonFlag) => css`
@@ -290,6 +284,5 @@ export const replyCommentBox = css`
     padding: 10px;
     font-size: 18px;
     font-weight: 600;
-    /* border: 2px solid #dbdbdb; */
 `;
 

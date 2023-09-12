@@ -15,13 +15,10 @@ public interface UserRepository {
 	public List<RegisterQuestionCategoryResponseDto> getQuestionCategory();
 	public User findUserByUsername(String username);
 	public User findUserByNickname(String nickname);
-//	public User findUserByNameAndPhone(Map<String, Object> map);
 	public int saveUser(User user);
 	public int saveAuthority(Authority authority);
-	public int updateProvider(User user);
 	public int updatePassword(User user);
 	public int userDelete(User user);
-	public int updateProfileImg(User user);
 	public String findUsername(Map<String, Object> findUsernameMap);
 	public List<FindUserIdResponseDto> findPassword(Map<String, Object> findPasswordMap);
 	public int findUpdatePassword(User user);

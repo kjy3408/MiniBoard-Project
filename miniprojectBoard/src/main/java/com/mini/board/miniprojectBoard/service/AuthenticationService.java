@@ -91,7 +91,8 @@ public class AuthenticationService implements UserDetailsService {
 				new UsernamePasswordAuthenticationToken(loginReqDto.getUsername(), loginReqDto.getPassword());
 
 		Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-		
+		System.out.println(authentication);
+		System.out.println(jwtTokenProvider.generateToken(authentication));
 		return jwtTokenProvider.generateToken(authentication);
 	}
 	
@@ -139,14 +140,11 @@ public class AuthenticationService implements UserDetailsService {
 			throw new CustomException("MisMatchPassword", 
 					ErrorMap.builder().put("checkPassword", "새 비밀번호와 비밀번호 확인이 일치하지 않습니다.").build());
 		}
-		String password = (new BCryptPasswordEncoder().encode(passwordChangeDto.getCheckPassword()));
-		int userId = principalUser.getUserId();
 		
-		User userEntity = User.builder()
-							.userId(userId)
-							.password(password)
-							.build();
-		userRepository.updatePassword(userEntity);
+		userRepository.updatePassword(User.builder()
+											.userId(principalUser.getUserId())
+											.password(new BCryptPasswordEncoder().encode(passwordChangeDto.getCheckPassword()))
+											.build());
 	}
 	
 	public String findUsername(FindUsernameRequestDto findUsernameRequestDto){

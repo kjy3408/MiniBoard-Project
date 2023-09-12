@@ -40,9 +40,7 @@ public class MainBoardService {
 		List<MainBoardResponseDto> list = new ArrayList<>();
 		Map<String, Object>searchBoardMap = new HashMap<>();
 		
-		int index = (searchBoardRequestDto.getPage()- 1) * 15;
-		
-		searchBoardMap.put("index", index);
+		searchBoardMap.put("index", (searchBoardRequestDto.getPage()- 1) * 15);
 		searchBoardMap.put("searchValue", searchBoardRequestDto.getSearchValue());
 		
 		mainBoardRepository.getBoards(searchBoardMap).forEach(board -> {

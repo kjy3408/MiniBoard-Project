@@ -11,7 +11,6 @@ const BoardWrite = () => {
     const contentOnChangeHandle = (e) => {
         const { name, value } = e.target;
         setBoardContent({ ...boardContent, [name]: value });
-        console.log(boardContent)
     }  
 
     const registerBoard = useMutation(async() => {

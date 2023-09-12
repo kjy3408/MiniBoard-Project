@@ -58,19 +58,12 @@ public class ReadBoardService {
 		}
 		return list;
 	}
-	
-	public boolean myCommentFlag() {
 		
-		return false;
-	}
-	
 	public int deleteComment(int commentId) {
-		
 		return readBoardRepository.deleteComment(commentId);
 	}
 	
 	public int modifyComment(ModifyCommentRequestDto modifyCommentRequestDto) {
-		
 		Map<String, Object> modifyMap = new HashMap<>();
 		modifyMap.put("boardId", modifyCommentRequestDto.getBoardId());
 		modifyMap.put("commentId", modifyCommentRequestDto.getCommentId());
@@ -115,7 +108,6 @@ public class ReadBoardService {
 	
 	public int deleteReplyComment(int replyCommentId) {
 		readBoardRepository.deleteReplyComment(replyCommentId);
-		
 		return 1;
 	}
 }

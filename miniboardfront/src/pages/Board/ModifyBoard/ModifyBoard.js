@@ -15,7 +15,6 @@ const ModifyBoard = () => {
     const contentOnChangeHandle = (e) => {
         const { name, value } = e.target;
         setModifyBoardContent({ ...modifyBoardContent, [name]: value });
-        console.log(modifyBoardContent)
     }  
 
     
@@ -30,7 +29,6 @@ const ModifyBoard = () => {
         }
         const response = await axios.get("http://localhost:8080/read/board", option)
         setModifyBoardContent({modifyTitle: response.data.boardTitle, modifyContent: response.data.boardContent})
-        console.log(modifyBoardContent);
         return response;
     }, {
         enabled: getBoardFlag,
@@ -51,7 +49,6 @@ const ModifyBoard = () => {
             alert("수정완료~");
             window.location.replace(`http://localhost:3000/myboard/${userId}`);
         }catch(error){
-            console.log(error)
             setErrorMessages(error.response.data.errorData);
         }
     })

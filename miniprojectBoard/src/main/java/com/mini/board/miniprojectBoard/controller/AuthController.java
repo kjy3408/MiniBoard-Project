@@ -65,7 +65,6 @@ public class AuthController{
 	@ValidAspect
 	@PutMapping("/updatepassword")
 	public ResponseEntity<?> passwordChange(@Valid @RequestBody PasswordChangeDto passwordChangeDto, BindingResult bindingResult){
-		System.out.println(passwordChangeDto);
 		authenticationService.updatePassword(passwordChangeDto);		
 		return ResponseEntity.ok().body(null);
 	}
