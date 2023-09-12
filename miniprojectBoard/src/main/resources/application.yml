@@ -1,4 +1,8 @@
 spring:
+  servlet:  
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mini_board
@@ -11,3 +15,9 @@ mybatis:
     
 jwt:
   secret: qJzUmGueQXDTxcXJyWUZa2oVwieBrVF41ozvRaHcW4uJ8Y4sJqHQC8WbvNoTC63k
+
+server:
+  max-http-header-size: 100MB
+  
+file:
+  path: /upload/

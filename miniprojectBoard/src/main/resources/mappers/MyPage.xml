@@ -71,7 +71,7 @@
 	
 	<delete id="deleteReadBoard" parameterType="Integer">
 		DELETE
-		From
+		FROM
 			read_tb
 		WHERE
 			board_id = #{boardId};

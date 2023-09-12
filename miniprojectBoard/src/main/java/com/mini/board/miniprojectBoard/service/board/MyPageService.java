@@ -35,6 +35,7 @@ public class MyPageService {
 		
 		myPageRepository.deleteMyBoardComment(boardId);
 		myPageRepository.deleteMyBoard(boardId);
+		myPageRepository.deleteReadBoard(boardId);
 		return 1;
 	}
 	
