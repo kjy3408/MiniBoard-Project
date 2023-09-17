@@ -3,10 +3,13 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import * as s from './MyPageStyle';
+import { useNavigate } from 'react-router-dom';
 
 const MyPage = () => {
   
   const [ getUserInfoFlag, setGetUserInfoFlag ] = useState(true);
+  const navigate = useNavigate();
+  
   const getUserInfo = useQuery(["getUserInfo"], async() => {
     const option = {
         headers: {
@@ -38,6 +41,10 @@ const MyPage = () => {
     window.location.href = `http://localhost:3000/myinfo/${getUserInfo.data.data.userId}`;
   }
 
+  const backButtonHandle = () => {
+    window.location.href = "http://localhost:3000/";
+  }
+
   if(getUserInfo.isLoading) {
     return (<div>로딩중</div>)
   }
@@ -45,7 +52,8 @@ const MyPage = () => {
   return (
     <div css={s.myPageContainer}>
       <div css={s.myPageTitleContainer}>
-        <label css={s.myPageTitle}> 마이페이지</label>
+          <button css={s.backButton} onClick={backButtonHandle}>뒤로</button>
+          <label css={s.myPageTitle}> 마이페이지</label>
       </div>
       <div css={s.myPageButtonContainer}>
         <button css={s.myPageButton} onClick={myBoardButtonHandle}>

@@ -19,6 +19,24 @@ export const headerContainer = css`
     width: 800px;
 `;
 
+export const backButton = css`
+    position: absolute;
+    top: 15px;
+    left: 150px;
+    border-radius: 7px;
+    width: 50px;
+    height: 30px;
+    border: 1px solid #121212;
+    background-color: #F3F4FB;
+    font-size: 15px;
+    border: 1px solid #121212;
+    &:hover {
+        box-shadow: 0px 0px 10px 0px #646161;
+        border: none;
+        font-weight: 600;
+    }
+`;
+
 export const boardTitle = css`
     font-size: 20px;
     font-weight: 600;

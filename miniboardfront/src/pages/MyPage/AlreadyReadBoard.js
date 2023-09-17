@@ -2,14 +2,14 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { unstable_HistoryRouter, useNavigate, useParams } from 'react-router-dom';
 import * as s from './AlreadyReadBoardStyle';
 
 const AlreadyReadBoard = () => {
     const [ getAlreadyReadBoardsFlag, setGetAlreadyReadBoardsFlag ] = useState(true);
     const [modifyBoardEditedFlag, setModifyBoardEditedFlag] = useState(false);
-
     const { userId } = useParams();
+    const navigate = useNavigate();
 
     const getAlreadyReadBoards = useQuery(["myInfoData"], async() => {
             const option = {
@@ -67,11 +67,15 @@ const AlreadyReadBoard = () => {
         
     const readBoardHandle = (boardId) => {
         window.location.href = `/mini/board/${boardId}`;
-     
+    }
+
+    const backButtonHandle = () => {
+        navigate(-1);
     }
     return (
         <div css={s.alreadyBoardContainer}>
             <div css={s.alreadyBoardTitleBox}> 
+                <button css={s.backButton} onClick={backButtonHandle}>뒤로</button>
                 <label css={s.alreadyBoardTitle}>최근 본 글</label>
             </div>
             <div css={s.deleteAllButtonBox}>

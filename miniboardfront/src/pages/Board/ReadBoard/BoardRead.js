@@ -2,7 +2,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as s from './BoardReadStyle';
 
 const BoardRead = () => {
@@ -17,7 +17,7 @@ const BoardRead = () => {
     const [ replyCommentFlag, setReplyCommentFlag ] = useState({});
     const [ getReplyCommentFlag, setGetReplyCommentFlag] = useState(false);
     const [ getCommentId, setGetCommentId ] = useState("");
-    const [ replyComment, setReplyComment ] = useState({});
+    const navigate = useNavigate();
 
     const commentOnChangeHandle = (e) => {
         const { name, value } = e.target;
@@ -52,7 +52,7 @@ const BoardRead = () => {
         }
     })
     
-    const submitComment = useMutation(async() => {
+    const registerComment = useMutation(async() => {
         const option = {
             headers: {
                 Authorization : `Bearer ${localStorage.getItem("accessToken")}`,
@@ -62,7 +62,7 @@ const BoardRead = () => {
         try{
             await axios.post("http://localhost:8080/read/board/comment", JSON.stringify(commentData), option);
             alert("댓글 등록 완료~")
-            
+            window.location.reload();
         }catch(error){
 
         }
@@ -90,24 +90,25 @@ const BoardRead = () => {
             setGetCommentsFlag(false);
         }
     })
-
-    const deleteComment = useMutation(async(commentId) => {
+    const deleteComment = useMutation(async (commentId) => {
         const option = {
             headers: {
-                Authorization : `Bearer ${localStorage.getItem("accessToken")}`,
-                "Content-Type" : "application/json"
+                Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                "Content-Type": "application/json"
             },
             params: {
-                commentId : commentId
+                commentId: commentId
             }
+        };
+        try {
+            await axios.delete("http://localhost:8080/read/board/comment/delete", option);
+            // setGetCommentsFlag(true);
+            window.location.reload();
+        } catch (error) {
+            alert("삭제 실패");
         }
-        try{
-            await axios.delete("http://localhost:8080/read/board/comment/delete", option)
-            setGetCommentsFlag(true);
-        }catch(error){
-            alert("삭제 실패")
-        }
-    })
+    });
+    
 
     const modifyComment = useMutation(async(commentId) => {
         const option = {
@@ -180,7 +181,7 @@ const BoardRead = () => {
     })
     
     const commentSubmitHandle = () => {
-        submitComment.mutate();
+        registerComment.mutate();
         setCommentData({...commentData, comment:""});
     }
 
@@ -237,6 +238,10 @@ const BoardRead = () => {
         }
     }
 
+    const backButtonHandle = () => {
+        navigate(-1);
+    }
+
     if(getReplyComment.isLoading){
         return <div>로딩중</div>
     }
@@ -247,6 +252,7 @@ const BoardRead = () => {
     return (
         <div css={s.BoardReadContainer}>
             <header css={s.headerContainer}>
+                <button css={s.backButton} onClick={backButtonHandle}>뒤로</button>
                 <div css={s.boardTitle}>
                     <pre>{getBoard.data.data.boardTitle}</pre>
                 </div>

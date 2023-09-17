@@ -34,9 +34,14 @@ const BoardWrite = () => {
         registerBoard.mutate();
     }
 
+    const backButtonHandle = () => {
+        window.location.href = "http://localhost:3000/"
+    }
+
     return (
         <div css={s.writeBoardContainer}>
             <header css={s.headerContainer}>
+                <button css={s.backButton} onClick={backButtonHandle}>뒤로</button>
                 <label css={s.text}>
                     글 쓰 기
                 </label>

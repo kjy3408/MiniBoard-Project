@@ -58,8 +58,7 @@ public class MainBoardService {
 	
 	public int increaseViews(Map<String, Object> boardData) {
 	    Map<String, Object> map = new HashMap<>();
-	    
-	    System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+	    	   
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();	    
 
@@ -70,9 +69,7 @@ public class MainBoardService {
 		
 		if(mainBoardRepository.alreadyReadBoard(map).size() <= 1) {
 			mainBoardRepository.increaseViews(boardData);			
-			System.out.println("안읽은글");
-		} else {
-			System.out.println("이미읽음");
+		} else {		
 			return 0;
 		}
 	    return 1;

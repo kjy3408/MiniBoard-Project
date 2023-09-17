@@ -23,6 +23,32 @@ export const myPageTitleContainer = css`
     height: 100px;
 `;
 
+export const backButton = css`
+    position: absolute;
+    top: 30px;
+    left: 150px;
+    border-radius: 7px;
+    width: 50px;
+    height: 30px;
+    border: 1px solid #121212;
+    background-color: #F3F4FB;
+    font-size: 15px;
+    border: 1px solid #121212;
+    &:hover {
+        box-shadow: 0px 0px 10px 0px #646161;
+        border: none;
+        font-weight: 600;
+    }
+`;
+
+export const myPageTitleBox = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1100px;
+    border: 1px solid #121212;
+`;
+
 export const myPageTitle = css`
     font-size: 30px;
     font-weight: 600;
@@ -32,6 +58,7 @@ export const myPageButtonContainer = css`
     display: flex;
     justify-content: center;
     align-items: center;
+    
     
     width: 1000px;
     height: 70px;

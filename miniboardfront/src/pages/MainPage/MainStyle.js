@@ -145,7 +145,7 @@ export const tableTR2 = css`
     &:hover {
         background-color: #FAEFF1;
         font-weight: 600;
-        box-shadow: 8px 0px 10px #C7BCBE;
+        box-shadow: 0px 0px 10px 3px #C7BCBE;
         border: none;
         cursor: pointer;
     }

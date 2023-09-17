@@ -95,12 +95,18 @@ const MyInfo = () => {
         window.location.href = `http://localhost:3000/already/read/${getUserInfo.data.data.userId}`;
     }
 
+    const backButtonHandle = () => {
+        window.location.href = `http://localhost:3000/mypage/${userId}`;
+    }
+
+
     if(getUserInfo.isLoading || getMyInfoData.isLoading) {
         return (<div>로딩중</div>)
     }
         return (
             <div css={s.myInfoContainer}>
                 <div css={s.myInfoTitleContainer}>
+                    <button css={s.backButton} onClick={backButtonHandle}>뒤로</button>
                     <label css={s.myInfoTitle}>
                         내 정보
                     </label>

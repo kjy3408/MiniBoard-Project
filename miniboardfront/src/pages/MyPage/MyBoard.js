@@ -2,12 +2,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useMutation, useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as s from './MyBoardStyle';
 
 const MyBoard = () => {
     const { userId } = useParams();
     const [ getMyBoardsFlag, setGetMyboardsFlag ] = useState(true);
+    const navigate = useNavigate();
 
     const getMyBoards = useQuery(["getMyBoards"], async() => {
         const option = {
@@ -59,9 +60,14 @@ const MyBoard = () => {
         deleteMyBoard.mutate(boardId);
       }
     }
+
+    const backButtonHandle = () => {
+      navigate(-1);
+    }
     return (
         <div css={s.myBoardContainer}>
             <header css={s.myBoardLabelContainer}>
+                <button css={s.backButton} onClick={backButtonHandle}>뒤로</button>
                 <label  css={s.myBoardLabel}>내가 쓴 글</label>
             </header>
             <table css={s.tableContainer}>
