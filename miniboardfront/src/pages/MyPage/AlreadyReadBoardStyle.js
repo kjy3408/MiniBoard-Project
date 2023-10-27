@@ -9,6 +9,9 @@ export const alreadyBoardContainer = css`
     border-radius: 25px;
 
     overflow: auto;
+    ::-webkit-scrollbar{
+        width: 0px;
+    }
 `;
 
 export const alreadyBoardTitleBox = css`
@@ -62,7 +65,7 @@ export const deleteAllButton = css`
         color: #312F2F;
         border: none;
         box-shadow: 0px 0px 8px #646161;
-        font-weight: 600;
+        /* font-weight: 600; */
         cursor: pointer;
     }
 

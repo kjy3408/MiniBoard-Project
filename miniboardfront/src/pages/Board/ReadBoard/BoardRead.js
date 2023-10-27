@@ -17,6 +17,9 @@ const BoardRead = () => {
     const [ replyCommentFlag, setReplyCommentFlag ] = useState({});
     const [ getReplyCommentFlag, setGetReplyCommentFlag] = useState(false);
     const [ getCommentId, setGetCommentId ] = useState("");
+    const [ getBoardData, setGetBoardData ] = useState();
+    const [ getCommentData, setGetCommentData ] = useState([]);
+    const [ getReplyCommentData, setGetReplyCommentData ] = useState([]);
     const navigate = useNavigate();
 
     const commentOnChangeHandle = (e) => {
@@ -44,6 +47,7 @@ const BoardRead = () => {
             }
         }
         const response = await axios.get("http://localhost:8080/read/board", option)
+        setGetBoardData(response.data)
         return response;
     }, {
         enabled: getBoardFlag,
@@ -62,9 +66,12 @@ const BoardRead = () => {
         try{
             await axios.post("http://localhost:8080/read/board/comment", JSON.stringify(commentData), option);
             alert("댓글 등록 완료~")
-            window.location.reload();
         }catch(error){
 
+        }
+    },{
+        onSuccess: () => {
+            getComments.refetch();
         }
     })
 
@@ -83,6 +90,7 @@ const BoardRead = () => {
                 setModifyCommentEditedFlag(prevState => ({ ...prevState, [response.data[i].commentId]: true }));
             }
         }
+        setGetCommentData(response.data)
         return response;
     },{
         enabled: getCommentsFlag,
@@ -102,10 +110,12 @@ const BoardRead = () => {
         };
         try {
             await axios.delete("http://localhost:8080/read/board/comment/delete", option);
-            // setGetCommentsFlag(true);
-            window.location.reload();
         } catch (error) {
             alert("삭제 실패");
+        }
+    },{
+        onSuccess: () => {
+            getComments.refetch();
         }
     });
     
@@ -120,9 +130,12 @@ const BoardRead = () => {
         try{
             await axios.post("http://localhost:8080/read/board/comment/modify", JSON.stringify(modifyCommentData), option)
             setModifyCommentFlag(prevState => ({ ...prevState, [commentId]: false }));
-            window.location.reload();
         }catch(error){
 
+        }
+    },{
+        onSuccess: () => {
+            getComments.refetch();
         }
     })
 
@@ -139,6 +152,10 @@ const BoardRead = () => {
             setGetReplyCommentFlag(true);
         }catch(error){
 
+        }
+    },{
+        onSuccess: () => {
+            getReplyComment.refetch();
         }
     })
 
@@ -177,6 +194,10 @@ const BoardRead = () => {
             setGetReplyCommentFlag(true);
         }catch(error){
             alert("삭제 실패")
+        }
+    },{
+        onSuccess: () => {
+            getReplyComment.refetch();
         }
     })
     
@@ -252,9 +273,24 @@ const BoardRead = () => {
     return (
         <div css={s.BoardReadContainer}>
             <header css={s.headerContainer}>
-                <button css={s.backButton} onClick={backButtonHandle}>뒤로</button>
+                <div css={s.backButtonBox}>
+                    <button css={s.backButton} onClick={backButtonHandle}>뒤로</button>
+                </div>
                 <div css={s.boardTitle}>
                     <pre>{getBoard.data.data.boardTitle}</pre>
+                </div>
+                <div css={s.iconAndUserInfoAndDateBox}>
+                    <div css={s.userIcon}>
+                        아이콘
+                    </div>
+                    <div css={s.userInfoAndDateBox}>
+                        <div css={s.userInfoBox}>
+                            <p css={s.userInfo}>{getBoardData.username}</p>
+                        </div>
+                        <div css={s.uploadDateBox}>
+                            <p css={s.uploadDate}>{getBoardData.boardDate}</p>
+                        </div>
+                    </div>
                 </div>
             </header>
             <main css={s.mainContainer}>
@@ -268,7 +304,7 @@ const BoardRead = () => {
                     <button css={s.commentButton} onClick={commentSubmitHandle}>댓글 등록</button>
                 </div>
                 <div css={s.comentContainer}>
-                    {getComments.isLoading ? "" : getComments.data !== undefined ? getComments.data.data.map(comment => (
+                    {getComments.isLoading ? "" : getComments.data !== undefined ? getCommentData.map(comment => (
                         <div key={comment.commentId} css={s.comment}>
                             {modifyCommentFlag[comment.commentId] ? (
                             <div key={comment.commentId}>
@@ -278,8 +314,7 @@ const BoardRead = () => {
                                     <button css={s.modifyOkAndCancelButton} onClick={modifyCancelHandle}>취소</button>
                                 </div>
                             </div>
-                                                                    ) : (
-
+                            ) : (
                             <>
                                 <div css={s.commentDate}> 
                                     <div >

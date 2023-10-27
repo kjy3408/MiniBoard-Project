@@ -7,22 +7,23 @@ export const BoardReadContainer = css`
     width: 1000px;
     background-color: #f9ebee;
     border-radius: 25px;
-border: 1px solid #121212;
 `;
 
 export const headerContainer = css`
     display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 20px;
-    width: 800px;
+    flex-direction: column;
+    border: 1px solid black;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom: none;
+    padding: 10px;
+    width: 100%;
 `;
-
+export const backButtonBox = css`
+    width: 100%;
+    margin-bottom: 20px;
+`;
 export const backButton = css`
-    position: absolute;
-    top: 15px;
-    left: 150px;
     border-radius: 7px;
     width: 50px;
     height: 30px;
@@ -38,10 +39,47 @@ export const backButton = css`
 `;
 
 export const boardTitle = css`
+    display: flex;
+    align-items: end;
+    margin-bottom: 10px;
+    font-size: 30px;
+    font-weight: 600;
+    width: 100%;
+`;
+export const iconAndUserInfoAndDateBox = css`
+    display: flex;
+    width: 100%;
+`;
+export const userIcon = css`
+    width: 60px;
+    height: 60px;
+`;
+export const userInfoAndDateBox = css`
+    display: flex;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+`;
+export const userInfoBox = css`
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    width: 100%;
+    height: 80%;
+`;
+export const userInfo = css`
     font-size: 20px;
     font-weight: 600;
 `;
+export const uploadDateBox = css`
+    margin-left: 20px;
+    width: 70%;
+`;
+export const uploadDate = css`
+    font-size: 14px;
+    color: darkgray;
 
+`;
 export const mainContainer = css`
     width: 1000px;
     height: 500px;
@@ -49,7 +87,6 @@ export const mainContainer = css`
     overflow: auto;
     border: 1px solid #121212;
 `;
-
 export const boardContent = css`
     padding: 30px;
     margin: auto;
@@ -63,12 +100,17 @@ export const boardContentDetail = css`
 `;
 
 export const footerContainer = css`
-    width: 800px;
+    width: 100%;
+    border: 1px solid;
+    border-top: none;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 `;
 
 export const addCommentContainer = css`
     display: flex;
-    width: 800px;
+    margin: auto;
+    width: 80%;
     height: 100px;
 `;
 
