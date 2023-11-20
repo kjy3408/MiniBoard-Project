@@ -21,6 +21,8 @@ public class Board {
 	private int boardViews;
 	private boolean boardModifyFlag;
 	private User user;
+	private int commentCount;
+	private int likeCount;
 	
 	public MainBoardResponseDto toDto() {
 		return MainBoardResponseDto.builder().boardId(boardId)
@@ -32,6 +34,8 @@ public class Board {
 											.userId(user.getUserId())
 											.username(user.getUsername())
 											.nickname(user.getNickname())
+											.commentCount(commentCount)
+											.likeCount(likeCount)
 											.build();
 	}
 	
@@ -45,6 +49,8 @@ public class Board {
 											.userId(user.getUserId())
 											.username(user.getUsername())
 											.nickname(user.getNickname())
+											.commentCount(commentCount)
+											.likeCount(likeCount)
 											.build();
 	}
 }

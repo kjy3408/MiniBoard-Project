@@ -9,6 +9,8 @@
 		<result property="boardDate" column="board_date"/>
 		<result property="boardViews" column="board_views"/>
 		<result property="boardModifyFlag" column="board_modify_flag"/>
+		<result property="commentCount" column="comment_count"/>
+		<result property="likeCount" column="like_count"/>
 		
 		<association property="user" resultMap="UserMap" />
 	</resultMap>
@@ -33,6 +35,28 @@
 		<result property="roleName" column="role_name"/>
 	</resultMap>
 
+
+
+	<resultMap type="com.mini.board.miniprojectBoard.entity.Movie" id="MovieMap">
+		<id property="movieId" column="movie_id"/>
+		<result property="movieTitle" column="movie_title"/>
+		<collection property="cast" javaType="list" resultMap="CastMap"/>
+		<collection property="country" javaType="list" resultMap="CountryMap"/>
+	</resultMap>
+	
+	
+	<resultMap type="com.mini.board.miniprojectBoard.entity.Cast" id="CastMap">
+		<id property="castId" column="cast_id"/>
+		<result property="castName" column="cast_name"/>
+		<result property="castRole" column="cast_role"/>
+		<result property="charactor" column="charactor"/>
+	</resultMap>
+
+	<resultMap type="com.mini.board.miniprojectBoard.entity.Country" id="CountryMap">
+		<id property="countryId" column="country_id"/>
+		<result property="country" column="country"/>
+	</resultMap>
+
 	<select id="getUserInfo" resultMap="UserMap">
 		SELECT
 			user_id,
@@ -55,7 +79,9 @@
 		    
 		    ut.user_id,
 		    ut.username,
-		    ut.nickname
+		    ut.nickname,
+		    bt.comment_count,
+		    bt.like_count
 		FROM
 			board_tb bt
 		    LEFT OUTER JOIN user_tb ut ON (bt.user_id = ut.user_id)
@@ -110,28 +136,44 @@
 			board_id = #{boardId};
 	</update>
 	
-<!-- 	<select id="getSearchBoards" parameterType="hashmap" resultMap="BoardMap"> -->
-<!-- 		SELECT -->
-<!-- 			bt.board_id, -->
-<!-- 		    bt.board_title, -->
-<!-- 		    bt.board_content, -->
-<!-- 		    bt.board_date, -->
-<!-- 		    bt.board_views, -->
-<!-- 		    bt.board_modify_flag, -->
-		    
-<!-- 		    ut.user_id, -->
-<!-- 		    ut.username, -->
-<!-- 		    ut.nickname -->
-<!-- 		FROM -->
-<!-- 			board_tb bt -->
-<!-- 		    LEFT OUTER JOIN user_tb ut ON (bt.user_id = ut.user_id) -->
-<!-- 		WHERE -->
-<!-- 			bt.board_title LIKE concat ("%", #{searchValue}, "%") -->
-<!-- 		OR bt. board_content LIKE concat ("%", #{searchValue}, "%") -->
-<!-- 		ORDER BY -->
-<!-- 			bt.board_date DESC, -->
-<!--     		bt.board_id DESC -->
-<!-- 		LIMIT -->
-<!-- 			#{index}, 15; -->
-<!-- 	</select> -->
+	<select id="commentCount" resultType="Integer">
+		SELECT
+			board_id,
+			user_id,
+			COUNT(*)
+		FROM
+			comment_tb
+	</select>
+	
+	<select id="test" resultMap="MovieMap">
+		select
+			mt.movie_id,
+			mt.movie_title,
+			ct.cast_name,
+			ct.cast_role,
+			mct.charactor,
+			ot.country
+		from
+			movie_tb mt
+			left outer join movie_cast_tb mct on (mt.movie_id = mct.movie_id)
+			left outer join cast_tb ct on (mct.cast_id = ct.cast_id)
+	       	left outer join movie_country_tb mot on (mot.movie_id = mt.movie_id)
+            left outer join country_tb ot on (mot.country_id = ot.country_id)
+		where
+			mt.movie_id = 1
+	</select>
+	
+	<select id="cast" resultMap="CastMap">
+		select
+			ct.cast_id,
+			ct.cast_name,
+			ct.cast_role,
+			mct.charactor
+		from
+			movie_tb mt
+			left outer join movie_cast_tb mct on (mt.movie_id = mct.movie_id)
+			left outer join cast_tb ct on (mct.cast_id = ct.cast_id)
+		where
+			mt.movie_id = 1 
+	</select>
 </mapper>

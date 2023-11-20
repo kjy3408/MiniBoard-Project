@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as s from './BoardReadStyle';
+import { BsHandThumbsUp } from 'react-icons/bs'
+import { BsHandThumbsUpFill } from 'react-icons/bs'
 
 const BoardRead = () => {
     const { boardId } = useParams();
@@ -20,6 +22,8 @@ const BoardRead = () => {
     const [ getBoardData, setGetBoardData ] = useState();
     const [ getCommentData, setGetCommentData ] = useState([]);
     const [ getReplyCommentData, setGetReplyCommentData ] = useState([]);
+    const [ addLikeFlag, setAddLikeFlag ] = useState(false);
+    const [ getAddLikeCountRefresh, setGetAddLikeCountRefresh ] = useState(true);
     const navigate = useNavigate();
 
     const commentOnChangeHandle = (e) => {
@@ -105,7 +109,8 @@ const BoardRead = () => {
                 "Content-Type": "application/json"
             },
             params: {
-                commentId: commentId
+                commentId: commentId,
+                boardId: boardId
             }
         };
         try {
@@ -119,7 +124,6 @@ const BoardRead = () => {
         }
     });
     
-
     const modifyComment = useMutation(async(commentId) => {
         const option = {
             headers: {
@@ -200,6 +204,54 @@ const BoardRead = () => {
             getReplyComment.refetch();
         }
     })
+
+    const addLike = useMutation(async() => {
+        const option = {
+            headers: {
+                Authorization : `Bearer ${localStorage.getItem("accessToken")}`,
+                "Content-Type" : "application/json"
+            }
+        }
+        try{
+            const response = await axios.post("http://localhost:8080/read/like", JSON.stringify(boardId), option)
+            setAddLikeFlag(response.data)
+        }catch(error){
+            console.log(error)
+        }
+    })
+
+    const disLike = useMutation(async() => {
+        const option = {
+            headers: {
+                Authorization : `Bearer ${localStorage.getItem("accessToken")}`
+            },
+            params: {
+                boardId: boardId
+            }
+        }
+        const response = await axios.delete("http://localhost:8080/read/dislike", option)
+        setAddLikeFlag(response.data)
+        
+    })
+
+    const getAddLikeFlag = useQuery(["getAddLikeCount"], async() => {
+        const option = {
+            headers: {
+                Authorization : `Bearer ${localStorage.getItem("accessToken")}`
+            },
+            params: {
+                boardId: boardId
+            }
+        }
+        const response = await axios.get("http://localhost:8080/read/like/flag", option)
+        setAddLikeFlag(response.data)
+    },{
+        enabled: getAddLikeCountRefresh,
+        onSUccess: () => {
+            setGetAddLikeCountRefresh(false);
+        }
+    })
+
     
     const commentSubmitHandle = () => {
         registerComment.mutate();
@@ -230,7 +282,7 @@ const BoardRead = () => {
       
     const replyCommentButtonHandle = (commentId) => {
         setReplyCommentFlag((prevState) => ({...prevState, [commentId]: !prevState[commentId]}));
-       
+        
         Object.keys(replyCommentFlag).forEach((key) => {
           if (key !== commentId && replyCommentFlag[key]) {
             setReplyCommentFlag((prevState) => ({
@@ -239,6 +291,7 @@ const BoardRead = () => {
             }));
           }
         });
+
         if (!replyCommentFlag[commentId]) {
           setGetCommentId(commentId);
           setGetReplyCommentFlag(!getReplyCommentFlag);
@@ -263,6 +316,15 @@ const BoardRead = () => {
         navigate(-1);
     }
 
+    const addLikeHandle = () => {
+        // setAddLikeFlag(true);
+        addLike.mutate();
+    }
+
+    const disLikeHandle = () => {
+        // setAddLikeFlag(false);
+        disLike.mutate();
+    }
     if(getReplyComment.isLoading){
         return <div>로딩중</div>
     }
@@ -271,11 +333,11 @@ const BoardRead = () => {
     }
 
     return (
-        <div css={s.BoardReadContainer}>
-            <header css={s.headerContainer}>
-                <div css={s.backButtonBox}>
-                    <button css={s.backButton} onClick={backButtonHandle}>뒤로</button>
-                </div>
+        <div css={s.container}>
+            <header css={s.headerBox}>
+                {/* <div css={s.backButtonBox}> */}
+                    {/* <button css={s.backButton} onClick={backButtonHandle}>뒤로</button> */}
+                {/* </div> */}
                 <div css={s.boardTitle}>
                     <pre>{getBoard.data.data.boardTitle}</pre>
                 </div>
@@ -285,25 +347,35 @@ const BoardRead = () => {
                     </div>
                     <div css={s.userInfoAndDateBox}>
                         <div css={s.userInfoBox}>
-                            <p css={s.userInfo}>{getBoardData.username}</p>
+                            <p css={s.userInfo}>{getBoardData.nickname}</p>
                         </div>
                         <div css={s.uploadDateBox}>
                             <p css={s.uploadDate}>{getBoardData.boardDate}</p>
                         </div>
+                            {addLikeFlag ? (
+                                <>
+                                    <button css={s.likeButton} onClick={() => disLikeHandle()}><BsHandThumbsUpFill /></button>
+                                </>
+                                
+                                ) : (
+                                <>
+                                    <button css={s.likeButton} onClick={() => addLikeHandle()}><BsHandThumbsUp /></button>
+                                </>
+                            )}
                     </div>
                 </div>
             </header>
-            <main css={s.mainContainer}>
-                <div css={s.boardContent}>
-                    <pre css={s.boardContentDetail}>{getBoard.data.data.boardContent}</pre>
+            <main css={s.mainBox}>
+                <div css={s.boardContentBox}>
+                    <pre css={s.boardContent}>{getBoard.data.data.boardContent}</pre>
                 </div>
             </main>
-            <footer css={s.footerContainer}>
-                <div css={s.addCommentContainer}>
+            <footer css={s.footerBox}>
+                <div css={s.addCommentBox}>
                     <textarea value={commentData.comment} css={s.commentTextarea} onChange={commentOnChangeHandle} type="text" placeholder='댓글 작성' name='comment'/>
                     <button css={s.commentButton} onClick={commentSubmitHandle}>댓글 등록</button>
                 </div>
-                <div css={s.comentContainer}>
+                <div css={s.commentBox}>
                     {getComments.isLoading ? "" : getComments.data !== undefined ? getCommentData.map(comment => (
                         <div key={comment.commentId} css={s.comment}>
                             {modifyCommentFlag[comment.commentId] ? (

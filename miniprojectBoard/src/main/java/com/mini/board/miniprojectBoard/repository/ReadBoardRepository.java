@@ -20,4 +20,9 @@ public interface ReadBoardRepository {
 	public int registerReplyComment(Map<String, Object> replyCommentMap);
 	public List<ReplyCommentResponseDto> getReplyComment(int getCommentId);
 	public int deleteReplyComment(int replyCommentId);
+	public int commentCountUp(int boardId);
+	public int addLike(Map<String, Object> map);
+	public int disLike(Map<String, Object> map);
+	public Map<String, Object> addLikeFlag(Map<String, Object> map);
+	public int addLikeCountChange(Map<String, Object> map);
 }

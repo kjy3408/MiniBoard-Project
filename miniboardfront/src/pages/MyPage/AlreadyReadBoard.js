@@ -74,14 +74,14 @@ const AlreadyReadBoard = () => {
     }
     return (
         <div css={s.alreadyBoardContainer}>
-            <div css={s.alreadyBoardTitleBox}> 
+            <header css={s.alreadyBoardTitleBox}> 
                 <button css={s.backButton} onClick={backButtonHandle}>뒤로</button>
                 <label css={s.alreadyBoardTitle}>최근 본 글</label>
-            </div>
+            </header>
             <div css={s.deleteAllButtonBox}>
                 <button css={s.deleteAllButton} onClick={deleteAllHandle}>전체삭제</button>
             </div>
-            <div>
+            <main>
                 <table css={s.tableContainer}>
                     <thead css={s.thead}>
                         <tr>
@@ -124,7 +124,7 @@ const AlreadyReadBoard = () => {
                         )}
                     </tbody>
                 </table>
-            </div>
+            </main>
         </div>
     );
 };

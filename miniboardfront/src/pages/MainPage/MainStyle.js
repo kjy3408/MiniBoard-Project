@@ -1,22 +1,21 @@
 import { css } from "@emotion/react";
 
-export const mainContainer = css`
+export const container = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f9ebee;
-    width: 1000px;
-    height: 600px;
-    border-radius: 25px;
-    margin: auto;
+    width: 100%;
+    height: 100vh;
+    margin-left: 200px;
 border: 1px solid #121212;
 `;
 
-export const header = css`
-    width: 1000px;
+export const headerBox = css`
+    width: 100%;
+    margin-top: 100px;
 `;
 
-export const mainTitle = css`
+export const headerTitle = css`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,7 +23,7 @@ export const mainTitle = css`
     width: 200px;
 `;
 
-export const mainTitleText = css`
+export const title = css`
     font-weight: 600;
     font-size: 30px;
 
@@ -33,29 +32,23 @@ export const mainTitleText = css`
     }
 `;
 
-export const searchBarAndWriteButtonContainer = css`
+export const searchBarAndWriteButtonBox = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    margin: 50px 0px 0px 0px;
-    width: 1000px;
+    margin: auto;
+    width: 800px;
 `;
 
-export const searchBarContainer = css`
+export const searchBarBox = css`
     display: flex;
     justify-content: center;
     align-items: center;
-
-    width: 800px;
 `;
 
 export const searchInput = css`
     width: 400px;
-    height: 25px;
-    border: none;
-    border-radius: 5px;
-    /* box-shadow: 0px 3px 4px 0px #C7BCBE; */
+    height: 35px;
     &:hover{
         box-shadow: 0px 0px 8px 3px #C7BCBE;
         border: none;
@@ -64,22 +57,19 @@ export const searchInput = css`
     &:focus{
         box-shadow: 0px 0px 8px #C7BCBE;
         border: none;
-        outline: none;
     }
 `;
 
 export const searchButton = css`
     width: 50px;
-    height: 25px;
+    height: 35px;
 
-    border-radius: 5px;
-    background-color: #ECEAFD;
+    background-color: #E0EDD4;
     border: 0.5px solid #121212;
     color: #0c3934;
 
     &:hover {
-        background-color: #C7BCBE;
-        color: #312F2F;
+        background-color: #D7F0B6;
         font-weight: 600;
         border: none;
         box-shadow: 0px 0px 9px 2px #646161;
@@ -91,22 +81,21 @@ export const searchButton = css`
     }
 `;
 
-export const writeButtonContainer = css`
+export const writeButtonBox = css`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    width: 900px;
+    width: 800px;
+    height: 60px;
 `;
 
 export const writeButton = css`
     width: 150px;
     height: 30px;
     border: 0.5px solid #0c3934;
-    border-radius: 5px;
-    background-color: #ECEAFD;
+    background-color: #E0EDD4;
     &:hover {
-        background-color: #C7BCBE;
-        color: #312F2F;
+        background-color: #D7F0B6;
         font-weight: 600;  
         border: none;
         box-shadow: 0px 0px 9px 2px #646161;
@@ -118,101 +107,153 @@ export const writeButton = css`
     }
 `;
 
-export const tableContainer = css`
-    margin-top: 10px;
-    width: 950px;
-    background-color: #fafafa;
+export const mainBox = css`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /////////////////
+    /* height: 100vh; */
+    /////////////////
+
+    max-height: 500px;
 `;
 
-export const thead = css`
-    text-align: center;
-    font-size: 15px;
+export const tableBox = css`
+    width: 80%;
+    /* height: 100%; */
+    /* text-align: center; */
+    border: 1px solid black;
+`;
+
+export const tableHead = css`
+    height: 20px;
+    font-size: 16px;
     font-weight: 600;
+    /* text-align: center; */
+    background-color: #E0EDD4;
+    color: darkgray;
     border-top: 1.5px solid #121212;
     border-bottom: 1.5px solid #121212;
 `;
 
-export const thTitle = css`
-    width: 470px;
+export const tableHeadNumber = css`
+    width: 5%;
 `;
 
-export const tableTR2 = css`
-    position: relative;
-    text-align: center;
-    height: 25px;
-    background-color: #FBF5F6;
+export const tableHeadTitle = css`
+    max-width: 54%;
+    min-width: 54%;
+`;
+
+export const tableHeadRegisterDate = css`
+    width: 8%;
+`;
+export const tableHeadWriteUser = css`
+    width: 8%;
+`;
+
+export const tableHeadViews = css`
+    width: 5%;
+`;
+
+export const tableHeadLikeCount = css`
+    width: 6%;
+`;
+
+export const tableHeadCommentCount = css`
+    width: 6%;
+`;
+
+export const tableHeadModify = css`
+    width: 8%;
+`;
+
+
+export const tableRow = css`
+    /* position: relative; */
     
+    height: 25px;
+    background-color: #fafafa;
+    font-size: 12px;
     &:hover {
-        background-color: #FAEFF1;
+        background-color: #E0EDD4;
         font-weight: 600;
-        box-shadow: 0px 0px 10px 3px #C7BCBE;
+        box-shadow: 0px 0px 10px 3px #E0EDD4;
         border: none;
         cursor: pointer;
     }
 
     &:active {
-        background-color: #E0D3D6;
+        background-color: #E0EDD4;
     }
 `;
 
-export const numberTable = css`
+export const tableDataNumber = css`
     border-bottom: 1px solid #dbdbdb;
     border-right: 1px solid #dbdbdb;
-    font-size: 12px;
+    text-align: center;
 `;
 
-export const titleTable = css`
+export const tableDataTitle = css`
     white-space: nowrap;
     overflow: hidden;
-    max-width: 470px;
+    max-width: 40%;
+    min-width: 40%;
     text-overflow: ellipsis;
     border-bottom: 1px solid #dbdbdb;
     border-right: 1px solid #dbdbdb;
-    font-size: 12px;
     padding: 5px 5px 0px 5px;
 `;
 
-export const dateTable = css`
+export const tableDataDate = css`
     border-bottom: 1px solid #dbdbdb;
     border-right: 1px solid #dbdbdb;
-    font-size: 12px;
-    width: 120px;
+    text-align: center;
 `;
-export const nicknameTable = css`
+export const tableDataNickname = css`
     border-bottom: 1px solid #dbdbdb;
     border-right: 1px solid #dbdbdb;
     color: #7a49a5;
-    width: 120px;
-    font-size: 12px;
+    text-align: center;
 `;
 
-export const viewsTable = css`
+export const tableDataViews = css`
     border-right: 1px solid #dbdbdb;
     border-bottom: 1px solid #dbdbdb;
-    font-size: 12px;
+    text-align: center;
 `;
 
-export const modifyTable = css`
+export const tableDataLikeCount = css`
+    border-right: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+    text-align: center;
+`;
+
+export const tableDataCommentCount = css`
+    border-right: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+    text-align: center;
+`;
+export const tableDataModify = css`
     color: red;
     border-bottom: 1px solid #dbdbdb;
-    font-size: 12px;
-    width: 80px;
+    text-align: center;
 `;
 
 export const footerContainer = css`
     display: flex;
+    position: fixed;
+    bottom: 20px;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    bottom: 10px;
-    width: 1000px;
-    height: 30px;
+    width: 100%;
+    height: 130px;
 `;
 
 export const pageButton = css`
     border: 1px solid #121212;
     border-radius: 5px;
-    background-color: #EBEEF9;
+    background-color: #D7F0B6;
     &:hover{
         box-shadow: 0px 0px 5px 3px #C7BCBE;
         border: none;
@@ -233,5 +274,4 @@ export const pageNumberButton = css`
         box-shadow: 0px 0px 10px 3px #C7BCBE;
         border: none;
     }
-
 `;

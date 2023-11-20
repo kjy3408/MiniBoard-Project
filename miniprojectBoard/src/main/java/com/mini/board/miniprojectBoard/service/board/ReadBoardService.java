@@ -31,14 +31,16 @@ public class ReadBoardService {
 	}
 	
 	public int registerComment(CommentRequestDto commentRequestDto) {
-		Map<String,Object> commentMap = new HashMap<>();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();	    
 		
-		commentMap.put("comment", commentRequestDto.getComment());
-		commentMap.put("boardId", commentRequestDto.getBoardId());
-		commentMap.put("userId", principalUser.getUserId());
+	    Map<String,Object> commentMap = new HashMap<>();
+	    commentMap.put("comment", commentRequestDto.getComment());
+	    commentMap.put("boardId", commentRequestDto.getBoardId());
+	    commentMap.put("userId", principalUser.getUserId());
+	    
 		readBoardRepository.registerComment(commentMap);
+		readBoardRepository.commentCountUp(commentRequestDto.getBoardId());
 		return 0;
 	}
 	
@@ -59,8 +61,10 @@ public class ReadBoardService {
 		return list;
 	}
 		
-	public int deleteComment(int commentId) {
-		return readBoardRepository.deleteComment(commentId);
+	public int deleteComment(int commentId, int boardId) {
+		readBoardRepository.deleteComment(commentId);
+		readBoardRepository.commentCountUp(boardId);
+		return 1;
 	}
 	
 	public int modifyComment(ModifyCommentRequestDto modifyCommentRequestDto) {
@@ -109,5 +113,44 @@ public class ReadBoardService {
 	public int deleteReplyComment(int replyCommentId) {
 		readBoardRepository.deleteReplyComment(replyCommentId);
 		return 1;
+	}
+	
+	public boolean addLike(int boardId) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();
+	    
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardId", boardId);
+		map.put("userId", principalUser.getUserId());
+		readBoardRepository.addLike(map);
+		readBoardRepository.addLikeCountChange(map);
+		return true;
+	}
+	
+	public boolean disLike(int boardId) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();
+	    
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardId", boardId);
+		map.put("userId", principalUser.getUserId());
+		readBoardRepository.disLike(map);
+		readBoardRepository.addLikeCountChange(map);
+		return false;
+	}
+	
+	public boolean addLikeFlag(int boardId) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();
+	    
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardId", boardId);
+		map.put("userId", principalUser.getUserId());
+		
+		if(readBoardRepository.addLikeFlag(map) != null) {
+			return true;
+		}else {
+			return false;			
+		}
 	}
 }

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import * as s from './MyInfoStyle';
@@ -104,14 +104,18 @@ const MyInfo = () => {
         return (<div>로딩중</div>)
     }
         return (
-            <div css={s.myInfoContainer}>
-                <div css={s.myInfoTitleContainer}>
+            <div css={s.container}>
+                <header css={s.myInfoTitleBox}>
                     <button css={s.backButton} onClick={backButtonHandle}>뒤로</button>
                     <label css={s.myInfoTitle}>
                         내 정보
                     </label>
-                </div>
-                <div css={s.myInfoDataContainer}>
+                </header>
+                <main css={s.mainBox}>
+                    <div css={s.profileBox}>
+                        프로필 사진 변경
+                        <input type="file"/>
+                    </div>
                     <div css={s.infoContainer}>
                         <div css={s.infoLabelContainer}>
                             <label css={s.infoLabel}>
@@ -206,7 +210,7 @@ const MyInfo = () => {
                             </label>
                         </div>
                     </div>
-                </div>
+                </main>
             </div>
         );
     };

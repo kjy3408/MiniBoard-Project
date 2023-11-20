@@ -1,5 +1,7 @@
 package com.mini.board.miniprojectBoard.controller.board;
 
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,8 +40,8 @@ public class ReadBoardController {
 	}
 	
 	@DeleteMapping("/board/comment/delete")
-	public ResponseEntity<?> deleteComment(int commentId){
-		return ResponseEntity.ok().body(readBoardService.deleteComment(commentId));
+	public ResponseEntity<?> deleteComment(int commentId, int boardId){
+		return ResponseEntity.ok().body(readBoardService.deleteComment(commentId, boardId));
 	}
 	
 	@PostMapping("/board/comment/modify")
@@ -61,4 +63,20 @@ public class ReadBoardController {
 	public ResponseEntity<?> deleteReplyComment(int replyCommentId){
 		return ResponseEntity.ok().body(readBoardService.deleteReplyComment(replyCommentId));
 	}
+	
+	@PostMapping("/like")
+	public ResponseEntity<?> addLike(@RequestBody int boardId){
+		return ResponseEntity.ok().body(readBoardService.addLike(boardId));
+	}
+
+	@DeleteMapping("/dislike")
+	public ResponseEntity<?> disLike(int boardId){
+		return ResponseEntity.ok().body(readBoardService.disLike(boardId));
+	}
+	
+	@GetMapping("/like/flag")
+	public ResponseEntity<?> addLikeFlag(int boardId) {
+		return ResponseEntity.ok().body(readBoardService.addLikeFlag(boardId));
+	}
+	
 }

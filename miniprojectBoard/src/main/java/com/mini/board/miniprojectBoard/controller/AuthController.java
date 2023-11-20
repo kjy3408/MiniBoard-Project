@@ -53,12 +53,12 @@ public class AuthController{
 	
 	@GetMapping("/authenticate")
 	public ResponseEntity<?> authenticate(@RequestHeader(value="Authorization") String accessToken) {
-		
 		return ResponseEntity.ok().body(authenticationService.authenticate(accessToken));
 	}
 	
 	@GetMapping("/userInfo")
-	public ResponseEntity<?> getUserInfo(@RequestHeader(value="Authorization") String accessToken) {
+	public ResponseEntity<?> getUserInfo(@RequestHeader("Authorization") String accessToken) {
+//		System.out.println("호출?");
 		return ResponseEntity.ok().body(authenticationService.getUserInfo(accessToken));
 	}
 	

@@ -7,9 +7,8 @@ import * as s from './MainStyle';
 const Main = () => {
   const [ getBoardsFlag, setGetBoardsFlag ] = useState(true);
   const [ getBoardData, setGetBoardData ] = useState({page: 1, searchValue:""});
-  const [ modifyBoardEditedFlag, setModifyBoardEditedFlag ] = useState(false);
-  // const [ searchValue, setSearchValue ] = useState({searchValue: ""}) 
-
+  const [ modifyBoardEditedFlag, setModifyBoardEditedFlag ] = useState(false);  
+  
   const searchBoardHandle = (e) => {
     setGetBoardData({ ...getBoardData, searchValue: e.target.value});
   }
@@ -21,12 +20,13 @@ const Main = () => {
       }
     }
     const response = await axios.get("http://localhost:8080/main/board", data);
-    console.log(response.data)
     for(let i = 0; i < response.data.boards.length; i++){
       if(response.data.boards[i].boardModifyFlag){
         setModifyBoardEditedFlag(prevState => ({...prevState, [response.data.boards[i].boardId]: true}))
       }
     }
+
+    console.log(response.data.boards[0])
     return response;
     
   }, {
@@ -133,59 +133,70 @@ const Main = () => {
   }
 
   return (
-    <div css={s.mainContainer} >
-      <header css={s.header}>
-        <div css={s.mainTitle}>
-          <label css={s.mainTitleText} onClick={mainTitleHandle}>
-            자유게시판
-          </label>
+    <div css={s.container} >
+      <header css={s.headerBox}>
+        <div css={s.headerTitle}>
+          <p css={s.title} onClick={mainTitleHandle}>자유게시판</p>
         </div>
-        <div css={s.searchBarAndWriteButtonContainer}>
-          <div css={s.searchBarContainer}>
+        <div css={s.searchBarAndWriteButtonBox}>
+          <div css={s.searchBarBox}>
             <input css={s.searchInput} onChange={searchBoardHandle} onKeyUp={searchOnKeyUp} type="text" placeholder='검색어를 입력해주세요.' name='searchValue' value={getBoardData.searchValue} />
             <button css={s.searchButton} onClick={searchButtonHandle}>검색</button>
           </div>
-          <div css={s.writeButtonContainer}>
+          <div css={s.writeButtonBox}>
             <button css={s.writeButton} onClick={writeButtonHandle}>글쓰기</button>
           </div>
         </div>
       </header>
-      <main>
-      <table css={s.tableContainer}>
-        <thead css={s.thead}>
-          <tr>
-            <th>No</th>
-            <th css={s.thTitle}>제목</th>
-            <th>등록일</th>
-            <th>글쓴이</th>
-            <th>조회수</th>
-            <th>수정 여부</th>
-          </tr>
-        </thead>
-        <tbody>
-          {getBoards.isLoading ? (
-            <tr>
-              <td>Loading...</td>
+      <main css={s.mainBox}>
+        <table css={s.tableBox}>
+          <thead css={s.tableHead}>
+            <tr >
+              <th css={s.tableHeadNumber} >No</th>
+              <th css={s.tableHeadTitle}>제목</th>
+              <th css={s.tableHeadRegisterDate}>등록일</th>
+              <th css={s.tableHeadWriteUser} >글쓴이</th>
+              <th css={s.tableHeadViews} >조회수</th>
+              <th css={s.tableHeadLikeCount} >좋아요</th>
+              <th css={s.tableHeadCommentCount}>댓글수</th>
+              <th css={s.tableHeadModify}>수정 여부</th>
             </tr>
-          ) : getBoards.data !== undefined ? (
-            getBoards.data.data.boards.map((board, index) => (
-              <tr css={s.tableTR2} onClick={() => readBoardHandle(board.userId, board.boardId)} key={board.boardId}>
-                <td css={s.numberTable}>{(getBoardData.page - 1) * 15 + index + 1}</td>
-                <td css={s.titleTable}>{board.boardTitle}</td>
-                <td css={s.dateTable}>{board.boardDate}</td>
-                <td css={s.nicknameTable}>{board.nickname}</td>
-                <td css={s.viewsTable}>{board.boardViews}</td>
-                {modifyBoardEditedFlag[board.boardId] ? (
-                  <td css={s.modifyTable}>수정됨</td>) : (<td css={s.modifyTable}></td>)}
+          </thead>
+          <tbody>
+            <tr >
+              <td>공지</td>
+              <td>공지</td>
+              <td>공지</td>
+              <td>공지</td>
+              <td>공지</td>
+              <td>공지</td>
+              <td>공지</td>
+            </tr>
+            {getBoards.isLoading ? (
+              <tr>
+                <td>Loading...</td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td>No data available.</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            ) : getBoards.data !== undefined ? (
+              getBoards.data.data.boards.map((board, index) => (
+                <tr css={s.tableRow} onClick={() => readBoardHandle(board.userId, board.boardId)} key={board.boardId}>
+                  <td css={s.tableDataNumber}>{(getBoardData.page - 1) * 15 + index + 1}</td>
+                  <td css={s.tableDataTitle}>{board.boardTitle }</td>
+                  <td css={s.tableDataDate}>{board.boardDate}</td>
+                  <td css={s.tableDataNickname}>{board.nickname}</td>
+                  <td css={s.tableDataViews}>{board.boardViews}</td>
+                  <td css={s.tableDataLikeCount}>{board.likeCount}</td>
+                  <td css={s.tableDataCommentCount}>{board.commentCount}</td>
+                  {modifyBoardEditedFlag[board.boardId] ? (
+                    <td css={s.tableDataModify}>수정됨</td>) : (<td css={s.tableDataModify}></td>)}
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td>No data available.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </main>
       <footer css={s.footerContainer}>
         {pagination()}

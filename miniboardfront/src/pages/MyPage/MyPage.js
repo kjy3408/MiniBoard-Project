@@ -50,22 +50,22 @@ const MyPage = () => {
   }
 
   return (
-    <div css={s.myPageContainer}>
-      <div css={s.myPageTitleContainer}>
-          <button css={s.backButton} onClick={backButtonHandle}>뒤로</button>
+    <div css={s.container}>
+      <div css={s.myPageTitleBox}>
+          {/* <button css={s.backButton} onClick={backButtonHandle}>뒤로</button> */}
           <label css={s.myPageTitle}> 마이페이지</label>
       </div>
-      <div css={s.myPageButtonContainer}>
+      <div css={s.myPageButtonBox}>
         <button css={s.myPageButton} onClick={myBoardButtonHandle}>
           내가 쓴 글 보기
         </button>
       </div>
-      <div css={s.myPageButtonContainer}>
+      <div css={s.myPageButtonBox}>
         <button css={s.myPageButton} onClick={alreadyReadBoardButtonHandle}>
           최근에 본 게시글 목록
         </button>
       </div>
-      <div css={s.myPageButtonContainer}>
+      <div css={s.myPageButtonBox}>
         <button css={s.myPageButton} onClick={myInfoButtonHandle}>
           내 정보
         </button>

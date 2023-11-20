@@ -1,31 +1,28 @@
 import { css } from "@emotion/react";
 
-export const myInfoContainer = css`
-    /* display: flex; */
+export const container = css`
+    display: flex;
     flex-direction: column;
     align-items: center;
-
-    width: 500px;
-    height: 460px;
-
-    background-color: #f9ebee;
-    border: 1px solid #121212;
-    border-radius: 25px;
+    margin-left: 200px;
+    width: 100%;
+    height: 100vh;
 `;
 
-export const myInfoTitleContainer = css`
+export const myInfoTitleBox = css`
     display: flex;
     justify-content: center;
     align-items: center;
 
-    width: 500px;
+    width: 100%;
     height: 100px;
+    border: 1px solid black;
 `;
 
 export const backButton = css`
     position: absolute;
     top: 30px;
-    left: 400px;
+    left: 450px;
     border-radius: 7px;
     width: 50px;
     height: 30px;
@@ -45,13 +42,24 @@ export const myInfoTitle = css`
     font-weight: 600;
 `;
 
-export const myInfoDataContainer = css`
+export const mainBox = css`
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin: auto;
-    /* width: 200px; */
-/* border: 1px solid #dbdbdb; */
+    width: 100%;
+    height: 100vh;
+border: 1px solid black;
+`;
+
+export const profileBox = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+    border: 1px solid black;
 `;
 
 export const infoContainer = css`

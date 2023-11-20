@@ -7,7 +7,8 @@ import axios from 'axios';
 const SideBar = () => {
     const [ getUserInfoFlag, setGetUserInfoFlag ] = useState(true);
     const [ loginFlag, setLoginFlag ] = useState(false);
-
+    const [ getUserRoleRefresh, setGetUserRoleRefresh ] = useState(true);
+    const [ adminFlag, setAdminFlag ] = useState(false);
 
     useEffect(() => {
         checkLogin();
@@ -22,27 +23,27 @@ const SideBar = () => {
             //로그인NO
         }
     }
-
-    const getUserInfo = useQuery(["getUserInfo"], async() => {
+    
+    const getUserInfo = useQuery(["getUserRole"], async() => {
         const option = {
             headers: {
-                Authorization : `Bearer ${localStorage.getItem("accessToken")}`
+                Authorization: `Bearer ${localStorage.getItem("accessToken")}`
             }
         }
-        try{
-            const response = await axios.get("http://localhost:8080/main/userinfo", option)
-            return response;
-        }catch(error){
-            
-            if(error.request.status === 401){
-                localStorage.removeItem("accessToken");
+        try {
+            const response = await axios.get("http://localhost:8080/auth/userInfo", option)
+    
+            if(response.data.authorities[0].authority === "ROLE_ADMIN"){
+                setAdminFlag(true);
             }
+            return response
+        } catch (error) {
+            console.log(error)
         }
-        
-    },{
-        enabled: getUserInfoFlag && loginFlag,
+    }, {
+        enabled: getUserRoleRefresh,
         onSuccess: () => {
-            setGetUserInfoFlag(false);
+            setGetUserRoleRefresh(false);
         }
     })
 
@@ -65,12 +66,20 @@ const SideBar = () => {
         }
     }
 
+    const adminButtonHandle = () => {
+        
+    }
+    
+    const writeNoticeHandle = () => {
+        window.location.href = "http://localhost:3000/admin/notice"
+    }
+
     return (
         <div className="sideBarContainer" css={s.sideBarContainer}>
             {loginFlag ? (
                 <>
                     <div css={s.nicknameContainer}>
-                        {getUserInfo.isLoading ? "로딩중" : getUserInfo.data !== undefined ? (<label css={s.nickname}>{"현재 로그인 : " + getUserInfo.data.data.nickname}</label>) : "로딩중"}
+                        {getUserInfo.isLoading ? "로딩중..." : getUserInfo.data !== undefined ? (<label css={s.nickname}>{"현재 로그인 : " + getUserInfo.data.data.nickname}</label>) : "로딩중........."}
                     </div>
                     <div css={s.sideBarButtonContainer}>
                         <button css={s.myPageButton} onClick={myPageButtonHandle}>
@@ -83,6 +92,23 @@ const SideBar = () => {
                     <div css={s.sideBarButtonContainer}>
                         <button css={s.sideBarButton} onClick={logOutButtonHandle}>로그아웃</button>
                     </div>
+                    {adminFlag ? ( 
+                        <>
+                            <div css={s.sideBarButtonContainer}>
+                                <button css={s.sideBarButton} onClick={writeNoticeHandle}>공지사항 쓰기</button>
+                            </div>
+                            <div css={s.sideBarButtonContainer}>
+                                <button css={s.sideBarButton} onClick={adminButtonHandle}>게시글 관리</button>
+                            </div>
+                            <div css={s.sideBarButtonContainer}>
+                                <button css={s.sideBarButton} onClick={adminButtonHandle}>댓글 관리</button>
+                            </div>
+                            <div css={s.sideBarButtonContainer}>
+                                <button css={s.sideBarButton} onClick={adminButtonHandle}>유저 관리</button>
+                            </div>
+                        </>
+                    ) : ""}
+                   
                 </>
             ) : (
                 <>

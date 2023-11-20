@@ -34,20 +34,15 @@ const BoardWrite = () => {
         registerBoard.mutate();
     }
 
-    const backButtonHandle = () => {
-        window.location.href = "http://localhost:3000/"
-    }
-
     return (
-        <div css={s.writeBoardContainer}>
-            <header css={s.headerContainer}>
-                <button css={s.backButton} onClick={backButtonHandle}>뒤로</button>
-                <label css={s.text}>
+        <div css={s.container}>
+            <header css={s.headerBox}>
+                <p css={s.headerTitle}>
                     글 쓰 기
-                </label>
+                </p>
             </header>
-            <main css={s.mainConatiner}> 
-                <div css={s.titleContainer}>
+            <main css={s.mainBox}> 
+                <div css={s.titleInputBox}>
                     <input css={s.titleInput} onChange={contentOnChangeHandle} type="text" placeholder='제목을 입력하세요' name='title'/>
                 </div>
                 <div css={s.errorMessages}>
@@ -59,7 +54,7 @@ const BoardWrite = () => {
                 <div css={s.errorMessages}>
                     {errorMessages.content}
                 </div>
-                <div css={s.registerButtonContainer}>
+                <div css={s.registerButtonBox}>
                     <button css={s.registerButton} onClick={registerBoardHandle}>등록하기</button>
                 </div>
             </main>

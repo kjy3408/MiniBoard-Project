@@ -1,14 +1,13 @@
 import { css } from "@emotion/react";
-import { addCommentContainer } from './../../pages/Board/ReadBoard/BoardReadStyle';
 
 export const sideBarContainer = css`
-    width: 300px;
-    height: 100%;
+    width: 200px;
+    height: 100vh;
     position: fixed;
     top: 0px;
-    left: -200px;
-    z-index: 999;
-    transition: left 0.5s ease-out;
+    left: 0;
+    /* z-index: 999; */
+    /* transition: left 0.5s ease-out; */
     display: flex;
     flex-direction: column;
     background-color: #dedeed;
@@ -23,7 +22,7 @@ export const sideBarContainer = css`
 `;
 
 export const nicknameContainer = css`
-    width: 300px;
+    width: 200px;
     height: 30px;
 
     margin: 20px auto;
@@ -40,13 +39,13 @@ export const sideBarButtonContainer = css`
     justify-content: center;
     align-items: center;
     margin: 0px auto;
-    width: 300px;
+    width: 200px;
     height: 80px;
    /* border-right: 1px solid #; */
     `;
 
 export const myPageButton = css`
-    width: 300px;
+    width: 200px;
     height: 60px;
     border:none;
     /* border-bottom: 2px solid #dbdbdb; */
@@ -66,7 +65,7 @@ export const myPageButton = css`
 `;
 
 export const sideBarButton = css`
-    width: 300px;
+    width: 200px;
     height: 60px;
     border:none;
     border-bottom: 2px solid #dbdbdb;

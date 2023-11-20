@@ -5,7 +5,6 @@ import { Reset } from './common/Global/Reset';
 import AuthRoute from './components/AuthRoute/AuthRoute';
 import Main from './pages/MainPage/Main';
 
-import SideBar from './components/SideBar/SideBar';
 import ModifyBoard from './pages/Board/ModifyBoard/ModifyBoard';
 import BoardRead from './pages/Board/ReadBoard/BoardRead';
 import BoardWrite from './pages/Board/WriteBoard/BoardWrite';
@@ -17,6 +16,8 @@ import MyBoard from './pages/MyPage/MyBoard';
 import MyInfo from './pages/MyPage/MyInfo';
 import MyPage from './pages/MyPage/MyPage';
 import Register from './pages/Register/Register';
+import WriteNotice from './pages/admin/WriteNotice';
+import SideBar from './components/SideBar/SideBar';
 
 
 const container = css`
@@ -24,16 +25,15 @@ const container = css`
   align-items: center;
   justify-content: center;
   position: relative;
-  margin: 50px auto 30px auto;
-  width: 1200px;
+  margin: auto;
   overflow: auto;
 `;
 
 function App() {
   return (
     <>
-      <SideBar />
       <div css={container}>
+      <SideBar />
         <Global styles={Reset} />
         <Routes>
           <Route path="/" element={<AuthRoute path="/" element={<Main/>}/>}/>
@@ -49,6 +49,7 @@ function App() {
           <Route path="/already/read/:userId" element={<AuthRoute path="/already/read" element={<AlreadyReadBoard/>}/>}/>
           <Route path="/myinfo/:userId" element={<AuthRoute path="/myinfo" element={<MyInfo/>}/>}/>
           <Route path="/mypage/modify/:boardId" element={<AuthRoute path="/mypage/momdify" element={<ModifyBoard/>}/>}/>
+          <Route path="/admin/notice" element={<AuthRoute path="/admin" element={<WriteNotice/>}/>}/>
         </Routes>
       </div>
     </>

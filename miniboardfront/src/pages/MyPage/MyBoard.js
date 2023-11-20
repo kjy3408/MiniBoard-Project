@@ -65,54 +65,58 @@ const MyBoard = () => {
       navigate(-1);
     }
     return (
-        <div css={s.myBoardContainer}>
-            <header css={s.myBoardLabelContainer}>
+        <div css={s.container}>
+            <header css={s.headerBox}>
                 <button css={s.backButton} onClick={backButtonHandle}>뒤로</button>
-                <label  css={s.myBoardLabel}>내가 쓴 글</label>
+                <p css={s.headerTitle}>내가 쓴 글</p>
             </header>
-            <table css={s.tableContainer}>
-                <thead css={s.thead}>
-                    <tr>
-                      <th>No</th>
-                      <th>제목</th>
-                      <th>등록일</th>
-                      <th>글쓴이</th>
-                      <th>조회수</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {getMyBoards.isLoading ? (
-                    <tr>
-                      <td>Loading...</td>
-                    </tr>
-                ) : getMyBoards.data !== undefined ? (
-                    getMyBoards.data.data.map((board, index) => (
-                    <tr
-                        css={s.tableTR2}
-                        onClick={() => readBoardHandle(board.boardId)}
-                        key={board.boardId}
-                    >
-                        <td css={s.numberTable}>{index + 1} </td>
-                        
-                        <td css={s.titleTable}>
-                          {board.boardTitle}
-                          <div className="buttons">
-                            <button css={s.deleteAndModifyButton} onClick={(e) => {e.stopPropagation(); modifyButtonHandle(board.boardId)}}>수정하기</button>
-                            <button css={s.deleteAndModifyButton} onClick={(e) => {e.stopPropagation(); deleteButtonHandle(board.boardId)}}>삭제하기</button>
-                          </div>
-                        </td>
-                        <td css={s.dateTable}>{board.boardDate}</td>
-                        <td css={s.nicknameTable}>{board.nickname}</td>
-                        <td css={s.viewsTable}>{board.boardViews}</td>
-                    </tr>
-                    ))
-                ) : (
-                    <tr>
-                    <td>No data available.</td>
-                    </tr>
-                )}
-                </tbody>
-            </table>
+            <main css={s.mainBox}>
+              <table css={s.tableBox}>
+                  <thead css={s.tableHead}>
+                      <tr>
+                        <th css={s.tableHeadNumber} >No</th>
+                        <th css={s.tableHeadTitle}>제목</th>
+                        <th css={s.tableHeadRegisterDate}>등록일</th>
+                        <th css={s.tableHeadViews} >조회수</th>
+                        <th css={s.tableHeadLikeCount} >좋아요</th>
+                        <th css={s.tableHeadCommentCount}>댓글수</th>
+                        {/* <th css={s.tableHeadModify}>수정 여부</th> */}
+                      </tr>
+                  </thead>
+                  <tbody>
+                  {getMyBoards.isLoading ? (
+                      <tr>
+                        <td>Loading...</td>
+                      </tr>
+                  ) : getMyBoards.data !== undefined ? (
+                      getMyBoards.data.data.map((board, index) => (
+                      <tr
+                          css={s.tableRow}
+                          onClick={() => readBoardHandle(board.boardId)}
+                          key={board.boardId}
+                      >
+                          <td css={s.tableDataNumber}>{index + 1} </td>
+                          <td css={s.tableDataTitle}>
+                            {board.boardTitle}
+                            <div className="buttons">
+                              <button css={s.deleteAndModifyButton} onClick={(e) => {e.stopPropagation(); modifyButtonHandle(board.boardId)}}>수정하기</button>
+                              <button css={s.deleteAndModifyButton} onClick={(e) => {e.stopPropagation(); deleteButtonHandle(board.boardId)}}>삭제하기</button>
+                            </div>
+                          </td>
+                          <td css={s.tableDataDate}>{board.boardDate}</td>
+                          <td css={s.tableDataViews}>{board.boardViews}</td>
+                          <td css={s.tableDataLikeCount}>{board.likeCount}</td>
+                          <td css={s.tableDataCommentCount}>{board.commentCount}</td>
+                      </tr>
+                      ))
+                  ) : (
+                      <tr>
+                      <td>No data available.</td>
+                      </tr>
+                  )}
+                  </tbody>
+              </table>
+            </main>
             <div>
                 {/* {pagination()} */}
             </div>

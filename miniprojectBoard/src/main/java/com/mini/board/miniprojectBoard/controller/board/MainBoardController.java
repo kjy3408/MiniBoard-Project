@@ -39,4 +39,14 @@ public class MainBoardController {
 		return ResponseEntity.ok().body(mainBoardService.increaseViews(boardData));
 	}
 	
+	@GetMapping("/board/comment/count")
+	public ResponseEntity<?> commentCount(){
+		return ResponseEntity.ok().body(mainBoardService.commentCount());
+	}
+	
+	
+	@GetMapping("/test")
+	public ResponseEntity<?> test() {
+		return ResponseEntity.ok().body(mainBoardService.test());
+	}
 }

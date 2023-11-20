@@ -10,6 +10,8 @@
 				DATE_FORMAT(now(), '%Y-%m-%d'), 
 				#{userId}, 
 				0,
+				0,
+				0,
 				0)
 	</insert>
 </mapper>

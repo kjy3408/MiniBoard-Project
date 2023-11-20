@@ -101,7 +101,6 @@ public class AuthenticationService implements UserDetailsService {
 		User userEntity = userRepository.findUserByUsername(username);
 		
 		return userEntity.toPrincipal();
-				
 	}
 	
 	@Override
@@ -112,7 +111,6 @@ public class AuthenticationService implements UserDetailsService {
 	}
 	
 	public boolean authenticate(String accessToken) {
-		
 		return jwtTokenProvider.validateToken(jwtTokenProvider.getToken(accessToken));
 	}
 

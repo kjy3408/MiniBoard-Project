@@ -9,13 +9,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.mini.board.miniprojectBoard.dto.board.request.MainBoardRequestDto;
 import com.mini.board.miniprojectBoard.dto.board.request.SearchBoardRequestDto;
 import com.mini.board.miniprojectBoard.dto.board.response.MainBoardResponseDto;
 import com.mini.board.miniprojectBoard.dto.board.response.UserInfoResponseDto;
+import com.mini.board.miniprojectBoard.entity.Cast;
 import com.mini.board.miniprojectBoard.repository.MainBoardRepository;
 import com.mini.board.miniprojectBoard.security.PrincipalUser;
 
+import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -74,5 +75,18 @@ public class MainBoardService {
 		}
 	    return 1;
 	}
-
+	
+	public int commentCount() {
+		
+		return mainBoardRepository.commentCount();
+	}
+	
+	public Map<String, Object> test () {
+		Map<String, Object> map = new HashMap<>();
+		System.out.println(mainBoardRepository.test().get(0));
+		map.put("movieData", mainBoardRepository.test().get(0));
+		
+		return map;
+	}
+	
 }

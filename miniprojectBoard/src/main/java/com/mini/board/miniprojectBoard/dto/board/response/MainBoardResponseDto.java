@@ -20,4 +20,6 @@ public class MainBoardResponseDto {
 	private int userId;
 	private String username;
 	private String nickname;
+	private int commentCount;
+	private int likeCount;
 }

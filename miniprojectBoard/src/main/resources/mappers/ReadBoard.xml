@@ -40,6 +40,20 @@
 			board_id = #{boardId}
 	</select>
 	
+	<update id="commentCountUp" parameterType="Integer">
+		UPDATE
+			board_tb
+		SET
+			comment_count = (SELECT 
+								COUNT(*) 
+							FROM 
+								comment_tb 
+							WHERE 
+								board_id = #{boardId})
+		WHERE
+			board_id = #{boardId}
+	</update>
+	
 	<insert id="registerComment" parameterType="hashmap">
 		INSERT INTO comment_tb
 		VALUES (0, #{comment}, #{userId}, #{boardId}, DATE_FORMAT(now(), '%Y-%m-%d'), false)
@@ -78,6 +92,15 @@
 		WHERE
 			comment_id = #{commentId}
 	</delete>
+	
+	<update id="commentCountDown">
+		UPDATE
+			board_tb
+		FROM
+			comment_count = comment_count - 1
+		WHERE
+			board_id = board_id
+	</update>
 	
 	<update id="modifyComment" parameterType="hashmap">
 		UPDATE 
@@ -129,4 +152,44 @@
 		WHERE
 			replycomment_id = #{replyCommentId}
 	</delete>
+	
+	<insert id="addLike" parameterType="hashmap" >
+		INSERT INTO board_like_tb
+		VALUES (0, #{boardId}, #{userId})
+	</insert>
+	
+	<select id="addLikeFlag" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			board_like_id,
+			board_id,
+			user_id	
+		FROM
+			board_like_tb
+		WHERE
+			board_id = #{boardId}
+		AND user_id = #{userId}
+	</select>
+	
+	<delete id="disLike" parameterType="hashmap">
+		DELETE
+		FROM
+			board_like_tb
+		WHERE
+			board_id = #{boardId}
+		AND user_id = #{userId}
+	</delete>
+	
+	<update id="addLikeCountChange" parameterType="hashmap">
+		UPDATE
+			board_tb
+		SET
+			like_count = ( SELECT
+								COUNT(*)
+							FROM
+								board_like_tb
+							WHERE
+								board_id = #{boardId})
+		WHERE
+			board_id = #{boardId}
+	</update>
 </mapper>

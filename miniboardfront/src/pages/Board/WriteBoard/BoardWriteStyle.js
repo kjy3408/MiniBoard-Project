@@ -1,49 +1,34 @@
 import { css } from "@emotion/react";
 
-export const writeBoardContainer = css`
+export const container = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 800px;
-    height: 550px;
-    background-color: #f9ebee;
-    border-radius: 25px;
-border: 1px solid #121212;
+    /* width: 800px; */
+    width: 100%;
+    height: 100vh;
+    margin-left: 200px;
+    border: 1px solid #121212;
 `;
 
-export const headerContainer = css`
+export const headerBox = css`
+    width: 100%;
+    height: 200px;
+    /* margin-top: 100px; */
+`;
+
+export const headerTitle = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 800px;
-    height: 100px;
-`;
-
-
-export const backButton = css`
-    position: absolute;
-    top: 30px;
-    left: 250px;
-    border-radius: 7px;
-    width: 50px;
-    height: 30px;
-    border: 1px solid #121212;
-    background-color: #F3F4FB;
-    font-size: 15px;
-    border: 1px solid #121212;
-    &:hover {
-        box-shadow: 0px 0px 10px 0px #646161;
-        border: none;
-        font-weight: 600;
-    }
-`;
-
-export const text = css`
+    margin: auto;
+    width: 200px;
+    height: 150px;
     font-size: 30px;
     font-weight: 600;
  `;
 
-export const mainConatiner = css`
+export const mainBox = css`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -52,20 +37,18 @@ export const mainConatiner = css`
     height: 400px;
 `;
 
-export const titleContainer = css`
+export const titleInputBox = css`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 700px;
+    width: 100%;
     height: 60px;
     
 `;
 
 export const titleInput = css`
     width: 600px;
-    height: 30px;
-    border: none;
-    border-radius: 5px;
+    height: 50px;
     margin-bottom: 5px;
     &:hover{
         box-shadow: 0px 0px 5px #C7BCBE;
@@ -81,9 +64,8 @@ export const titleInput = css`
 
 export const contentInput = css`
     width: 600px;
-    height: 300px;
-    border: none;
-    border-radius: 5px;
+    min-height: 500px;
+    max-height: 600px;
     resize: none;
     &:hover{
         box-shadow: 0px 0px 5px #C7BCBE;
@@ -98,7 +80,7 @@ export const contentInput = css`
     margin: 20px 0px 5px 0px;
 `;
 
-export const registerButtonContainer = css`
+export const registerButtonBox = css`
     display: flex;
     justify-content: flex-end;
 
@@ -108,7 +90,6 @@ export const registerButtonContainer = css`
 `;
 
 export const registerButton = css`
-    border-radius: 5px;
     border: 1px solid #121212;
     background-color: #ECEAFD;
     border: 1px solid #121212;

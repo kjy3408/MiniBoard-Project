@@ -1,14 +1,9 @@
 import { css } from "@emotion/react";
 
 export const alreadyBoardContainer = css`
-    width: 1000px;
-    height: 650px;
-    background-color: #f9ebee;
-
-    border: 1px solid #121212;
-    border-radius: 25px;
-
-    overflow: auto;
+    width: 100%;
+    height: 100vh;
+    margin-left: 200px;
     ::-webkit-scrollbar{
         width: 0px;
     }
@@ -18,14 +13,14 @@ export const alreadyBoardTitleBox = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 900px;
+    width: 100%;
     height: 100px;
 `;
 
 export const backButton = css`
     position: absolute;
     top: 30px;
-    left: 150px;
+    left: 350px;
     border-radius: 7px;
     width: 50px;
     height: 30px;
@@ -49,7 +44,8 @@ export const deleteAllButtonBox = css`
     display: flex;
     justify-content: end;
     align-items: center;
-    margin-right: 25px;
+    width: 950px;
+    margin: auto;
     margin-bottom: 10px;
 `;
 
@@ -93,7 +89,7 @@ export const tableTR2 = css`
     position: relative;
     text-align: center;
     height: 25px;
-    background-color: #FBF5F6;
+    /* background-color: #FBF5F6; */
     &:hover {
         background-color: #FAEFF1;
         font-weight: 600;
